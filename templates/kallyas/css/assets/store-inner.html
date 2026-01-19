@@ -1,0 +1,3202 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Synpat Store | SynPat</title>
+    <link rel="shortcut icon" href="http://www.staging3.synpat.com/wp-content/uploads/2014/07/favicon1.ico">
+
+    <script type="text/javascript">var NREUMQ = NREUMQ || []; NREUMQ.push(["mark", "firstbyte", new Date().getTime()]);</script>
+    <script src="http://www.staging3.synpat.com/wp-content/themes/synpat/assets/head_scripts-1eb16d6353b5a2941aa35dff09b7a2b7.js" type="text/javascript"></script>
+    <script src="http://www.staging3.synpat.com/wp-content/themes/synpat/assets/script.js" type="text/javascript"></script>
+    <script src="http://www.staging3.synpat.com/wp-content/themes/synpat/js/format.20110630-1100.min.js" type="text/javascript"></script>
+
+    <link rel="profile" href="http://gmpg.org/xfn/11" />
+    <link rel="pingback" href="http://www.staging3.synpat.com/xmlrpc.php" />
+    <link href="http://www.staging3.synpat.com/wp-content/themes/synpat/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <!--[if lt IE 9]>
+<script src="http://www.staging3.synpat.com/wp-content/themes/synpat/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+    <script type='text/javascript'>try { jQuery.noConflict(); } catch (e) { };</script>
+    <script type="text/javascript" src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+    <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js'></script>
+    <script src="http://staging3.synpat.com/wp-content/themes/synpat/basic/js/jquery.simplemodal.js"></script>
+    <script src="http://staging3.synpat.com/wp-content/themes/synpat/basic/js/basic.js"></script>
+    <script type="text/javascript">
+        //rgba(194, 0, 0, 0.8)
+        jQuery(document).ready(function () {
+            //alert('Window'+jQuery(window).width()+'Doc'+jQuery(document).width());
+        });
+        var lastScroll = 0;
+        jQuery(window).scroll(function () {
+            var y = jQuery(this).scrollTop();
+           
+            if (y > lastScroll) {
+               
+                jQuery('.site-header').css('display', 'none');
+            } else {
+                console.log("EE:" + y);
+                if (y == 0) {
+                    jQuery('.site-header').removeClass('site-header-background-fade', 300).css('display', 'block');
+                } else {
+                    jQuery('.site-header').addClass('site-header-background-fade', 300).css('display', 'block');
+                }
+            }
+            lastScroll = y;
+        });
+        var theParent = jQuery('.gray-box').parent().parent().parent().parent();
+        if (jQuery(theParent).hasClass('panel-grid'))
+            jQuery(theParent).addClass('gray-box-container');
+
+    </script>
+    <script type="text/javascript">
+
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+        var counter = 2;
+        function add(object) {
+            jQuery("#TaxtBoxesGroup").find('.adem').css('display', 'none');
+            var newTextBoxDiv = $('<div/>').attr("id", 'TaxtBoxesGroup' + counter);
+            newTextBoxDiv.html(' <div class="cHalf" ><input type="text" name="n_name[]" value="" class="tertext mainFont" id="textbox' + counter + '"    placeholder="Name of Potential Licensee"  ></div><div class="cHalf"> <input type="text" name="r_lice[]" value="" class="tertext mainFont" id="textbox' + counter + '"    placeholder="Name/Type of its Suspected Infringing Product/System"  ></div><div class="cHalf patenteespara mainColor mainWidth mainMarginBottom mainFont" >Is there existing Evidence of Use?&nbsp;<input type="radio" name="evidence_e' + counter +
+                  '" value="Yes" class="" id="" style="margin-bottom:3px;margin-left: 10px;"> YES <input type="radio" name="evidence_e' + counter +
+                  '" value="No" class="" id="" style="margin-bottom:3px;" > NO  </div><div class="cHalf mainMarginTop mainMarginBottom" style="padding-left: 13px; "><div class="cHalf rem"><a class="aminus p_image-1"  onclick="removeText(jQuery(this))" href="javascript://"></a><div class="additionlic" style="display: inline-block; margin-left: 0px; font-size: 17px;">Remove the potential licensee above</div></div><div class="cHalf adem"><a class="aplus p_image" onclick="add(jQuery(this))" href="javascript://"></a> <div class="additionlic" style="display: inline-block; margin-left: 0px; font-size: 17px;">Add another potential licensee</div></div></div>');
+            newTextBoxDiv.appendTo("#TaxtBoxesGroup");
+            if (jQuery("#TaxtBoxesGroup").find('.rem').length > 1) {
+                jQuery("#TaxtBoxesGroup").find('.rem').css('display', 'inline-block');
+            }
+            counter++;
+        }
+        function removeText(object) {
+            if (counter == 1) {
+                alert("No more textbox to remove");
+                return false;
+            }
+            counter--;
+            object.parent().parent().parent().remove();
+            //$("#TaxtBoxesGroup" + counter).remove();
+            if (jQuery("#TaxtBoxesGroup").find('.rem').length == 1) {
+                jQuery("#TaxtBoxesGroup").find('.rem').css('display', 'none');
+            }
+            jQuery("#TaxtBoxesGroup").find('.adem').eq(jQuery("#TaxtBoxesGroup").find('.adem').length - 1).css('display', 'inline-block');
+        }
+
+
+        counterPatent = 2;
+
+        function removePatent(object) {
+            if (counterPatent == 1) {
+                alert("No more textbox to remove");
+                return false;
+            }
+            counterPatent--;
+            object.parent().parent().parent().remove();
+            //$("#patentNumbers" + counterPatent).remove();
+            if (jQuery("#patentNumbers").find('.rem').length == 1) {
+                jQuery("#patentNumbers").find('.rem').css('display', 'none');
+            }
+            jQuery("#patentNumbers").find('.adem').eq(jQuery("#patentNumbers").find('.adem').length - 1).css('display', 'inline-block');
+        }
+        function addPatent(object) {
+            jQuery("#patentNumbers").find('.adem').css('display', 'none');
+            var newTextBoxDiv = $('<div/>').attr("id", 'patentNumbers' + counterPatent);
+            newTextBoxDiv.html('<div class="cHalf" ><input type="text" name="country_n[]" class="p_tet noPadding noMargin  mainFont mainTextCenter" style="display:inline-block !important;width:154px !important;" id="textbox' + counterPatent + '"    placeholder="Country"  > <input type="text" name="application_n[]" class="p_tet noPadding noMargin  mainFont mainTextCenter" style="display:inline-block !important;width:154px !important;" value=""  id="textbox' + counterPatent + '"    placeholder="Application"  > <input type="text" name="patent_n[]" class="p_tet noPadding noMargin  mainFont mainTextCenter" style="display:inline-block !important;width:154px !important;" value=""  id="textbox' + counterPatent + '"    placeholder="Patent"  ></div><div class="cHalf mainMarginTop mainMarginBottom" style="padding-left: 13px; "><div class="cHalf rem"><a class="aminus p_image-1"  onclick="removePatent(jQuery(this))" href="javascript://"></a><div class="additionlic" style="display: inline-block; margin-left: 0px; font-size: 17px;">Remove jurisdiction</div></div><div class="cHalf adem"><a class="aplus p_image" onclick="addPatent(jQuery(this))" href="javascript://"></a> <div class="additionlic" style="display: inline-block; margin-left: 0px; font-size: 17px;">Add another jurisdiction</div></div></div>');
+            newTextBoxDiv.appendTo("#patentNumbers");
+            if (jQuery("#patentNumbers").find('.rem').length > 1) {
+                jQuery("#patentNumbers").find('.rem').css('display', 'inline-block');
+            }
+            counterPatent++;
+        }
+
+        function inputKeyUp(event, object) {
+
+            if (event.which >= 37 && event.which <= 40) {
+                event.preventDefault();
+            }
+            var $this = $(this);
+            var upFront = jQuery('input[name="u_upfront"]').val();
+
+            var license = jQuery('input[name="n_patents"]').val();
+            _tempNum2 = upFront.toString().replace(',', "");
+            _tempNum2 = _tempNum2.toString().replace(',', "");
+            if (_tempNum2 != "") {
+                _tempNum2 = parseInt(_tempNum2);
+            } else {
+                _tempNum2 = 0;
+            }
+            var num = _tempNum2.toString().replace(/,/gi, "").split("").reverse().join("");
+            var num2 = RemoveRougeChar(num.replace(/(.{3})/g, "$1,").split("").reverse().join(""));
+            if (parseInt(num2) > 0) {
+                jQuery('input[name="u_upfront"]').val(num2);
+            } else { jQuery('input[name="u_upfront"]').val(''); }
+            num2 = num2.toString().replace(',', "");
+            numVal = _tempNum2;
+            _upfront = numVal * 2 / 5
+            _licSta = parseInt(numVal) / 3;
+            _riskSta = (parseInt(numVal) * 4) / 15;
+            _mainTotal = _licSta + _riskSta + parseInt(_upfront);
+            _licSta = _licSta.toFixed(0);
+            _riskSta = _riskSta.toFixed(0);
+            _mainTotal = _mainTotal.toFixed(0);
+            _ask_price = jQuery('input[name="u_upfront"]').val();
+            if (_ask_price != "") {
+                jQuery("#u_upfront_100").val('$' + format("#,###.", _upfront));
+                jQuery("#regular_license").val('$' + format("#,###.", _licSta));
+                jQuery("#risk_reverse").val('$' + format("#,###.", _riskSta));
+                jQuery("#total_rewards").val('$' + format("#,###.", _mainTotal));
+            }
+            _total_reward = jQuery("#total_rewards").val();
+            _noOfLicense = jQuery("#n_lic").val();
+            if (_noOfLicense > 3) {
+                _cal_per = parseInt((_noOfLicense * 30) / 100);
+            } else {
+                _cal_per = parseInt(_noOfLicense);
+            }
+            _ask_price = _ask_price.replace(",", "");
+            _ask_price = _ask_price.replace(",", "");
+            //_perParticipant = _cal_per * parseInt(_ask_price);
+            _perParticipant = parseInt(_ask_price) / _cal_per;
+            _perParticipantPatent = parseInt(_ask_price) / parseInt(jQuery("#n_patents").val());
+            _textUpdate = "";
+            _alertClass = 'none';
+            _sendClass = 'inline-block';
+            if (object.attr('id') == 'u_upfront' && _ask_price != 0) {
+                jQuery("#pop_text").css('display', 'inline-block');
+                jQuery(".cbP").css('display', 'inline-block');
+            }
+            if (_noOfLicense != "" && _noOfLicense < 10) {
+                _textUpdate += "<p style='padding: 10px;display: inline-block;color: rgba(194, 0, 0, 0.8); font-size: 16px;font-weight:normal;background:rgb(35, 31, 32) !important;margin-bottom:0px;'>The Open Licensing Program was designed to provide license opportunities to a larger number of operating companies. Perhaps additonal research would reveal a larger number of potential licensees.</p>";
+                _alertClass = 'inline-block';
+                _sendClass = 'none';
+                jQuery("#pop_text").css('display', 'none');
+                jQuery(".cbP").css('display', 'none');
+            } else {
+                if (parseFloat(_perParticipant) > 2000000) {
+                    if (_perParticipantPatent > 100000) {
+                        _alertClass = 'inline-block';
+                        _sendClass = 'none';
+                        _textUpdate = '<p style="padding: 10px;display: inline-block;color: rgba(194, 0, 0, 0.8); font-size: 16px;font-weight:normal;background:rgb(35, 31, 32) !important;">30% of the licensees (' + _cal_per + ') are expected to participate in the syndicate and fund your asking upfront price, each paying $' + format("#,###.", _perParticipant) + ' (your asking price / number of Participants). This sum is quite high, considering the the number of patents that you wish to sell. Thus, your asking upfront price seems un-transactable. In light of your expected total return of ' + _total_reward + ', perhaps you would like to adjust your asking upfront price.</p>';
+                    }
+                }
+            }
+            jQuery("#alert_message").css('display', _alertClass);
+            jQuery("#send_button").css('display', _sendClass);
+            jQuery("#alert_message").html(_textUpdate);
+            // _licSta = RemoveRougeChar(_licSta.replace(/(.{3})/g,"$1,").split("").reverse().join(""));
+            // _riskSta = RemoveRougeChar(_riskSta.replace(/(.{3})/g,"$1,").split("").reverse().join(""));
+            // _mainTotal = RemoveRougeChar(_mainTotal.replace(/(.{3})/g,"$1,").split("").reverse().join(""));
+
+            //jQuery("#risksta").val(_riskSta);
+            //jQuery("#t_reward").val(_mainTotal);   
+
+        }
+
+        function RemoveRougeChar(convertString) {
+
+            if (convertString.substring(0, 1) == ",") {
+
+                return convertString.substring(1, convertString.length)
+
+            }
+            return convertString;
+
+        }
+        jQuery(document).ready(function () {
+            jQuery("#panel-5889-0-0-0").find('p').eq(2).remove();
+            jQuery("#panel-5889-0-0-0").find('p').eq(2).remove();
+        });
+
+
+        function checkSerialNumberData() {
+            if (jQuery("#serial_number").val() != "") {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '',
+                    data: { action: 'findSerialiseData', nVar: '4ewo87ut3LW2dbh', s: jQuery("#serial_number").val() },
+                    cache: false,
+                    success: function (res) {
+                        if (res != "") {
+                            _data = jQuery.parseJSON(res);
+                            if (typeof _data.popup_type != "undefined" && parseInt(_data.popup_type) == 4) {
+                                _anotherLicense = jQuery.parseJSON(_data.other_field);
+                                /*jQuery("#n_patents").val(_anotherLicense.n_patents);
+                                */
+                                if (_anotherLicense.patent_list != undefined) {
+                                    jQuery("#patentNumbers").empty();
+                                    for (i = 0; i < _anotherLicense.patent_list.length; i++) {
+                                        var newTextBoxDiv = $('<div/>').attr("id", 'patentNumbers' + counterPatent);
+                                        _country = _anotherLicense.patent_list[i].country;
+                                        _application = _anotherLicense.patent_list[i].application;
+                                        _patent = _anotherLicense.patent_list[i].patent;
+                                        newTextBoxDiv.html(' <div class="cHalf" ><input type="text" name="country_n[]" class="p_tet noPadding noMargin  mainFont mainTextCenter" style="display:inline-block !important;width:154px !important;" id="textbox' + counterPatent + '" value="' + _country + '"    placeholder="Country"  > <input type="text" name="application_n[]" class="p_tet noPadding noMargin  mainFont mainTextCenter" style="display:inline-block !important;width:154px !important;" value="' + _application + '"   id="textbox' + counterPatent + '"    placeholder="Application"  > <input type="text" name="patent_n[]" class="p_tet noPadding noMargin  mainFont mainTextCenter" style="display:inline-block !important;width:154px !important;" value="' + _patent + '"   id="textbox' + counterPatent + '"    placeholder="Patent"  ></div><div class="cHalf mainMarginTop mainMarginBottom" style="padding-left: 13px; "><div class="cHalf rem"><a class="aminus p_image-1"  onclick="removePatent(jQuery(this))" href="javascript://"></a><div class="additionlic" style="display: inline-block; margin-left: 0px; font-size: 17px;">Remove jurisdiction</div></div><div class="cHalf adem"><a class="aplus p_image" onclick="addPatent(jQuery(this))" href="javascript://"></a> <div class="additionlic" style="display: inline-block; margin-left: 0px; font-size: 17px;">Add another jurisdiction</div></div></div>');
+                                        jQuery("#patentNumbers").append(newTextBoxDiv);
+                                        if (jQuery("#patentNumbers").find('.rem').length > 1) {
+                                            jQuery("#patentNumbers").find('.rem').css('display', 'inline-block');
+                                        }
+                                        counterPatent++;
+                                    }
+                                } else {
+                                    jQuery("#patentNumbers").find('.adem').css('display', 'none');
+                                    var newTextBoxDiv = $('<div/>').attr("id", 'patentNumbers' + counterPatent);
+                                    newTextBoxDiv.html('<div class="cHalf" ><input type="text" name="country_n[]" class="p_tet noPadding noMargin  mainFont mainTextCenter" style="display:inline-block !important;width:154px !important;" id="textbox' + counterPatent + '"    placeholder="Country"  > <input type="text" name="application_n[]" class="p_tet noPadding noMargin  mainFont mainTextCenter" style="display:inline-block !important;width:154px !important;" value=""  id="textbox' + counterPatent + '"    placeholder="Application"  > <input type="text" name="patent_n[]" class="p_tet noPadding noMargin  mainFont mainTextCenter" style="display:inline-block !important;width:154px !important;" value=""  id="textbox' + counterPatent + '"    placeholder="Patent"  ></div><div class="cHalf mainMarginTop mainMarginBottom" style="padding-left: 13px; "><div class="cHalf rem"><a class="aminus p_image-1"  onclick="removePatent(jQuery(this))" href="javascript://"></a><div class="additionlic" style="display: inline-block; margin-left: 0px; font-size: 17px;">Remove jurisdiction</div></div><div class="cHalf adem"><a class="aplus p_image" onclick="addPatent(jQuery(this))" href="javascript://"></a> <div class="additionlic" style="display: inline-block; margin-left: 0px; font-size: 17px;">Add another jurisdiction</div></div></div>');
+                                    newTextBoxDiv.appendTo("#patentNumbers");
+                                    if (jQuery("#patentNumbers").find('.rem').length > 1) {
+                                        jQuery("#patentNumbers").find('.rem').css('display', 'inline-block');
+                                    }
+                                    counterPatent++;
+                                }
+                                jQuery("#essnt").val(_anotherLicense.essnt);
+                                jQuery("#n_lic").val(_anotherLicense.n_lic);
+                                jQuery("#u_upfront").val(_anotherLicense.u_upfront);
+
+
+
+                                var upFront = jQuery('input[name="u_upfront"]').val();
+                                var license = jQuery('input[name="n_patents"]').val();
+                                _tempNum2 = upFront.toString().replace(',', "");
+                                _tempNum2 = _tempNum2.toString().replace(',', "");
+                                if (_tempNum2 != "") {
+                                    _tempNum2 = parseInt(_tempNum2);
+                                } else {
+                                    _tempNum2 = 0;
+                                }
+                                var num = _tempNum2.toString().replace(/,/gi, "").split("").reverse().join("");
+                                var num2 = RemoveRougeChar(num.replace(/(.{3})/g, "$1,").split("").reverse().join(""));
+                                if (parseInt(num2) > 0) {
+                                    jQuery('input[name="u_upfront"]').val(num2);
+                                } else { jQuery('input[name="u_upfront"]').val(''); }
+                                num2 = num2.toString().replace(',', "");
+                                /*numVal=_tempNum2;		 
+                                _licSta = parseInt(numVal)*0.833333334;
+                                _riskSta = parseInt(numVal)*0.666666667;
+                                _mainTotal = _licSta + _riskSta + parseInt(numVal);
+                                _licSta=_licSta.toFixed(0);
+                                _riskSta=_riskSta.toFixed(0);
+                                _mainTotal=_mainTotal.toFixed(0);
+                                _ask_price = jQuery('input[name="u_upfront"]').val();
+                                */
+                                numVal = _tempNum2;
+                                _upfront = numVal * 2 / 5
+                                _licSta = parseInt(numVal) / 3;
+                                _riskSta = (parseInt(numVal) * 4) / 15;
+                                _mainTotal = _licSta + _riskSta + parseInt(_upfront);
+                                _licSta = _licSta.toFixed(0);
+                                _riskSta = _riskSta.toFixed(0);
+                                _mainTotal = _mainTotal.toFixed(0);
+                                _ask_price = jQuery('input[name="u_upfront"]').val();
+                                if (_ask_price != "") {
+                                    jQuery("#u_upfront_100").val('$' + format("#,###.", _upfront));
+                                    jQuery("#regular_license").val('$' + format("#,###.", _licSta));
+                                    jQuery("#risk_reverse").val('$' + format("#,###.", _riskSta));
+                                    jQuery("#total_rewards").val('$' + format("#,###.", _mainTotal));
+                                }
+
+
+                                /*
+                                if(_ask_price!=""){
+                                    jQuery("#u_upfront_100").val('$'+format("#,###.",_ask_price));
+                                    jQuery("#regular_license").val('$'+format("#,###.",_licSta));
+                                    jQuery("#risk_reverse").val('$'+format("#,###.",_riskSta));
+                                    jQuery("#total_rewards").val('$'+format("#,###.",_mainTotal));		
+                                }*/
+                                _total_reward = jQuery("#total_rewards").val();
+                                _noOfLicense = jQuery("#n_lic").val();
+                                if (_noOfLicense > 3) {
+                                    _cal_per = parseInt((_noOfLicense * 30) / 100);
+                                } else {
+                                    _cal_per = parseInt(_noOfLicense);
+                                }
+                                _ask_price = _ask_price.replace(",", "");
+                                _ask_price = _ask_price.replace(",", "");
+                                //_perParticipant = _cal_per * parseInt(_ask_price);
+                                _perParticipant = parseInt(_ask_price) / _cal_per;
+                                _perParticipantPatent = parseInt(_ask_price) / parseInt(jQuery("#n_patents").val());
+                                _textUpdate = "";
+                                _alertClass = 'none';
+                                _sendClass = 'inline-block';
+                                if (_ask_price != 0) {
+                                    jQuery("#pop_text").css('display', 'inline-block');
+                                    jQuery(".cbP").css('display', 'inline-block');
+                                }
+                                if (_noOfLicense != "" && _noOfLicense < 10) {
+                                    _textUpdate += "<p style='padding: 10px;display: inline-block;color: rgba(194, 0, 0, 0.8); font-size: 16px;font-weight:normal;background:rgb(35, 31, 32) !important;margin-bottom:0px;'>The Open Licensing Program was designed to provide license opportunities to a larger number of operating companies. Perhaps additonal research would reveal a larger number of potential licensees.</p>";
+                                    _alertClass = 'inline-block';
+                                    _sendClass = 'none';
+                                    jQuery("#pop_text").css('display', 'none');
+                                    jQuery(".cbP").css('display', 'none');
+                                } else {
+                                    if (parseFloat(_perParticipant) > 2000000) {
+                                        if (_perParticipantPatent > 100000) {
+                                            _alertClass = 'inline-block';
+                                            _sendClass = 'none';
+                                            _textUpdate = '<p style="padding: 10px;display: inline-block;color: rgba(194, 0, 0, 0.8); font-size: 16px;font-weight:normal;background:rgb(35, 31, 32) !important;">30% of the licensees (' + _cal_per + ') are expected to participate in the syndicate and fund your asking upfront price, each paying $' + format("#,###.", _perParticipant) + ' (your asking price / number of Participants). This sum is quite high, considering the the number of patents that you wish to sell. Thus, your asking upfront price seems un-transactable. In light of your expected total return of ' + _total_reward + ', perhaps you would like to adjust your asking upfront price.</p>';
+                                        }
+                                    }
+                                }
+                                jQuery("#alert_message").css('display', _alertClass);
+                                jQuery("#send_button").css('display', _sendClass);
+                                jQuery("#alert_message").html(_textUpdate);
+                                jQuery("#textbox1").val(_anotherLicense.technologies);
+                                jQuery("#Standards").val(_anotherLicense.standards);
+                                jQuery("#Markets").val(_anotherLicense.markets);
+                                jQuery("#Products").val(_anotherLicense.products);
+                                if (_anotherLicense.another_license.length > 0) {
+                                    counter = 1;
+                                    jQuery("#TaxtBoxesGroup").empty()
+                                    for (i = 0; i < _anotherLicense.another_license.length; i++) {
+                                        jQuery("#TaxtBoxesGroup").find('.adem').css('display', 'none');
+                                        var newTextBoxDiv = $('<div/>').attr("id", 'TaxtBoxesGroup' + counter);
+                                        _name = _anotherLicense.another_license[i].name;
+                                        _r_lice = _anotherLicense.another_license[i].lice;
+                                        ychecked = "";
+                                        nchecked = "";
+                                        if (_anotherLicense.another_license[i].evidence == "No") {
+                                            nchecked = "CHECKED='CHECKED'";
+                                        }
+                                        if (_anotherLicense.another_license[i].evidence == "Yes") {
+                                            ychecked = "CHECKED='CHECKED'";
+                                        }
+                                        newTextBoxDiv.html(' <div class="cHalf" ><input type="text" name="n_name[]" value="' + _name + '" class="tertext mainFont" id="textbox' + counter + '"    placeholder="Name of Potential Licensee"  ></div><div class="cHalf"> <input type="text" name="r_lice[]" value="' + _r_lice + '" class="tertext mainFont" id="textbox' + counter + '"    placeholder="Name/Type of its Suspected Infringing Product/System"  ></div><div class="cHalf patenteespara mainColor mainWidth mainMarginBottom mainFont" >Is there existing Evidence of Use?&nbsp;<input type="radio" name="evidence_e' + counter + '" ' + ychecked + ' value="Yes" class="" id="" style="margin-bottom:3px;margin-left: 10px;"> YES <input type="radio" name="evidence_e' + counter + '" value="No" ' + nchecked + ' class="" id="" style="margin-bottom:3px;" > NO  </div><div class="cHalf mainMarginTop mainMarginBottom" style="padding-left: 13px; "><div class="cHalf rem"><a class="aminus p_image-1"  onclick="removeText(jQuery(this))" href="javascript://"></a><div class="additionlic" style="display: inline-block; margin-left: 0px; font-size: 17px;">Remove the potential licensee above</div></div><div class="cHalf adem"><a class="aplus p_image" onclick="add(jQuery(this))" href="javascript://"></a> <div class="additionlic" style="display: inline-block; margin-left: 0px; font-size: 17px;">Add another potential licensee</div></div></div>');
+                                        jQuery("#TaxtBoxesGroup").append(newTextBoxDiv);
+                                        if (jQuery("#TaxtBoxesGroup").find('.rem').length > 1) {
+                                            jQuery("#TaxtBoxesGroup").find('.rem').css('display', 'inline-block');
+                                        }
+                                        counter++;
+                                    }
+                                }
+                                jQuery("#companyname").val(_data.type_name);
+                                jQuery("#Broker").val(_data.broker);
+                                jQuery("#fname").val(_data.first_name);
+                                jQuery("#lname").val(_data.last_name);
+                                jQuery("#email").val(_data.email_address);
+                                jQuery("#address").val(_data.note);
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+    <link rel="alternate" type="application/rss+xml" title="SynPat &raquo; Feed" href="http://www.staging3.synpat.com/feed/" />
+    <link rel="alternate" type="application/rss+xml" title="SynPat &raquo; Comments Feed" href="http://www.staging3.synpat.com/comments/feed/" />
+    <link rel="alternate" type="application/rss+xml" title="SynPat &raquo; Community Comments Feed" href="http://www.staging3.synpat.com/community/feed/" />
+    <script type="text/javascript">
+        window._wpemojiSettings = { "baseUrl": "http:\/\/s.w.org\/images\/core\/emoji\/72x72\/", "ext": ".png", "source": { "concatemoji": "http:\/\/www.staging3.synpat.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.2.2" } };
+        !function (a, b, c) { function d(a) { var c = b.createElement("canvas"), d = c.getContext && c.getContext("2d"); return d && d.fillText ? (d.textBaseline = "top", d.font = "600 32px Arial", "flag" === a ? (d.fillText(String.fromCharCode(55356, 56812, 55356, 56807), 0, 0), c.toDataURL().length > 3e3) : (d.fillText(String.fromCharCode(55357, 56835), 0, 0), 0 !== d.getImageData(16, 16, 1, 1).data[0])) : !1 } function e(a) { var c = b.createElement("script"); c.src = a, c.type = "text/javascript", b.getElementsByTagName("head")[0].appendChild(c) } var f, g; c.supports = { simple: d("simple"), flag: d("flag") }, c.DOMReady = !1, c.readyCallback = function () { c.DOMReady = !0 }, c.supports.simple && c.supports.flag || (g = function () { c.readyCallback() }, b.addEventListener ? (b.addEventListener("DOMContentLoaded", g, !1), a.addEventListener("load", g, !1)) : (a.attachEvent("onload", g), b.attachEvent("onreadystatechange", function () { "complete" === b.readyState && c.readyCallback() })), f = c.source || {}, f.concatemoji ? e(f.concatemoji) : f.wpemoji && f.twemoji && (e(f.twemoji), e(f.wpemoji))) }(window, document, window._wpemojiSettings);
+    </script>
+    <style type="text/css">
+        img.wp-smiley,
+        img.emoji {
+            display: inline !important;
+            border: none !important;
+            box-shadow: none !important;
+            height: 1em !important;
+            width: 1em !important;
+            margin: 0 .07em !important;
+            vertical-align: -0.1em !important;
+            background: none !important;
+            padding: 0 !important;
+        }
+    </style>
+    <link rel='stylesheet' id='theme-my-login-css' href='http://www.staging3.synpat.com/wp-content/plugins/theme-my-login/theme-my-login.css?ver=6.3.12' type='text/css' media='all' />
+    <link rel='stylesheet' id='siteorigin-panels-front-css' href='http://www.staging3.synpat.com/wp-content/plugins/siteorigin-panels/css/front.css?ver=2.1.2' type='text/css' media='all' />
+    <link rel='stylesheet' id='bp-legacy-css-css' href='http://www.staging3.synpat.com/wp-content/plugins/buddypress/bp-templates/bp-legacy/css/buddypress.css?ver=2.2.3.1' type='text/css' media='screen' />
+    <link rel='stylesheet' id='theme-my-login-ajax-css' href='http://www.staging3.synpat.com/wp-content/plugins/theme-my-login/modules/ajax/css/ajax.css?ver=4.2.2' type='text/css' media='all' />
+    <link rel='stylesheet' id='ws-plugin--s2member-css' href='http://www.staging3.synpat.com/wp-content/plugins/s2member/s2member-o.php?ws_plugin__s2member_css=1&#038;qcABC=1&#038;ver=150311-2063064355' type='text/css' media='all' />
+    <link rel='stylesheet' id='wpui-jqueryui-css' href='http://www.staging3.synpat.com/wp-content/plugins/wp-ui/css/jquery-ui-wp-fix.css?ver=4.2.2' type='text/css' media='all' />
+    <link rel='stylesheet' id='blitzer-css' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/blitzer/jquery-ui.css?ver=4.2.2' type='text/css' media='all' />
+    <link rel='stylesheet' id='wpui-multiple-css' href='http://www.staging3.synpat.com/wp-content/plugins/wp-ui/css/css.php?styles=wpui-light%7Cwpui-blue%7Cwpui-red%7Cwpui-green%7Cwpui-dark%7Cwpui-quark%7Cwpui-alma%7Cwpui-macish%7Cwpui-redmond%7Cwpui-sevin&#038;ver=4.2.2' type='text/css' media='all' />
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/jquery/jquery.js?ver=1.11.2'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var BP_Confirm = { "are_you_sure": "Are you sure?" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-content/plugins/buddypress/bp-core/js/confirm.min.js?ver=2.2.3.1'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-content/plugins/buddypress/bp-core/js/widget-members.min.js?ver=2.2.3.1'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-content/plugins/buddypress/bp-core/js/jquery-query.min.js?ver=2.2.3.1'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-content/plugins/buddypress/bp-core/js/jquery-cookie.min.js?ver=2.2.3.1'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-content/plugins/buddypress/bp-core/deprecated/js/jquery-scroll-to.min.js?ver=2.2.3.1'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var BP_DTheme = { "accepted": "Accepted", "close": "Close", "comments": "comments", "leave_group_confirm": "Are you sure you want to leave this group?", "mark_as_fav": "Favorite", "my_favs": "My Favorites", "rejected": "Rejected", "remove_fav": "Remove Favorite", "show_all": "Show all", "show_all_comments": "Show all comments for this thread", "show_x_comments": "Show all %d comments", "unsaved_changes": "Your profile has unsaved changes. If you leave the page, the changes will be lost.", "view": "View" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-content/plugins/buddypress/bp-templates/bp-legacy/js/buddypress.js?ver=2.2.3.1'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var wpAjax = { "noPerm": "You do not have permission to do that.", "broken": "An unidentified error has occurred." };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/wp-ajax-response.min.js?ver=4.2.2'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-content/plugins/theme-my-login/modules/ajax/js/ajax.js?ver=4.2.2'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/jquery/ui/core.min.js?ver=1.11.4'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/jquery/ui/widget.min.js?ver=1.11.4'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/jquery/ui/tabs.min.js?ver=1.11.4'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/jquery/ui/accordion.min.js?ver=1.11.4'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/jquery/ui/mouse.min.js?ver=1.11.4'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/jquery/ui/resizable.min.js?ver=1.11.4'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/jquery/ui/draggable.min.js?ver=1.11.4'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/jquery/ui/button.min.js?ver=1.11.4'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/jquery/ui/position.min.js?ver=1.11.4'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/jquery/ui/dialog.min.js?ver=1.11.4'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/jquery/ui/sortable.min.js?ver=1.11.4'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/?wpui-script=before&#038;ver=4.2.2'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var wpUIOpts = { "wpUrl": "http:\/\/www.staging3.synpat.com", "pluginUrl": "http:\/\/www.staging3.synpat.com\/wp-content\/plugins\/wp-ui\/", "enableTabs": "on", "enableAccordion": "on", "enableSpoilers": "on", "enableDialogs": "on", "tabsEffect": "none", "effectSpeed": "400", "accordEffect": "none", "alwaysRotate": "stop", "tabsEvent": "click", "collapsibleTabs": "off", "accordEvent": "click", "singleLineTabs": "off", "accordAutoHeight": "on", "accordCollapsible": "off", "accordEasing": "false", "mouseWheelTabs": "false", "bottomNav": "off", "tabPrevText": "Prev", "tabNextText": "Next", "spoilerShowText": "Click to show", "spoilerHideText": "Click to hide", "cookies": "on", "hashChange": "on", "docWriteFix": "on", "linking_history": "on", "misc_options": "hashing_timeout=1000" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-content/plugins/wp-ui/js/wp-ui.js?ver=0.8.8'></script>
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.staging3.synpat.com/xmlrpc.php?rsd" />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.staging3.synpat.com/wp-includes/wlwmanifest.xml" />
+    <meta name="generator" content="WordPress 4.2.2" />
+    <link rel='canonical' href='http://www.staging3.synpat.com/community/' />
+    <link rel='shortlink' href='http://www.staging3.synpat.com/?p=5803' />
+
+    <script type="text/javascript">var ajaxurl = 'http://www.staging3.synpat.com/wp-admin/admin-ajax.php';</script>
+
+    <style type="text/css">
+        .recentcomments a {
+            display: inline !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+    </style>
+    <style type="text/css" id="twentytwelve-header-css">
+        .site-title,
+        .site-description {
+            position: absolute;
+            clip: rect(1px 1px 1px 1px); /* IE7 */
+            clip: rect(1px, 1px, 1px, 1px);
+        }
+    </style>
+    <style type="text/css" media="all" id="siteorigin-panels-grids-wp_head">
+        /* Layout 5803 */ #pg-5803-0, #pg-5803-1, #pg-5803-2, #pg-5803-3, #pl-5803 .panel-grid-cell .so-panel {
+            margin-bottom: 60px;
+        }
+
+        #pgc-5803-2-0, #pgc-5803-2-1, #pgc-5803-2-2 {
+            width: 33.333%;
+        }
+
+        #pg-5803-2 .panel-grid-cell {
+            float: left;
+        }
+
+        #pl-5803 .panel-grid-cell .so-panel:last-child {
+            margin-bottom: 0;
+        }
+
+        #pg-5803-2 {
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+            #pg-5803-2 .panel-grid-cell {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+        @media (max-width:780px) {
+            #pg-5803-0 .panel-grid-cell, #pg-5803-1 .panel-grid-cell, #pg-5803-2 .panel-grid-cell, #pg-5803-3 .panel-grid-cell, #pg-5803-4 .panel-grid-cell {
+                float: none;
+                width: auto;
+            }
+
+            #pgc-5803-2-0, #pgc-5803-2-1 {
+                margin-bottom: 60px;
+            }
+
+            #pl-5803 .panel-grid {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            #pl-5803 .panel-grid-cell {
+                padding: 0;
+            }
+        }
+    </style>
+    <style>
+        .panel-grid-cell .panel {
+            margin-bottom: 30px;
+        }
+
+        @media screen and (max-width:480px)and (min-width:320px) {
+            #not_visible_phone {
+                display: none;
+            }
+
+            #arrow_btn {
+                margin-top: 5px 0px 20px 0px;
+            }
+
+            .panel-row-style-accordion {
+                padding: 0px;
+            }
+        }
+
+        @media screen and (max-width: 64em) {
+            #not_visible_phone {
+                display: none;
+            }
+
+            #arrow_btn {
+                margin-top: 5px 0px 20px 0px;
+            }
+
+            .panel-row-style-accordion {
+                padding: 0px;
+            }
+        }
+
+        @media screen and (max-width: 42em) {
+            #not_visible_phone {
+                display: none;
+            }
+
+            #arrow_btn {
+                margin: 5px 0px 20px 0px;
+            }
+
+            .panel-row-style-accordion {
+                padding: 0px;
+            }
+        }
+    </style>
+    <link type='text/css' href='http://www.staging3.synpat.com/wp-content/themes/synpat/basic/css/basic.css' rel='stylesheet' media='screen' />
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-55545446-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+	<link rel="stylesheet" href="http://www.staging3.synpat.com/wp-content/themes/synpat/js/lightbox.css" />
+	<script src="http://www.staging3.synpat.com/wp-content/themes/synpat/js/lightbox3.js"></script>
+</head>
+<body class="page page-id-5803 page-template page-template-page-pricing page-template-page-pricing-php siteorigin-panels no-js">
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe height='0' src='//www.googletagmanager.com/ns.html?id=GTM-KM9383' style='display: none; visibility: hidden' width='0'></iframe>
+    </noscript>
+    <script>
+        //<![CDATA[
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KM9383');
+        //]]>
+
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <div class='main-content application '>
+        <div class='hero'>
+            <div class='hero-bg'></div>
+            <header>
+                <style>
+                    .hero {
+                        background: url(http://www.staging3.synpat.com/wp-content/uploads/2014/02/shutterstock_87641005.jpg);
+                    }
+
+                    @media screen and (max-width: 40em) {
+                        .hero {
+                            background-size: contain;
+                        }
+                    }
+                </style>
+                <h1></h1>
+                <h1>IP PRODUCERS / CONSUMERS</h1>
+                <h5>One community of operating companies.</h5>
+            </header>
+        </div>
+        <header class='site-header' id="site-header1">
+            <div class='site-header-content' data-behavior='site-menu'>
+                <a class="site-logo" href="http://www.staging3.synpat.com/">SynPat</a>
+                <nav class='site-menu'>
+                    <div class='site-menu-toggle' data-behavior='site-toggle-menu'></div>
+                </nav>
+                <!-- <div class="site-menu-items"> -->
+                <div class="menu-main-container">
+                    <ul id="menu-main" class="site-menu-items">
+                        <li id="menu-item-5604" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5604"><a href="http://www.staging3.synpat.com/solutions/">SOLUTIONS</a></li>
+                        <li id="menu-item-4948" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4948"><a href="http://www.staging3.synpat.com/program/">Program</a></li>
+                        <li id="menu-item-5895" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5895"><a href="http://www.staging3.synpat.com/patentees/">Patentees</a></li>
+                        <li id="menu-item-5896" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5896"><a href="http://www.staging3.synpat.com/licensees/">Licensees</a></li>
+                        <li id="menu-item-5899" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-5803 current_page_item menu-item-5899"><a href="http://www.staging3.synpat.com/community/">Store</a></li>
+                        <li id="menu-item-5437" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5437"><a href="http://www.staging3.synpat.com/company/">Company</a></li>
+                    </ul>
+                </div>
+                <!-- </div> -->
+            </div>
+        </header>
+        <div class='content'>
+            <div class="interior-content">
+
+                <div class="interior-content">
+                    <style>
+                        #simplemodal-container { /*height:675px !important*/
+                        }
+                    </style>
+                    <div class="comm_cont">
+                        <header class="list-header">Welcome to Synpat open licensing store</header>
+                    </div>
+
+                    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+                    <!--script src="/wp-content/plugins/slidesjs/jquery.slides.js"></script-->
+                    <script src="/wp-content/plugins/jssor/jssor.js"></script>
+                    <script src="/wp-content/plugins/jssor/jssor.slider.js"></script>
+
+
+                    <style>
+
+                        @font-face {
+                            font-family: 'ThemeIcons';
+                            src:url('/wp-content/plugins/themeicons-font/ThemeIcons.eot?387osh');
+                            src:url('/wp-content/plugins/themeicons-font/ThemeIcons.eot?#iefix387osh') format('embedded-opentype'),
+                                url('/wp-content/plugins/themeicons-font/ThemeIcons.woff?387osh') format('woff'),
+                                url('/wp-content/plugins/themeicons-font/ThemeIcons.ttf?387osh') format('truetype'),
+                                url('/wp-content/plugins/themeicons-font/ThemeIcons.svg?387osh#ThemeIcons') format('svg');
+                            font-weight: normal;
+                            font-style: normal;
+                        }
+
+                        @font-face {
+                            font-family: "Trade Gothic Condensed";
+                            font-style: normal;
+                            font-weight: normal;
+                            src: url("/wp-content/themes/synpat/assets/TradeGothic-Cond.eot?#iefix") format("embedded-opentype"), 
+                                 url("/wp-content/themes/synpat/assets/TradeGothic-Cond.woff") format("woff"), 
+                                 url("/wp-content/themes/synpat/assets/TradeGothic-Cond.ttf") format("truetype"), 
+                                 url("/wp-content/themes/synpat/assets/TradeGothic-Cond.svg#TradeGothic-Cond") format("svg");
+                        }
+
+                        .synpat-store {
+
+                        }
+                        
+                        .synpat-store-sidebar {
+                            float: left;
+                            margin-right: 30px;
+                            width: 200px;
+                        }
+                        .synpat-store-sidebar-title {
+                            border-bottom: 1px solid #e5e5e5;
+                            margin-bottom: 15px;
+                            margin-top: 9px;
+                            padding-bottom: 5px;
+                        }
+                        .synpat-store-sidebar-list {
+                            margin: 0;
+                        }
+                        .synpat-store-sidebar-list-item {
+                            /*border-top: 1px solid rgb(153, 153, 153);*/
+                            border-top: 1px solid #e5e5e5;
+                            margin: 0 !important;
+                            padding: 0 31px 0 0;
+                            position: relative;
+                        }
+                        .synpat-store-sidebar-list-item:first-child {
+                            border-top: none;
+                        }
+                        .synpat-store-sidebar-list-item > a {
+                            color: rgb(51, 51, 51);
+                            display: block;
+                            font-size: 14px;
+                            padding-bottom: 5px;
+                            padding-left: 5px;
+                            padding-top: 5px;
+                            text-decoration: none !important;
+                            transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                            -moz-transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                            -webkit-transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                            -o-transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                        }
+                        .synpat-store-sidebar-list-item > a:hover {
+                            background-color: #f5f5f5;
+                            color: #BD202F;
+                        }
+                        .synpat-store-sidebar-list-item > span {
+                            /*background: rgb(153, 153, 153);*/
+                            background: #f5f5f5;
+                            /*color: #ffffff;*/
+                            color: rgb(51, 51, 51);
+                            cursor: pointer;
+                            /*display: none;*/
+                            display: block;
+                            /*font-family: Arial;*/
+                            font-size: 19px;
+                            height: 31px;
+                            line-height: 31px;
+                            position: absolute;
+                            right: -1px;
+                            text-align: center;
+                            top: 0;
+                            width: 32px;
+                        }
+                        .synpat-store-sidebar-list-item:hover > span {
+                            /*display: block;*/
+                        }
+                        .synpat-store-sidebar-list-item > span i {
+                            font-style: normal;
+                        }
+                        .synpat-store-sidebar-list-item > span i.opened {
+                            display: none;
+                        }
+                        .synpat-store-sidebar-list-item > span i.closed {
+                            display: block;
+                        }
+                        .synpat-store-sidebar-list-item > span:hover {
+                            background: rgb(51, 51, 51);
+                            color: #ffffff;
+                            -webkit-transition-duration: 100ms;
+                            transition-duration: 100ms;
+                        }
+                        .synpat-store-sidebar-list-item.is-active > a {
+                            color: #BD202F;
+                        }
+                        .synpat-store-sidebar-list-item.is-opened {
+
+                        }
+                        .synpat-store-sidebar-list-item.is-opened > span {
+                            /*display: block;*/
+                        }
+                        .synpat-store-sidebar-list-item.is-opened > span i.opened {
+                            display: block;
+                        }
+                        .synpat-store-sidebar-list-item.is-opened > span i.closed {
+                            display: none;
+                        }
+                        .synpat-store-sidebar-list-item.is-opened .synpat-store-sidebar-list-sub {
+                            display: block;
+                        }
+                        .synpat-store-sidebar-list-sub {
+                            /*border-top: 1px solid rgb(153, 153, 153);*/
+                            border-top: 1px solid #e5e5e5;
+                            display: none;
+                            margin: 0 -32px 0 0;
+                            padding-left: 10px;
+                        }
+                        .synpat-store-sidebar-list-sub-item {
+                            /*border-top: 1px solid rgb(153, 153, 153);*/
+                            border-top: 1px solid #e5e5e5;
+                            margin: 0 !important;
+                            padding: 0;
+                        }
+                        .synpat-store-sidebar-list-sub-item:first-child {
+                            border-top: none;
+                        }
+                        .synpat-store-sidebar-list-sub-item a {
+                            color: rgb(51, 51, 51);
+                            display: block;
+                            font-size: 14px;
+                            padding-bottom: 5px;
+                            padding-left: 5px;
+                            padding-top: 5px;
+                            text-decoration: none !important;
+                            transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                            -moz-transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                            -webkit-transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                            -o-transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                        }
+                        .synpat-store-sidebar-list-sub-item a:hover {
+                            background-color: #f5f5f5;
+                            color: #BD202F;
+                        }
+                        .synpat-store-sidebar-list-sub-item.is-active > a {
+                            color: #BD202F;
+                        }
+
+                        .synpat-store-content {
+                            float: left;
+                            font-size: 14px;
+                            width: 670px;
+                        }
+
+                        .synpat-store-filter {
+                            float: right;
+                            margin-top: -7px;
+                            width: 670px;
+                        }
+                        /*.synpat-store-filter-toggler:before {
+                            font-family: "substantial-ico-fonts";
+                            font-style: normal;
+                            font-weight: normal;
+                            line-height: 1;
+                        }*/
+                        .synpat-store-filter-toggler {
+                            background: url(/wp-content/themes/synpat/images/hambirger.png) 0 0 no-repeat;
+                            color: #333333;
+                            display: none;
+                            height: 34px;
+                            margin-right: 5px;
+                            text-align: center;
+                            vertical-align: middle;
+                            text-decoration: none !important;
+                            width: 36px;
+                        }
+                        /*.synpat-store-filter-toggler:hover,
+                        .synpat-store-filter-toggler:focus {
+                            color: #333333;
+                        }*/
+                        /*.synpat-store-filter-toggler:after {
+                            content: "/";
+                            line-height: 34px;
+                            font-family: substantial-ico-fonts;
+                            font-style: normal;
+                            font-weight: normal;
+                        }*/
+                        .synpat-store-filter label {
+                            display: inline-block;
+                            font-size: 14px;
+                            font-weight: normal;
+                        }
+                        .synpat-store-filter-sort {
+                            border: 1px solid #ddd;
+                            border-radius: 0px;
+                            display: inline-block;
+                            height: 36px;
+                            vertical-align: middle;
+                            transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                            -moz-transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                            -webkit-transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                            -o-transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                        }
+                        .synpat-store-filter-sort:hover {
+                            color:#333;
+                            border-color:#aaa;
+                        }
+                        .synpat-store-filter-sort select {
+                            background: #fff;
+                            border: none;
+                            border-radius: 0 !important;
+                            box-shadow: none;
+                            color: #888;
+                            font-size: 14px;
+                            height: 34px;
+                            outline: none !important;
+                            padding: 8px;
+                            text-overflow: ellipsis;
+                        }
+                        .synpat-store-filter-sort-order {
+                            background-color: #ffffff;
+                            color: rgb(51, 51, 51);
+                            display: inline-block;
+                            font-size: 14px;
+                            height: 30px;
+                            line-height: 30px;
+                            text-align: center;
+                            vertical-align: middle;
+                            width: 30px;
+                            transition: background-color 300ms ease-in-out, background-position 300ms ease-in-out;
+                            -moz-transition: background-color 300ms ease-in-out, background-position 300ms ease-in-out;
+                            -webkit-transition: background-color 300ms ease-in-out, background-position 300ms ease-in-out;
+                            -o-transition: background-color 300ms ease-in-out, background-position 300ms ease-in-out;
+                        }
+                        .synpat-store-filter-sort-order:hover {
+                            background: rgb(51, 51, 51);
+                            color: #ffffff;
+                            -webkit-transition-duration: 100ms;
+                            transition-duration: 100ms;
+                        }
+                        .synpat-store-filter-sort-order i {
+                            font-family: 'ThemeIcons';
+                            font-style: normal;
+                        }
+                        .synpat-store-filter-sort-order i.is-down {
+                            display: inline-block;
+                        }
+                        .synpat-store-filter-sort-order i.is-down:before {
+                            content: "\e229";
+                        }
+                        .synpat-store-filter-sort-order i.is-up {
+                            display: none;
+                        }
+                        .synpat-store-filter-sort-order i.is-up:before {
+                            content: "\e227";
+                        }
+                        .synpat-store-filter-sort-order.is-active {
+
+                        }
+                        .synpat-store-filter-sort-order.is-active i.is-down {
+                            display: none;
+                        }
+                        .synpat-store-filter-sort-order.is-active i.is-up {
+                            display: inline-block;
+                        }
+                        .synpat-store-filter-search {
+                            display: inline-block;
+                            margin-left: 20px;
+                            position: relative;
+                        }
+                        .synpat-store-filter-search input {
+                            background: #fff;
+                            border: 1px solid #ddd;
+                            color: #888;
+                            box-sizing: border-box;
+                            border-radius: 0px;
+                            box-shadow: none;
+                            font-size: 14px;
+                            height: 36px;
+                            outline: none !important;
+                            padding: 8px 34px 8px 8px;
+                            text-overflow: ellipsis;
+                            transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                            -moz-transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                            -webkit-transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                            -o-transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                            width: 210px;
+                        }
+                        .synpat-store-filter-search input:hover,
+                        .synpat-store-filter-search input:focus {
+                            color:#333 !important;
+                            border-color:#aaa !important;
+                        }
+                        .synpat-store-filter-search input:hover::-webkit-input-placeholder,
+                        .synpat-store-filter-search input:focus::-webkit-input-placeholder {
+                            color: #333;
+                            transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                            -moz-transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                            -webkit-transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                            -o-transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                        }
+                        .synpat-store-filter-search [type=submit] {
+                            background: none;
+                            border: none;
+                            color: #aaaaaa;
+                            height: 34px;
+                            line-height: 34px;
+                            position: absolute;
+                            right: 1px;
+                            text-align: center;
+                            top: 1px;
+                            width: 34px;
+                            transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                            -moz-transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                            -webkit-transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                            -o-transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+                        }
+                        .synpat-store-filter-search:hover [type=submit] {
+                            color: #333;
+                        }
+                        .synpat-store-filter-menu {
+                            float: right;
+                            margin: 8px 0 0;
+                        }
+                        .synpat-store-filter-menu-item {
+                            float: left;
+                            font-size: 14px;
+                            margin-left: 10px;
+                        }
+                        .synpat-store-filter-menu-item:first-child {
+                            margin-left: 0;
+                        }
+                        .synpat-store-filter-menu-item a {
+
+                        }
+                        .synpat-store-filter-menu-item a:hover {
+
+                        }
+
+                        .synpat-store-content-list {
+                            margin-left: -15px;
+                            margin-right: -15px;
+                            margin-top: 11px;
+                            max-height: 800px;
+                            overflow: auto;
+                            padding-bottom: 15px;
+							
+                        }
+                        .synpat-store-content-list-item {
+                            /*border: 1px solid rgb(153, 153, 153);*/
+                            border-bottom: 1px solid #e5e5e5;
+                            border-top: 1px solid #e5e5e5;
+                            margin-bottom: 0 !important;
+                            margin-left: 15px;
+                            margin-right: 15px;
+                            margin-top: -1px;
+                            padding: 15px 10px;
+                            transition: box-shadow 0ms ease-in;
+                            -moz-transition: box-shadow 0ms ease-in;
+                            -webkit-transition: box-shadow 0ms ease-in;
+                            -o-transition: box-shadow 0ms ease-in;
+                        }
+						.synpat-store-content-list-item-info .synpat-store-content-list-item-price{
+							font-size:12px !important;
+						}
+                        .synpat-store-content-list-item:first-child {
+                            margin-top: 0;
+                        }
+                        .synpat-store-content-list-item:hover {
+                            /*border-color: #ffffff;*/
+                            /*box-shadow: 0 1px 15px 0 rgba(0,0,0,.12),0 1px 15px 0 rgba(0,0,0,.12);*/
+                            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+                            transition: box-shadow 400ms ease-out;
+                            -moz-transition: box-shadow 400ms ease-out;
+                            -webkit-transition: box-shadow 400ms ease-out;
+                            -o-transition: box-shadow 400ms ease-out;
+                            /*margin-left: 10px;
+                            margin-right: 10px;
+                            padding-left: 15px;
+                            padding-right: 15px;*/
+                        }
+                        .synpat-store-content-list-item.is-blur {
+                            box-shadow: none !important;
+                            -webkit-filter: blur(2px);
+                            -moz-filter: blur(2px);
+                            -o-filter: blur(2px);
+                            -ms-filter: blur(2px);
+                            filter: blur(2px);
+                            -webkit-backface-visibility: hidden;
+                        }
+                        .synpat-store-content-list-item.is-blur .overlay {
+                            height: 100%;
+                            left: 0;
+                            position: absolute;
+                            top: 0;
+                            width: 100%;
+                            z-index: 1;
+                        }
+                        .synpat-store-content-list-item-left {
+                            border-right:1px solid #e5e5e5;
+                            float: left;
+                            /*width: 33.3333%;*/
+                            width: 66.6666%;
+                        }
+                        .synpat-store-content-list-item-left-first {
+                            float: right;
+                            padding-left: 24px;
+                            padding-right: 10px;
+                            width: 50%;
+                        }
+                        .synpat-store-content-list-item-left-second {
+                            float: left;
+                            width: 50%;
+                        }
+                        /*.synpat-store-content-list-item-center {
+                            float: left;
+                            width: 33.3333%;
+                        }*/
+                        .synpat-store-content-list-item-right {
+                            border-left: 1px solid #e5e5e5;
+                            float: left;
+                            margin-left: -1px;
+                            padding-left: 14px;
+                            width: 33.3333%;
+                        }
+
+                        .synpat-store-galery {
+						
+                            min-width: 200px;
+                        }
+                        .synpat-store-galery-list {
+
+                        }
+                        .synpat-store-galery-list-item {
+
+                        }
+                        .synpat-store-galery-list img {
+
+                        }
+                        /*.synpat-store-galery-preview {
+
+                        }
+                        .synpat-store-galery-preview a {
+                            border: 1px solid rgb(153, 153, 153);
+                            display: block;
+                        }
+                        .synpat-store-galery-preview a img {
+                            display: block;
+                            height: auto;
+                            margin-left: auto;
+                            margin-right: auto;
+                            max-width: 100%;
+                        }*/
+                        /*.synpat-store-thumbnails {
+                            margin-top: 5px;
+                            overflow: hidden;
+                            padding-bottom: 1px;
+                            padding-left: 11px;
+                            padding-right: 11px;
+                            padding-top: 1px;
+                            position: relative;
+                        }
+                        .synpat-store-thumbnails-images {
+                            width: 1000px;
+                        }
+                        .synpat-store-thumbnails-images a {
+                            border: 1px solid rgb(153, 153, 153);
+                            display: block;
+                            float: left;
+                            margin-left: 5px;
+                            width: 50px;
+                        }
+                        .synpat-store-thumbnails-images a:first-child {
+                            margin-left: 0;
+                        }
+                        .synpat-store-thumbnails-images a.is-active {
+                            border-color: #BD202F;
+                            outline: 1px solid #BD202F;
+                        }
+                        .synpat-store-thumbnails-images a img {
+                            display: block;
+                            height: auto;
+                            margin-left: auto;
+                            margin-right: auto;
+                            max-width: 100%;
+                        }
+                        .synpat-store-thumbnails > a.synpat-store-thumbnails-prev,
+                        .synpat-store-thumbnails > a.synpat-store-thumbnails-next {
+                            background: #ffffff;
+                            font-size: 22px;
+                            height: 100%;
+                            position: absolute;
+                            text-align: center;
+                            top: 0;
+                            width: 10px;
+                        }
+                        .synpat-store-thumbnails > a.synpat-store-thumbnails-prev i,
+                        .synpat-store-thumbnails > a.synpat-store-thumbnails-next i {
+                            margin-top: -10px;
+                            position: absolute;
+                            top: 50%;
+                        }
+                        .synpat-store-thumbnails > a.synpat-store-thumbnails-prev {
+                            left: 0;
+                        }
+                        .synpat-store-thumbnails > a.synpat-store-thumbnails-prev i {
+                            left: 0;
+                        }
+                        .synpat-store-thumbnails > a.synpat-store-thumbnails-next {
+                            right: 0;
+                        }
+                        .synpat-store-thumbnails > a.synpat-store-thumbnails-next i {
+                            right: 0;
+                        }*/
+
+                        .synpat-store-social-links {
+                            margin-top: 15px;
+                            text-align: center;
+                        }
+                        .synpat-store-social-links a {
+                            background: #bbbbbb;
+                            color: #ffffff;
+                            display: inline-block;
+                            height: 36px;
+                            line-height: 36px;
+                            text-align: center;
+                            transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                            -moz-transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                            -webkit-transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                            -o-transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                            width: 36px;
+                        }
+                        .synpat-store-social-links a span {
+                        }
+                        .synpat-store-social-links a:hover {
+                            background-color: #BD202F;
+                            color: #ffffff;
+                            transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                            -moz-transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                            -webkit-transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                            -o-transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+                        }
+                        .synpat-store-social-links a.galery-zoom-button i {
+                            /*display: inline-block;
+                            line-height: 36px;
+                            margin: 0;
+                            width: 100%;*/
+                        }
+
+                        .synpat-store-content-list-item-number {
+                            color: #BD202F;
+                            font-size: 14px;
+                            margin-top: 10px;
+                            text-align: center;
+                        }
+
+                        .synpat-store-content-list-item-title {
+                            font-size: 18px;
+                            margin-bottom: 2px;
+                            margin-top: -5px;
+                        }
+                        .synpat-store-content-list-item-description {
+							font-size:12px;
+                        }
+                        .synpat-store-content-list-item-description p {
+								font-size:12px;
+                        }
+
+                        .synpat-store-content-list-item-price {
+							font-size:14px;
+                        }
+                        .synpat-store-content-list-item-price-key {
+                            float: left;
+                            width: 68%;
+                        }
+                        .synpat-store-content-list-item-price-value {
+                            float: left;
+                            text-align: right;
+                            width: 32%;
+                        }
+                        .synpat-store-content-list-item-price.is-cost {
+                        }
+                        .synpat-store-content-list-item-price.is-cost > div {
+                            text-decoration: line-through;
+                        }
+                        .synpat-store-content-list-item-price.is-regular {
+                            color: #BD202F;
+                        }
+                        .synpat-store-content-list-item-price.is-validated {
+                            
+                        }
+
+                        .synpat-store-content-list-item-detail {
+                            text-align: center;
+                        }
+                        .synpat-store-content-list-item-detail a {
+                            font-size: 14px !important;
+                            line-height: 1.4 !important;
+                            margin-bottom: 19px;
+                            margin-top: 18px;
+                            padding: 5px 10px !important;
+                            width: auto !important;
+                        }
+
+                        .synpat-store-content-list-item-info {
+							font-size:12px;
+                        }
+                        .synpat-store-content-list-item-info p {
+                            margin-bottom: 7px;
+                        }
+
+
+                        /** Auth modal form */
+                        #simplemodal-container {
+                            overflow-x: hidden;
+                            overflow-y: auto;
+                            width: 320px !important;
+                        }
+                        .auth-modal-form {
+                            color: #e2e1e1;
+                            padding: 0 20px 20px;
+                        }
+                        .auth-modal-form-block {
+
+                        }
+                        .auth-modal-form-block-title {
+                            margin-bottom: 15px;
+                            margin-top: 20px;
+                        }
+                        .auth-modal-form-block p {
+                            color: #e2e1e1;
+                        }
+                        .auth-modal-form-block label {
+                            color: #e2e1e1;
+                            font-size: 16px;
+                            font-weight: normal;
+                        }
+                        .auth-modal-form-block label em {
+                            color: #BD202F;
+                            font-style: normal;
+                        }
+                        .auth-modal-form-block input[type=text],
+                        .auth-modal-form-block input[type=password] {
+                            background: rgb(35, 31, 32);
+                            border: none;
+                            border-radius: 0;
+                            box-shadow: none !important;
+                            color: #e2e1e1;
+                            display: block;
+                            font-size: 16px;
+                            height: 40px;
+                            margin-bottom: 20px;
+                            padding-left: 12px;
+                            padding-right: 12px;
+                        }
+                        .auth-modal-form-required {
+                            color: #BD202F !important;
+                            margin-top: -10px;
+                        }
+                        .auth-modal-form-buttons {
+
+                        }
+                        .auth-modal-form-buttons a {
+                            float: right;
+                            margin-top: 5px;
+                        }
+                        .auth-modal-form-buttons button {
+                            float: left;
+                        }
+                        .auth-modal-form .primary-button {
+                            color: #ffffff !important;
+                            font-size: 14px !important;
+                            line-height: 1.4 !important;
+                            margin-bottom: 0;
+                            margin-top: 0;
+                            padding: 5px 10px !important;
+                            width: auto !important;
+                        }
+
+
+
+                        /** Lightbox */
+                        .lightbox {
+                            /*opacity: 1 !important;*/
+                            /*top: 143px !important;*/
+
+                            /*margin-top: -15px;*/
+
+                            position: fixed;
+                            top: 100px !important;
+                        }
+                        .lightboxOverlay {
+                            background-color: rgba(0, 0, 0, 0.6);
+                            /*display: none !important;*/
+                        }
+                        .lb-container {
+                            /*overflow: hidden !important;*/
+                            /*padding: 0;*/
+                            padding: 10px;
+
+                            padding: 0;
+                        }
+                        .lb-outerContainer {
+                            background-color: #ffffff;
+                            /*border: solid 1px #cccccc !important;*/
+                            border-radius: 0;
+                            /*overflow: hidden !important;*/
+                            /*width: 1185px !important;*/
+
+                            width: 900px !important;
+                        }
+                        .lb-dataContainer {
+                            /*bottom: auto;
+                            margin-left: auto;
+                            margin-left: -592px;
+                            margin-right: auto;
+                            position: absolute;
+                            left: 50%;
+                            top: 1px;
+                            width: 1183px !important;
+                            z-index: 999;*/
+                            height: 50px;
+                            padding: 0;
+
+                            left: 50%;
+                            position: absolute;
+                            z-index: 99999;
+
+                            width: 900px !important;
+
+                        }
+                        .lb-details {
+                            /*display: none !important;*/
+                            color: #999;
+                            font-size: 12px;
+                            left: 75px;
+                            position: relative;
+                            top: 17px;
+                            z-index: 998;
+
+                            display: none !important;
+                        }
+                        .lightbox .lb-image {
+                            border-radius: 0 !important;
+                            /*display: block;*/
+                            /*height: auto !important;*/
+                            /*max-width: 100% !important;*/
+                            /*margin-left: auto;*/
+                            /*margin-right: auto;*/
+                            /*max-width: 1183px !important;*/
+
+                            height: auto !important;
+                            max-width: 100%;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+
+                        .lb-nav a.lb-prev,
+                        .lb-nav a.lb-next,
+                        .lb-data .lb-close {
+                            background-color: #f5f5f5;
+                            background-image: none !important;
+                            color: #333333;
+                            display: block !important;
+                            height: 30px;
+                            line-height: 30px;
+                            opacity: 1 !important;
+                            font-family: ThemeIcons;
+                            font-size: 20px;
+                            font-style: normal;
+                            font-variant: normal;
+                            font-weight: normal;
+                            text-decoration: none;
+                            text-transform: none;
+                            width: 30px;
+                            transition: background-color 300ms ease-in-out 0s, background-position 300ms ease-in-out 0s;
+                        }
+                        /*.lb-nav a.lb-prev:hover,
+                        .lb-nav a.lb-next:hover,*/
+                        .lb-data .lb-close:hover {
+                            background-color: #000000;
+                            color: #ffffff;
+                        }
+
+                        .lb-nav a.lb-prev,
+                        .lb-nav a.lb-next {
+                            background: none !important;
+                            height: 100%;
+                            position: absolute;
+                            top: 0;
+                            width: 50%;
+                        }
+
+                        .lb-nav a.lb-prev:before {
+                            background-color: #f5f5f5;
+                            content: "\e260";
+                            height: 30px;
+                            margin-top: -15px;
+                            position: absolute;
+                            left: 10px;
+                            text-align: center;
+                            top: 50%;
+                            width: 30px;
+                        }
+                        .lb-nav a.lb-prev {
+                            left: 0;
+                            text-align: left;
+                        }
+
+                        .lb-nav a.lb-next:before {
+                            background-color: #f5f5f5;
+                            content: "\e263";
+                            height: 30px;
+                            margin-top: -15px;
+                            position: absolute;
+                            right: 10px;
+                            text-align: center;
+                            top: 50%;
+                            width: 30px;
+                        }
+                        .lb-nav a.lb-next {
+                            right: 0;
+                        }
+
+                        .lb-data .lb-close:before {
+                            content: "\e20f";
+                        }
+                        .lb-data .lb-close {
+                            position: relative;
+                            right: 6px;
+                            text-align: center;
+                            top: 10px;
+                            z-index: 999;
+                            font-size: 16px;
+                        }
+
+                        .lb-loader {
+                            display: none !important;
+                        }
+                        .lb-nav {
+                            /*background: #ffffff none repeat scroll 0 0;
+                            bottom: -50px;
+                            display: block;
+                            height: 50px;
+                            padding: 10px;
+                            top: auto;*/
+
+                            background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+                            display: block;
+                            height: 100%;
+                            padding: 10px;
+                            top: 0;
+                        }
+
+
+                        @media (min-width:1001px) {
+                            .synpat-store-sidebar {
+                                display: block !important;
+                            }
+                        }
+
+
+                        @media (max-width:1000px) {
+
+                            .synpat-store-filter {
+                                float: none;
+                                width: 100%;
+                            }
+                            .synpat-store-filter-toggler {
+                                display: inline-block;
+                            }
+
+                            .synpat-store-sidebar {
+                                display: none;
+                                float: none;
+                                margin-bottom: 30px;
+                                padding-top: 20px;
+                                width: 100%;
+                            }
+                            .synpat-store-sidebar-title {
+                                display: none;
+                            }
+
+                            .synpat-store-content {
+                                float: none;
+                                width: 100%;
+                            }
+
+                            .synpat-store-content-list {
+                                margin-left: -15px;
+                                margin-right: -15px;
+                                margin-top: 12px;
+                                max-height: 99999px;
+                                overflow: visible;
+                                padding-bottom: 15px;
+                            }
+                        }
+
+                        @media (max-width:820px) {
+
+                            .lightbox {
+                                top: 0 !important;
+                            }
+                            .lb-container {
+                            }
+                            .lb-outerContainer {
+                                width: 800px !important;
+                            }
+                            .lb-dataContainer {
+                                width: 800px !important;
+
+                            }
+
+                        }
+
+                        @media (max-width:820px) {
+
+                            .lightbox {
+                                top: 0 !important;
+                            }
+                            .lb-container {
+                            }
+                            .lb-outerContainer {
+                                width: 100% !important;
+                            }
+                            .lb-dataContainer {
+                                width: 100% !important;
+
+                            }
+
+                        }
+
+                        @media (max-width:730px) {
+
+                            .synpat-store-content-list-item-left {
+                                border-right: none;
+                                float: none;
+                                width: 100%;
+                            }
+                            .synpat-store-content-list-item-right {
+                                border-left: none;
+                                clear: both;
+                                float: none;
+                                margin-left: 0;
+                                padding-left: 0;
+                                padding-top: 15px;
+                                width: 100%;
+                            }
+                            .synpat-store-content-list-item-price-value {
+                                text-align: right;
+                            }
+
+                        }
+
+                        @media (max-width:640px) {
+
+                            .synpat-store-filter-menu {
+                                /*float: none;*/
+                            }
+                            .synpat-store-filter-search {
+                                /*float: right;*/
+                                /*margin-left: 0;*/
+                                margin-left: 0;
+                            }
+                            .synpat-store-filter-search input {
+                                width: 180px;
+                                width: 172px;
+                            }
+
+                        }
+
+                        @media (max-width:580px) {
+                            .synpat-store-filter-search input {
+                                width: 100px;
+                            }
+                        }
+
+                        @media (max-width:540px) {
+
+                            .synpat-store-content-list-item-left-first,
+                            .synpat-store-content-list-item-left-second {
+                                float: none;
+                                padding-left: 0;
+                                width: 100%;
+                            }
+                            .synpat-store-content-list-item-center {
+                                padding-top: 15px;
+                            }
+
+                        }
+
+                        @media (max-width:510px) {
+                            .synpat-store-filter-search input {
+                                width: 72px;
+                            }
+                        }
+
+                        @media (max-width:480px) {
+
+                            .synpat-store-filter-search  {
+                                /*float: none;
+                                margin-top: 10px;*/
+                                /*float: right;*/
+                                /*display: none;*/
+
+                                left: 50%;
+                                    margin: 0 auto 0 -90px;
+                                    position: absolute;
+                            }
+                            .synpat-store-filter-sort-order,
+                            .synpat-store-filter-sort,
+                            .synpat-store-filter label {
+                                display: none;
+                            }
+                            .synpat-store-filter-search input {
+                                width: 116px;
+                            }
+                            .synpat-store-filter-menu {
+                                /*display: none;*/
+                            }
+
+                        }
+
+                        @media (max-width:400px) {
+                            /*.synpat-store-filter-search input {
+                                width: 68px;
+                            }
+                            .synpat-store-filter-sort {
+                                width: 61px;
+                            }
+                            .synpat-store-filter-sort select {
+                                width: 100%;
+                            }*/
+                        }
+
+                        @media (max-width:349px) {
+                            .synpat-store-filter-search input {
+                                width: 90px;
+                            }
+                        }
+                   
+						/* jssor slider bullet navigator skin 01 css */
+						/*
+						.jssorb01 div           (normal)
+						.jssorb01 div:hover     (normal mouseover)
+						.jssorb01 .av           (active)
+						.jssorb01 .av:hover     (active mouseover)
+						.jssorb01 .dn           (mousedown)
+						*/
+						.jssorb01 {
+							position: absolute;
+						}
+						.jssorb01 div, .jssorb01 div:hover, .jssorb01 .av {
+							position: absolute;
+							/* size of bullet elment */
+							width: 12px;
+							height: 12px;
+							filter: alpha(opacity=70);
+							opacity: .7;
+							overflow: hidden;
+							cursor: pointer;
+							border: #000 1px solid;
+						}
+						.jssorb01 div { background-color: gray; }
+						.jssorb01 div:hover, .jssorb01 .av:hover { background-color: #d3d3d3; }
+						.jssorb01 .av { background-color: #fff; }
+						.jssorb01 .dn, .jssorb01 .dn:hover { background-color: #555555; }
+					
+						/* jssor slider arrow navigator skin 05 css */
+						/*
+						.jssora05l                  (normal)
+						.jssora05r                  (normal)
+						.jssora05l:hover            (normal mouseover)
+						.jssora05r:hover            (normal mouseover)
+						.jssora05l.jssora05ldn      (mousedown)
+						.jssora05r.jssora05rdn      (mousedown)
+						*/
+						.jssora12l, .jssora12r {
+							display: block;
+							position: absolute;
+							/* size of arrow element */
+							 width: 30px;
+							height: 46px;
+							cursor: pointer;
+							background: url(http://staging3.synpat.com/wp-content/themes/synpat/images/a12.png) no-repeat;
+							overflow: hidden;
+						}
+						.jssora12l { background-position: -16px -37px; }
+						.jssora12r { background-position: -75px -37px; }
+						.jssora12l:hover { background-position: -136px -37px; }
+						.jssora12r:hover { background-position: -195px -37px; }
+						.jssora12l.jssora12ldn { background-position: -256px -37px; }
+						.jssora12r.jssora12rdn { background-position: -315px -37px; }
+					</style>
+
+                    <div class="synpat-store clearfix">
+                        <div class="synpat-store-filter">
+                            <a href="" class="synpat-store-filter-toggler"></a>
+                            <label>Sort By</label>
+                            <div class="synpat-store-filter-sort">
+                                <select>
+                                    <option value="1">Stage</option>
+                                    <option value="2">Price</option>
+                                </select>
+                            </div>
+                            <a href="" class="synpat-store-filter-sort-order">
+                                <i class="is-down"></i>
+                                <i class="is-up"></i>
+                            </a>
+                            <form class="synpat-store-filter-search">
+                                <input type="text" placeholder="Search entire store here...">
+                                <button type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                            <ul class="synpat-store-filter-menu clearfix">
+                                <li class="synpat-store-filter-menu-item">
+                                    <a href="store-login.html">Log In</a>
+                                </li>
+                                <li class="synpat-store-filter-menu-item">
+                                    |
+                                </li>
+                                <li class="synpat-store-filter-menu-item">
+                                    <a href="store-login.html">Account</a>
+                                </li>
+                            </ul>
+                            <div id="authModalContent" class="simplemodal-data" style="width: 320px; top: 597.5px; display: none;">
+                                <form class="auth-modal-form">
+                                    <div class="auth-modal-form-block">
+                                        <h3 class="auth-modal-form-block-title headingPOP">New Customers</h3>
+                                        <p>
+                                            By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, 
+                                            view and track your orders in your account and more.
+                                        </p>
+                                    </div>
+                                    <div class="auth-modal-form-block">
+                                        <a href="" title="Create an Account" class="primary-button">Create an Account</a>
+                                        <div class="content">
+                                            <h3 class="auth-modal-form-block-title headingPOP">Registered Customers</h3>
+                                            <p>If you have an account with us, please log in.</p>
+                                            <label for="email" class="required">Email Address <em>*</em></label>
+                                            <input type="text" id="email">
+                                            <label for="pass">Password <em>*</em></label>
+                                            <input type="password" id="pass">
+                                            <p class="auth-modal-form-required">* Required Fields</p>
+                                        </div>
+                                        <div class="auth-modal-form-buttons clearfix">
+                                            <a href="http://ultimo.infortis-themes.com/demo/default/customer/account/forgotpassword/">Forgot Your Password?</a>
+                                            <button type="submit" class="primary-button" title="Login"><span><span>Login</span></span></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="synpat-store-sidebar">
+                            <div class="textwidget">
+                                <h4 class="synpat-store-sidebar-title">
+                                    Departments:
+                                </h4>
+                            </div>
+                            <ul class="synpat-store-sidebar-list">
+                                <li class="synpat-store-sidebar-list-item is-opened">
+                                    <a href="">Medical</a>
+                                    <span class="synpat-store-sidebar-list-item-toggler">
+                                        <i class="closed">+</i>
+                                        <i class="opened">&ndash;</i>
+                                    </span>
+                                    <ul class="synpat-store-sidebar-list-sub">
+                                        <li class="synpat-store-sidebar-list-sub-item is-active">
+                                            <a href="">Instruments for diagnostic</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Surgical and person-identification purposes</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="synpat-store-sidebar-list-item">
+                                    <a href="">Software</a>
+                                    <span class="synpat-store-sidebar-list-item-toggler">
+                                        <i class="closed">+</i>
+                                        <i class="opened">&ndash;</i>
+                                    </span>
+                                    <ul class="synpat-store-sidebar-list-sub">
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Speech Signal Processing</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Audio Compression/ Decompression</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Database and file management</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Artificial intelligence</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Error detection/recovery</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="synpat-store-sidebar-list-item">
+                                    <a href="">Financial Services</a>
+                                    <span class="synpat-store-sidebar-list-item-toggler">
+                                        <i class="closed">+</i>
+                                        <i class="opened">&ndash;</i>
+                                    </span>
+                                    <ul class="synpat-store-sidebar-list-sub">
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Use of funds and securities</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Extension of credit</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Portfolio selection</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Insurance </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="synpat-store-sidebar-list-item">
+                                    <a href="">Semiconductors</a>
+                                    <span class="synpat-store-sidebar-list-item-toggler">
+                                        <i class="closed">+</i>
+                                        <i class="opened">&ndash;</i>
+                                    </span>
+                                    <ul class="synpat-store-sidebar-list-sub">
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Audio/radio</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Bipolar transistors</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Data converters</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Diodes</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Signal conditioning</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Identification and security</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Memory</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Microprocessors</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Logic</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Media processors</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">µ-controllers</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">RF-Sensors</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="synpat-store-sidebar-list-item">
+                                    <a href="">E-commerce</a>
+                                    <span class="synpat-store-sidebar-list-item-toggler">
+                                        <i class="closed">+</i>
+                                        <i class="opened">&ndash;</i>
+                                    </span>
+                                    <ul class="synpat-store-sidebar-list-sub">
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Electronic shopping</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Reservation</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Check-in and booking of reserved places</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Shopping interface</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Coupons</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Rebates</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Advertisements</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">And point of sale</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="synpat-store-sidebar-list-item">
+                                    <a href="">Consumer Electronics</a>
+                                    <span class="synpat-store-sidebar-list-item-toggler">
+                                        <i class="closed">+</i>
+                                        <i class="opened">&ndash;</i>
+                                    </span>
+                                    <ul class="synpat-store-sidebar-list-sub">
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Tablets</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Cameras</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">HDTV</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Notebook </a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">PC</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">MP3 players</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">GPS</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="synpat-store-sidebar-list-item">
+                                    <a href="">Mobile Communications</a>
+                                    <span class="synpat-store-sidebar-list-item-toggler">
+                                        <i class="closed">+</i>
+                                        <i class="opened">&ndash;</i>
+                                    </span>
+                                    <ul class="synpat-store-sidebar-list-sub">
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Smartphones</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Base stations</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Mobile operating systems and applications</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="synpat-store-sidebar-list-item">
+                                    <a href="">Automotive</a>
+                                    <span class="synpat-store-sidebar-list-item-toggler">
+                                        <i class="closed">+</i>
+                                        <i class="opened">&ndash;</i>
+                                    </span>
+                                    <ul class="synpat-store-sidebar-list-sub">
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Vehicle subsystem or accessory control</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Electric vehicle</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Fuel injection control</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="synpat-store-sidebar-list-item">
+                                    <a href="">Networking</a>
+                                    <span class="synpat-store-sidebar-list-item-toggler">
+                                        <i class="closed">+</i>
+                                        <i class="opened">&ndash;</i>
+                                    </span>
+                                    <ul class="synpat-store-sidebar-list-sub">
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Telephonic Communications</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Multiplex Communications</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Multicomputer Data Transferring</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="synpat-store-sidebar-list-item">
+                                    <a href="">Consumer Products</a>
+                                    <span class="synpat-store-sidebar-list-item-toggler">
+                                        <i class="closed">+</i>
+                                        <i class="opened">&ndash;</i>
+                                    </span>
+                                    <ul class="synpat-store-sidebar-list-sub">
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Light emitting diodes</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Liquid crystal cells</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Display elements arranged in matrix</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="synpat-store-sidebar-list-item">
+                                    <a href="">Logistics</a>
+                                    <span class="synpat-store-sidebar-list-item-toggler">
+                                        <i class="closed">+</i>
+                                        <i class="opened">&ndash;</i>
+                                    </span>
+                                    <ul class="synpat-store-sidebar-list-sub">
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Cargo</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Inventory</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Management</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="synpat-store-sidebar-list-item">
+                                    <a href="">Media &amp; Distribution</a>
+                                    <span class="synpat-store-sidebar-list-item-toggler">
+                                        <i class="closed">+</i>
+                                        <i class="opened">&ndash;</i>
+                                    </span>
+                                    <ul class="synpat-store-sidebar-list-sub">
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">TV services</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Set-Top Boxes</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">ISP services</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Video conferencing</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Multimedia services</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">Online video services</a>
+                                        </li>
+                                        <li class="synpat-store-sidebar-list-sub-item">
+                                            <a href="">CDN</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="synpat-store-content">
+                            <ul class="synpat-store-content-list">
+                                <li class="synpat-store-content-list-item clearfix">
+                                    <div class="synpat-store-content-list-item-left">
+                                        <div class="synpat-store-content-list-item-left-first">
+                                            <h3 class="synpat-store-content-list-item-title">Sun Management</h3>
+                                            <div class="synpat-store-content-list-item-description">
+                                                <p>
+                                                    Patents relate to Packet Data Convergence Protocol.  That is, how (e.g. Internet services, photos, text, video) transit a 4G LTE network between both handsets and base stations (eNodeB's)
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="synpat-store-content-list-item-left-second">
+                                            <div class="synpat-store-galery">                                            
+                                                 <div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 200px;  height: 150px; overflow: hidden;" class="synpat-store-galery-list">
+
+                                                    <!-- Loading Screen -->
+                                                    <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+                                                        <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
+                                                            background-color: #000; top: 0px; left: 0px;width: 100%;height:100%;">
+                                                        </div>
+                                                        <div style="position: absolute; display: block; background: url(http://staging3.synpat.com/wp-content/themes/synpat/images/loading.gif) no-repeat center center;
+                                                            top: 0px; left: 0px;width: 100%;height:100%;">
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Slides Container -->
+                                                    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 200px; height: 150px;
+                                                        overflow: hidden;">
+                                                        <div>
+                                                            <a data-lightbox="mygallery1" href="http://backyard.synpat.com/public/upload/LET%20Spec.%20-%20Release%2011.png" ><img u=image src="http://backyard.synpat.com/public/upload/LET%20Spec.%20-%20Release%2011.png" /></a>
+                                                        </div>
+                                                        <div>
+                                                            <a data-lightbox="mygallery1" href="http://backyard.synpat.com/public/upload/LTE%20Release%2011-22.png" ><img u=image src="http://backyard.synpat.com/public/upload/LTE%20Release%2011-22.png" />
+                                                            </a>
+                                                        </div>
+                                                        <div>
+                                                            <a data-lightbox="mygallery1" href="http://backyard.synpat.com/public/upload/LTE%20-%20Release%2011-1.png" >
+                                                            <img u=image src="http://backyard.synpat.com/public/upload/LTE%20-%20Release%2011-1.png" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!--#region Thumbnail Navigator Skin Begin -->
+                                                    <!-- Help: http://www.jssor.com/development/slider-with-thumbnail-navigator-jquery.html -->
+                                                    <!-- thumbnail navigator container -->
+                                                    <!-- Help: http://www.jssor.com/development/slider-with-thumbnail-navigator-jquery.html -->
+                                                    <div u="thumbnavigator" style="position: absolute; bottom: 0px; left: 0px; height:45px; width:600px;">
+                                                        <div style="filter: alpha(opacity=40); opacity:0.4; position: absolute; display: block;
+                                                             top: 0px; left: 0px; width: 100%; height: 100%;">
+                                                        </div>
+                                                        <!-- Thumbnail Item Skin Begin -->
+                                                        <div u="slides">
+                                                            <div u="prototype" style="POSITION: absolute; WIDTH: 600px; HEIGHT: 45px; TOP: 0; LEFT: 0;">
+                                                                <div u="thumbnailtemplate" style="font-family: verdana; font-weight: normal; POSITION: absolute; WIDTH: 100%; HEIGHT: 100%; TOP: 0; LEFT: 0; color:#fff; line-height: 45px; font-size:20px; padding-left:10px;"></div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Thumbnail Item Skin End -->
+                                                    </div>
+                                                    <!--#endregion ThumbnailNavigator Skin End -->
+                                                    
+                                                    <!--#region Bullet Navigator Skin Begin -->
+                                                    <!-- Help: http://www.jssor.com/development/slider-with-bullet-navigator-jquery.html -->
+                                                    
+                                                    <!-- bullet navigator container -->
+                                                    <div u="navigator" class="jssorb01" style="bottom: 16px; right: 10px;">
+                                                        <!-- bullet navigator item prototype -->
+                                                        <div u="prototype"></div>
+                                                    </div>
+                                                    <!--#endregion Bullet Navigator Skin End -->
+                                                    
+                                                    <!--#region Arrow Navigator Skin Begin -->
+                                                    <!-- Help: http://www.jssor.com/development/slider-with-arrow-navigator-jquery.html -->
+                                                    
+                                                    <!-- Arrow Left -->
+                                                    <span u="arrowleft" class="jssora12l" style="top: 123px; left: 0px;">
+                                                    </span>
+                                                    <!-- Arrow Right -->
+                                                    <span u="arrowright" class="jssora12r" style="top: 123px; right: 0px;">
+                                                    </span>
+                                                    <a style="display: none" href="http://www.jssor.com">Image Slider</a>
+                                                    <!-- Trigger -->
+                                                </div>
+                                            </div>
+                                            <div class="synpat-store-social-links">
+                                                <a class="first" href="#" title="Linked in">
+                                                    <i class="fa fa-linkedin"></i>
+                                                </a>
+                                                <a href="http://twitter.com/infortis" title="Follow Synpat on Twitter">
+                                                    <i class="fa fa-twitter"></i>
+                                                </a>
+                                                <a href="#" title="Join us on Facebook">
+                                                    <i class="fa fa-facebook"></i>
+                                                </a>
+                                                <a href="#" class="galery-zoom-button" title="Zoom">
+                                                    <i class="fa fa-search"></i>
+                                                </a>
+                                            </div>
+                                            <div class="synpat-store-content-list-item-number">S/N: 12345</div>
+                                        </div>
+                                    </div>
+                                    <div class="synpat-store-content-list-item-right">
+                                        <div class="synpat-store-content-list-item-price is-regular clearfix">
+                                            <div class="synpat-store-content-list-item-price-key">
+                                                 Cost Price:
+                                            </div>
+                                            <div class="synpat-store-content-list-item-price-value">
+                                                ______
+                                            </div>
+                                        </div>
+										<!--<div class="synpat-store-content-list-item-price is-cost clearfix">
+                                            <div class="synpat-store-content-list-item-price-key">
+                                                Cost Price
+                                            </div>
+                                            <div class="synpat-store-content-list-item-price-value">
+                                                $ 0.6M
+                                            </div>
+                                        </div>-->
+                                      <!--  <div class="synpat-store-content-list-item-price is-regular clearfix">-->
+                                        <div class="synpat-store-content-list-item-price is-validated clearfix">
+                                            <div class="synpat-store-content-list-item-price-key">
+                                                Regular Price:
+                                            </div>
+                                            <div class="synpat-store-content-list-item-price-value">
+                                                ______
+                                            </div>
+                                        </div>
+                                        <div class="synpat-store-content-list-item-price is-validated clearfix">
+                                            <div class="synpat-store-content-list-item-price-key">
+                                                Validated Price:
+                                            </div>
+                                            <div class="synpat-store-content-list-item-price-value">
+                                                ______
+                                            </div>
+                                        </div>
+                                        <div class="synpat-store-content-list-item-detail">
+                                            <a onclick="openUrl('synpat.com/store/Sun_Management/portfolio.php')" href="javascript:void(0)" class="primary-button">Go to portfolio</a>
+                                        </div>
+                                        <div class="synpat-store-content-list-item-info">
+                                            <div class="synpat-store-content-list-item-price is-validated clearfix">
+												<div class="synpat-store-content-list-item-price-key">
+													Syndication Deadline:
+												</div>
+												<div class="synpat-store-content-list-item-price-value">
+													09/01/2015
+												</div>
+											</div>
+											<div class="synpat-store-content-list-item-price is-validated clearfix">
+												<div class="synpat-store-content-list-item-price-key">
+													Seller's Asking Price:
+												</div>
+												<div class="synpat-store-content-list-item-price-value">
+													$0.6M
+												</div>
+											</div>
+											<div class="synpat-store-content-list-item-price is-validated clearfix">
+												<div class="synpat-store-content-list-item-price-key">
+													Potential Participants:
+												</div>
+												<div class="synpat-store-content-list-item-price-value">
+													
+												</div>
+											</div>
+											<div class="synpat-store-content-list-item-price is-validated clearfix">
+												<div class="synpat-store-content-list-item-price-key">
+													Final Participants:
+												</div>
+												<div class="synpat-store-content-list-item-price-value">
+													
+												</div>
+											</div>
+											<div class="synpat-store-content-list-item-price is-validated clearfix">
+												<div class="synpat-store-content-list-item-price-key" >
+													Regular Licensing Starts:
+												</div>
+												<div class="synpat-store-content-list-item-price-value">
+													
+												</div>
+											</div>
+											<div class="synpat-store-content-list-item-price is-validated clearfix">
+												<div class="synpat-store-content-list-item-price-key">
+													Late Licensing Starts:
+												</div>
+												<div class="synpat-store-content-list-item-price-value">
+													
+												</div>
+											</div>
+											<!--<p>
+                                                Syndication Deadline: <span style='text-align:right;width: 70px;display: inline-block;'>03 15,15</span><br>
+                                                Seller's Asking Price: <span style='text-align:right;width: 72px;display: inline-block;'>$0.6M</span><br>
+                                                Requestion Companies: <span style='text-align:right;width: 58px;display: inline-block;'>5</span><br>
+                                                FinalParticipant's Companies: <span style='text-align:right;width: 24px;display: inline-block;'>3</span><br>
+                                                Regular Licensing Starts: <span style='text-align:right;width: 50px;display: inline-block;'>06 01,15</span><br>
+                                                Late Licensing Starts: <span style='text-align:right;width: 69px;display: inline-block;'>10 01,15</span>
+                                            </p>-->
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="synpat-store-content-list-item clearfix is-blur">
+                                    <div class="synpat-store-content-list-item-left">
+                                        <div class="synpat-store-content-list-item-left-first">
+                                            <h3 class="synpat-store-content-list-item-title">Vital Sign Monitor</h3>
+                                            <div class="synpat-store-content-list-item-description">
+                                                <p>
+                                                    This patent portofolio comprises of 21 US granted patents across 5 families related to Interactive Media and Questionnaire systems, and 13 pending patent applications. There are no foreign counterparts in these patent families.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="synpat-store-content-list-item-left-second">
+                                            <div class="synpat-store-galery">                                            
+                                                 <div id="slider2_container" style="position: relative; top: 0px; left: 0px; width: 200px;  height: 150px; overflow: hidden;" class="synpat-store-galery-list">
+
+                                                    <!-- Loading Screen -->
+                                                    <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+                                                        <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
+                                                            background-color: #000; top: 0px; left: 0px;width: 100%;height:100%;">
+                                                        </div>
+                                                        <div style="position: absolute; display: block; background: url(http://staging3.synpat.com/wp-content/themes/synpat/images/loading.gif) no-repeat center center;
+                                                            top: 0px; left: 0px;width: 100%;height:100%;">
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Slides Container -->
+                                                    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 200px; height: 150px;
+                                                        overflow: hidden;">
+                                                        <div>
+                                                            <a data-lightbox="mygallery2" href="http://appadmin.synpat.com/app/webroot/files/1413179674__image_firstexample1.png" ><img u=image src="http://appadmin.synpat.com/app/webroot/files/1413179674__image_firstexample1.png" /></a>
+                                                        </div>
+                                                        <div>
+                                                            <a data-lightbox="mygallery2" href="http://appadmin.synpat.com/app/webroot/files/1413179674__image_middleexample2.jpg" ><img u=image src="http://appadmin.synpat.com/app/webroot/files/1413179674__image_middleexample2.jpg" />
+                                                            </a>
+                                                        </div>
+                                                        <div>
+                                                            <a data-lightbox="mygallery2" href="http://appadmin.synpat.com/app/webroot/files/1413179674__image_thirdexample3.jpg" >
+                                                            <img u=image src="http://appadmin.synpat.com/app/webroot/files/1413179674__image_thirdexample3.jpg" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!--#region Thumbnail Navigator Skin Begin -->
+                                                    <!-- Help: http://www.jssor.com/development/slider-with-thumbnail-navigator-jquery.html -->
+                                                    <!-- thumbnail navigator container -->
+                                                    <!-- Help: http://www.jssor.com/development/slider-with-thumbnail-navigator-jquery.html -->
+                                                    <div u="thumbnavigator" style="position: absolute; bottom: 0px; left: 0px; height:45px; width:200px;">
+                                                        <div style="filter: alpha(opacity=40); opacity:0.4; position: absolute; display: block;
+                                                             top: 0px; left: 0px; width: 100%; height: 100%;">
+                                                        </div>
+                                                        <!-- Thumbnail Item Skin Begin -->
+                                                        <div u="slides">
+                                                            <div u="prototype" style="POSITION: absolute; WIDTH: 200px; HEIGHT: 45px; TOP: 0; LEFT: 0;">
+                                                                <div u="thumbnailtemplate" style="font-family: verdana; font-weight: normal; POSITION: absolute; WIDTH: 100%; HEIGHT: 100%; TOP: 0; LEFT: 0; color:#fff; line-height: 45px; font-size:20px; padding-left:10px;"></div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Thumbnail Item Skin End -->
+                                                    </div>
+                                                    <!--#endregion ThumbnailNavigator Skin End -->
+                                                    
+                                                    <!--#region Bullet Navigator Skin Begin -->
+                                                    <!-- Help: http://www.jssor.com/development/slider-with-bullet-navigator-jquery.html -->
+                                                    
+                                                    <!-- bullet navigator container -->
+                                                    <div u="navigator" class="jssorb01" style="bottom: 16px; right: 10px;">
+                                                        <!-- bullet navigator item prototype -->
+                                                        <div u="prototype"></div>
+                                                    </div>
+                                                    <!--#endregion Bullet Navigator Skin End -->
+                                                    
+                                                    <!--#region Arrow Navigator Skin Begin -->
+                                                    <!-- Help: http://www.jssor.com/development/slider-with-arrow-navigator-jquery.html -->
+                                                    
+                                                    <!-- Arrow Left -->
+                                                    <span u="arrowleft" class="jssora12l" style="top: 123px; left: 0px;">
+                                                    </span>
+                                                    <!-- Arrow Right -->
+                                                    <span u="arrowright" class="jssora12r" style="top: 123px; right: 0px;">
+                                                    </span>
+                                                    <a style="display: none" href="http://www.jssor.com">Image Slider</a>
+                                                    <!-- Trigger -->
+                                                </div>
+                                            </div>
+                                            <div class="synpat-store-social-links">
+                                                <a class="first" href="#" title="Linked in">
+                                                    <i class="fa fa-linkedin"></i>
+                                                </a>
+                                                <a href="http://twitter.com/infortis" title="Follow Synpat on Twitter">
+                                                    <i class="fa fa-twitter"></i>
+                                                </a>
+                                                <a href="#" title="Join us on Facebook">
+                                                    <i class="fa fa-facebook"></i>
+                                                </a>
+                                                <a href="#" class="galery-zoom-button" title="Zoom">
+                                                    <i class="fa fa-search"></i>
+                                                </a>
+                                            </div>
+                                            <div class="synpat-store-content-list-item-number">S/N: 12345</div>
+                                        </div>
+                                    </div>
+                                    <div class="synpat-store-content-list-item-right">
+                                        <div class="synpat-store-content-list-item-price is-cost clearfix">
+                                            <div class="synpat-store-content-list-item-price-key">
+                                                Cost Price:
+                                            </div>
+                                            <div class="synpat-store-content-list-item-price-value">
+                                                $ 0.3M
+                                            </div>
+                                        </div>
+                                        <div class="synpat-store-content-list-item-price is-regular clearfix">
+                                            <div class="synpat-store-content-list-item-price-key">
+                                                Regular Price:
+                                            </div>
+                                            <div class="synpat-store-content-list-item-price-value">
+                                                $ 0.45M
+                                            </div>
+                                        </div>
+                                        <div class="synpat-store-content-list-item-price is-validated clearfix">
+                                            <div class="synpat-store-content-list-item-price-key">
+                                                Validated Price:
+                                            </div>
+                                            <div class="synpat-store-content-list-item-price-value">
+                                                $ 0.9M
+                                            </div>
+                                        </div>
+                                        <div class="synpat-store-content-list-item-detail">
+                                            <a onclick="openUrl('synpat.com/store/12345/portfolio.php')" href="javascript:void(0)" href="" class="primary-button">Go to portfolio</a>
+                                        </div>
+                                         <div class="synpat-store-content-list-item-info">
+                                            <div class="synpat-store-content-list-item-price is-validated clearfix">
+												<div class="synpat-store-content-list-item-price-key">
+													Syndication Deadline:
+												</div>
+												<div class="synpat-store-content-list-item-price-value">
+													03/15/2015
+												</div>
+											</div>
+											<div class="synpat-store-content-list-item-price is-validated clearfix">
+												<div class="synpat-store-content-list-item-price-key">
+													Seller's Asking Price:
+												</div>
+												<div class="synpat-store-content-list-item-price-value">
+													$1.2M
+												</div>
+											</div>
+											<div class="synpat-store-content-list-item-price is-validated clearfix">
+												<div class="synpat-store-content-list-item-price-key">
+													Potential Participants:
+												</div>
+												<div class="synpat-store-content-list-item-price-value">
+													5
+												</div>
+											</div>
+											<div class="synpat-store-content-list-item-price is-validated clearfix">
+												<div class="synpat-store-content-list-item-price-key">
+													Final Participants:
+												</div>
+												<div class="synpat-store-content-list-item-price-value">
+													3
+												</div>
+											</div>
+											<div class="synpat-store-content-list-item-price is-validated clearfix">
+												<div class="synpat-store-content-list-item-price-key">
+													Regular Licensing Starts:
+												</div>
+												<div class="synpat-store-content-list-item-price-value">
+													06/01/2015
+												</div>
+											</div>
+											<div class="synpat-store-content-list-item-price is-validated clearfix">
+												<div class="synpat-store-content-list-item-price-key">
+													Late Licensing Starts:
+												</div>
+												<div class="synpat-store-content-list-item-price-value">
+													10/01/2015
+												</div>
+											</div>
+											<!--<p>
+                                                Syndication Deadline: <span style='text-align:right;width: 70px;display: inline-block;'>03 15,15</span><br>
+                                                Seller's Asking Price: <span style='text-align:right;width: 72px;display: inline-block;'>$0.6M</span><br>
+                                                Requestion Companies: <span style='text-align:right;width: 58px;display: inline-block;'>5</span><br>
+                                                FinalParticipant's Companies: <span style='text-align:right;width: 24px;display: inline-block;'>3</span><br>
+                                                Regular Licensing Starts: <span style='text-align:right;width: 50px;display: inline-block;'>06 01,15</span><br>
+                                                Late Licensing Starts: <span style='text-align:right;width: 69px;display: inline-block;'>10 01,15</span>
+                                            </p>-->
+                                        </div>
+                                    </div>
+                                    <div class="overlay"></div>
+                                </li>
+                                
+                                
+                            </ul>
+                        </div>
+                    </div>
+
+                    <script>
+                        jQuery(function() {
+
+                            // jQuery('.synpat-store-filter-menu-item a').on('click', function() {
+                            //     $('#authModalContent').modal();
+                            //     return false;
+                            // });
+
+                            jQuery('.synpat-store-sidebar-list-item > span').on('click', function() {
+                                var $this = jQuery(this),
+                                    $li = $this.parent(),
+                                    $sublist = $li.find('.synpat-store-sidebar-list-sub'),
+                                    $openedSublists = jQuery('.synpat-store-sidebar-list-sub:visible');
+
+                                if(!$sublist.is(':visible') && $openedSublists.length) {
+                                    $openedSublists.slideUp('100', function() {
+                                        $openedSublists.parent().removeClass('is-opened');
+                                    });
+                                }
+                                if($sublist.length) {
+                                    $sublist.slideToggle('100', function() {
+                                        $li.toggleClass('is-opened');
+                                    });
+                                }
+
+                                return false;
+                            });
+
+                            jQuery('.synpat-store-filter-toggler').on('click', function() {
+                                var $sidebar = jQuery('.synpat-store-sidebar');
+
+                                $sidebar.slideToggle('100');
+
+                                return false;
+                            });
+
+
+                            jQuery('.galery-zoom-button').on('click', function() {
+                                var $imageContainers = jQuery(this).parent().parent().find('.synpat-store-galery-list div[debug-id=slide-board] > div:visible')
+                                console.log($imageContainers);
+
+                                for(var i=0, length=$imageContainers.length; i < length; i += 1) {
+                                    if(parseInt($imageContainers.eq(i).css('left')) === 0) {
+                                        $imageContainers.eq(i).find('a img').trigger('click');
+                                    }
+                                }
+
+                                return false;
+                            });
+
+
+                            /** Lightbox header fix */
+                            setInterval(function() {
+                                jQuery('.lb-dataContainer').css({ marginLeft: - (jQuery('.lb-dataContainer').width() / 2) +'px' });
+                            }, 24);
+
+                            /** Detect scroll speed */
+                            // var lastOffset = jQuery(window).scrollTop();
+                            // var lastDate = new Date().getTime();
+                            // jQuery(window).on('scroll', function(e) {
+                            //     var currentDate = new Date().getTime();
+                            //     var delayInMs = currentDate - lastDate;
+                            //     var offset = jQuery(window).scrollTop() - lastOffset;
+                            //     var speedInPxPerMs = offset / delayInMs;
+                            //     console.log(speedInPxPerMs);
+
+                            //     if(speedInPxPerMs > 2) { // 2 pixels per millisecond
+                            //         // Fast scroll
+                            //     }
+                            //     else {
+                            //         // Slow scroll
+                            //     }
+
+                            //     lastDate = currentDate;
+                            //     lastOffset = jQuery(window).scrollTop();
+                            // });
+
+
+                            /** Galery */
+                            
+                           /* var options = { $AutoPlay: true };
+                            var jssor_slider1 = new $JssorSlider$('slider1_container', options);*/
+                        });
+
+                    </script>
+					<script>
+                        jQuery(document).ready(function ($) {
+                            //Reference http://www.jssor.com/development/slider-with-slideshow-jquery.html
+                            //Reference http://www.jssor.com/development/tool-slideshow-transition-viewer.html
+
+                            var _SlideshowTransitions = [
+                            //Fade in R
+                            { $Duration: 1200, x: 1, $Easing: { $Left: $JssorEasing$.$EaseInOutQuart, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 1, $Brother: { $Duration: 1200, x: -1, $Easing: { $Left: $JssorEasing$.$EaseInOutQuart, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 1 } }
+                            ];
+
+                            var options = {
+                                $AutoPlay: true,                                    //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
+                                $AutoPlaySteps: 1,                                  //[Optional] Steps to go for each navigation request (this options applys only when slideshow disabled), the default value is 1
+                                $AutoPlayInterval: 4000,                            //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
+                                $PauseOnHover: 1,                               //[Optional] Whether to pause when mouse over if a slider is auto playing, 0 no pause, 1 pause for desktop, 2 pause for touch device, 3 pause for desktop and touch device, 4 freeze for desktop, 8 freeze for touch device, 12 freeze for desktop and touch device, default value is 1
+
+                                $ArrowKeyNavigation: true,   			            //[Optional] Allows keyboard (arrow key) navigation or not, default value is false
+                                $SlideDuration: 500,                                //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
+                                $MinDragOffsetToSlide: 20,                          //[Optional] Minimum drag offset to trigger slide , default value is 20
+                                //$SlideWidth: 600,                                 //[Optional] Width of every slide in pixels, default value is width of 'slides' container
+                                //$SlideHeight: 300,                                //[Optional] Height of every slide in pixels, default value is height of 'slides' container
+                                $SlideSpacing: 0, 					                //[Optional] Space between each slide in pixels, default value is 0
+                                $DisplayPieces: 1,                                  //[Optional] Number of pieces to display (the slideshow would be disabled if the value is set to greater than 1), the default value is 1
+                                $ParkingPosition: 0,                                //[Optional] The offset position to park slide (this options applys only when slideshow disabled), default value is 0.
+                                $UISearchMode: 1,                                   //[Optional] The way (0 parellel, 1 recursive, default value is 1) to search UI components (slides container, loading screen, navigator container, arrow navigator container, thumbnail navigator container etc).
+                                $PlayOrientation: 1,                                //[Optional] Orientation to play slide (for auto play, navigation), 1 horizental, 2 vertical, 5 horizental reverse, 6 vertical reverse, default value is 1
+                                $DragOrientation: 3,                                //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
+
+                                $SlideshowOptions: {                                //[Optional] Options to specify and enable slideshow or not
+                                    $Class: $JssorSlideshowRunner$,                 //[Required] Class to create instance of slideshow
+                                    $Transitions: _SlideshowTransitions,            //[Required] An array of slideshow transitions to play slideshow
+                                    $TransitionsOrder: 1,                           //[Optional] The way to choose transition to play slide, 1 Sequence, 0 Random
+                                    $ShowLink: true                                    //[Optional] Whether to bring slide link on top of the slider when slideshow is running, default value is false
+                                },
+
+                                $BulletNavigatorOptions: {                                //[Optional] Options to specify and enable navigator or not
+                                    $Class: $JssorBulletNavigator$,                       //[Required] Class to create navigator instance
+                                    $ChanceToShow: 0,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+                                    $Lanes: 1,                                      //[Optional] Specify lanes to arrange items, default value is 1
+                                    $SpacingX: 10,                                   //[Optional] Horizontal space between each item in pixel, default value is 0
+                                    $SpacingY: 10                                    //[Optional] Vertical space between each item in pixel, default value is 0
+                                },
+
+                                $ArrowNavigatorOptions: {
+                                    $Class: $JssorArrowNavigator$,              //[Requried] Class to create arrow navigator instance
+                                    $ChanceToShow: 2,                                //[Required] 0 Never, 1 Mouse Over, 2 Always
+                                    $AutoCenter: 2                                 //[Optional] Auto center navigator in parent container, 0 None, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+                                },
+
+                                $ThumbnailNavigatorOptions: {
+                                    $Class: $JssorThumbnailNavigator$,              //[Required] Class to create thumbnail navigator instance
+                                    $ChanceToShow: 0,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+                                    $ActionMode: 0,                                 //[Optional] 0 None, 1 act by click, 2 act by mouse hover, 3 both, default value is 1
+                                    $DisableDrag: true                              //[Optional] Disable drag or not, default value is false
+                                }
+                            };
+
+                            var jssor_sliderb = new $JssorSlider$("slider1_container", options);
+                            var jssor_sliderb1 = new $JssorSlider$("slider2_container", options);
+                            //responsive code begin
+                            //you can remove responsive code if you don't want the slider scales while window resizes
+                            function ScaleSlider() {
+                                var parentWidth = jssor_sliderb.$Elmt.parentNode.clientWidth;
+                                if (parentWidth)
+                                    jssor_sliderb.$ScaleWidth(Math.min(parentWidth, 600));
+                                else
+                                    window.setTimeout(ScaleSlider, 30);
+                            }
+                			function ScaleSlider1() {
+                                var parentWidth = jssor_sliderb1.$Elmt.parentNode.clientWidth;
+                                if (parentWidth)
+                                    jssor_sliderb1.$ScaleWidth(Math.min(parentWidth, 600));
+                                else
+                                    window.setTimeout(ScaleSlider1, 30);
+                            }
+                            ScaleSlider();
+                            ScaleSlider1();
+
+                            $(window).bind("load", ScaleSlider);
+                            $(window).bind("resize", ScaleSlider);
+                            $(window).bind("orientationchange", ScaleSlider);
+                			
+                			
+                			$(window).bind("load", ScaleSlider1);
+                            $(window).bind("resize", ScaleSlider1);
+                            $(window).bind("orientationchange", ScaleSlider1);
+                            //responsive code end
+                        });
+                    </script>
+                </div>
+
+            </div>
+
+            <style>
+                .patentee-simulator .bars-container {
+                    padding-right: 56px;
+                    text-align: right;
+                }
+
+                @media screen and (max-width: 64em) {
+                    .patentee-form {
+                        margin-left: 25px !important;
+                    }
+                }
+
+                @media (max-width: 739px) {
+                    .patentee-form {
+                        margin-left: 0 !important;
+                    }
+
+                    .patentee-simulator input {
+                        width: 202px;
+                    }
+
+                    .patentee-simulator .bars-container {
+                        padding-right: 0;
+                        text-align: left;
+                    }
+                }
+            </style>
+
+            <div class='contact-footer'>
+                <div class='contact-footer-content'>
+                    <h1>FAIR AND REASONABLE LICENSING</h1>
+                    <div class='get-in-touch'>
+                        <div class='job-listings-view-all' style="margin-top: 0px;">
+                            <div id="basic-modal2">
+                                <a class="primary-button  pricing-alink " title="Community" href="/company#contacts">Get in touch</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class='site-footer' data-behavior='site-footer'>
+        <span class='copyright'>&#169; 2014 SynPat
+            <!--<a href='/gallery'>
+<span class='icon icon-camera'></span>
+</a>-->
+        </span>
+    </footer>
+    <style>
+        div.patentee .pvalue {
+            font-size: 0.8em;
+        }
+    </style>
+    <script type="text/javascript">
+        (function ($) {
+            var fullwidth = 130;
+            if ($(window).width() < 400)
+                fullwidth = 70;
+
+            function randomIntFromInterval(min, max) {
+                return Math.floor(Math.random() * (max - min + 1) + min);
+            }
+            _fff = false;
+            $(function () {
+                function animateBar(barSelector, percent, value, hasNeg) {
+                    hasNeg = hasNeg | false;
+                    /*if ((percent > 1) && (percent > 0))*/
+                    percent *= 100;
+                    var fw = fullwidth;
+                    if (hasNeg) fw = fullwidth / 2;
+                    var actualWidth = Math.abs(fw * percent);
+
+                    var marginleft = 0;
+                    if (hasNeg) marginleft = fw;
+                    if (percent < 0) {
+                        actualWidth /= 2;
+                        marginleft -= actualWidth;
+                    }
+                    if (!$.isNumeric(value))
+                        $(barSelector + '-number').html('');
+                    else
+                        $(barSelector + '-number').html(value.toFixed(2));
+
+                    if (marginleft < 0) marginleft = 0;
+                    if (actualWidth > fw) actualWidth = fw;
+
+                    $(barSelector).animate({
+                        'width': (percent) + '%',
+                        'margin-left': marginleft + 'px'
+                    }, 300);
+
+                }
+
+                $('#patentee_simulator_for_patentees input[type=text]').on('focusout', function () {
+                    if ($('#number_of_participants').val() == '' || ($('#number_of_participants').val() != '' && !$.isNumeric(jQuery("#number_of_participants").val()))) {
+                        $('#number_of_participants').val('');/*return;*/
+                    }
+                    if ($('#your_asking_price').val() != "" && !$.isNumeric(jQuery("#your_asking_price").val())) {
+                        jQuery("#your_asking_price").val('');
+                    }
+                    /*var number_of_regular_licensees = parseFloat($('#number_of_licensees').val());
+                    var number_of_risk_averse_licensees = parseFloat($('#number_of_risk_averse_licensees').val());
+                    var your_asking_price = parseFloat($('#your_asking_price').val());
+                    var number_of_participants = parseFloat($('#number_of_participants').val());
+                    
+                    number_of_regular_licensees = number_of_regular_licensees? number_of_regular_licensees: 0;
+                    number_of_risk_averse_licensees = number_of_risk_averse_licensees? number_of_risk_averse_licensees: 0;
+                    your_asking_price = your_asking_price? your_asking_price: 0;
+                    number_of_participants = number_of_participants? number_of_participants: 1;
+        
+                    var from_participants = your_asking_price;
+                    var from_regular_licensees = (number_of_regular_licensees) * (your_asking_price) / (2 * (number_of_participants));
+                    var from_risk_averse_licensees = (number_of_risk_averse_licensees) * (your_asking_price) / (number_of_participants);
+                    var total = from_participants + from_regular_licensees + from_risk_averse_licensees; 
+                    
+                    var totalbase = Math.max(from_participants, from_regular_licensees, from_risk_averse_licensees, total);
+                    
+                    var newparticipantTotal = jQuery('#pv24').html();
+                    var newregularTotal = jQuery('#pv36').html();
+                    var newriskaverseTotal = jQuery('#pv46').html();
+                    
+                    var total  = parseFloat(newparticipantTotal) + parseFloat(newregularTotal) + parseFloat(newriskaverseTotal);
+                    var totalbase = Math.max(parseFloat(newparticipantTotal), parseFloat(newregularTotal), parseFloat(newriskaverseTotal), total);
+                    /*totalbase = jQuery("#bar11").width();*/
+                    /*
+                    animateBar('#bar11', parseFloat(newparticipantTotal) / totalbase, parseFloat(newparticipantTotal));
+                    animateBar('#bar12', parseFloat(newregularTotal) / totalbase, parseFloat(newregularTotal));
+                    animateBar('#bar13', parseFloat(newriskaverseTotal) / totalbase, parseFloat(newriskaverseTotal));
+                    $('#bar14-number').html(total.toFixed(2));
+                    */
+
+
+                    __t = jQuery("#number_of_participants").val();
+                    __n = jQuery("#your_asking_price").val();
+
+                    var newparticipantTotal = 0.4 * __t;
+                    var newregularTotal = __t / 3;
+                    var newriskaverseTotal = 0.8 * __t / 3;
+
+
+                    var total = parseFloat(newparticipantTotal) + parseFloat(newregularTotal) + parseFloat(newriskaverseTotal);
+                    var totalbase = Math.max(parseFloat(newparticipantTotal), parseFloat(newregularTotal), parseFloat(newriskaverseTotal), total);
+                    /*totalbase = jQuery("#bar11").width();*/
+
+                    animateBar('#bar11', parseFloat(newparticipantTotal) / totalbase, parseFloat(newparticipantTotal));
+                    animateBar('#bar12', parseFloat(newregularTotal) / totalbase, parseFloat(newregularTotal));
+                    animateBar('#bar13', parseFloat(newriskaverseTotal) / totalbase, parseFloat(newriskaverseTotal));
+                    $('#bar14-number').html(total.toFixed(2));
+                    __r = 0;
+                    if (__n != "") {
+                        __r = 2 * __t / __n;
+                    }
+
+                    $('#bar144-number').html(__r.toFixed(2));
+                    //animateBar('#bar14', total / totalbase, total);
+
+                    // console.log('total: ' + total);
+                }).focusout();
+
+                var showOnPatentImage = function (e) {
+
+                    var number_of_regular_licensees = parseFloat($('#number_of_licensees').val());
+                    var number_of_risk_averse_licensees = parseFloat($('#number_of_risk_averse_licensees').val());
+                    var your_asking_price = parseFloat($('#your_asking_price').val());
+                    var number_of_participants = parseFloat($('#number_of_participants').val());
+
+                    number_of_regular_licensees = number_of_regular_licensees ? number_of_regular_licensees : 0;
+                    number_of_risk_averse_licensees = number_of_risk_averse_licensees ? number_of_risk_averse_licensees : 0;
+                    your_asking_price = your_asking_price ? your_asking_price : 0;
+                    number_of_participants = number_of_participants ? number_of_participants : 1;
+
+
+                    var newRval = (your_asking_price * 30) / 100;
+                    nR = Math.round(-1 * newRval);
+                    $('#pv22').html(-1 * nR);
+                    var newRval1 = (your_asking_price * 50) / 100;
+                    nR1 = Math.round(-1 * newRval1);
+                    $('#pv33').html(-1 * nR1);
+                    /*var newRval2  = (your_asking_price * 20)/100;*/
+                    var newRval2 = your_asking_price - $('#pv22').html() - $('#pv33').html();
+
+                    $('#pv43').html(Math.round(newRval2));
+
+                    if ($('#number_of_participants').val() == '') return;
+
+                    /*var s1 = your_asking_price / number_of_participants;*/
+                    __t = jQuery("#number_of_participants").val();
+                    __n = jQuery("#your_asking_price").val();
+                    _rLT = 0;
+                    if (__n != "") {
+                        _rLT = 2 * __t / __n;
+                    }
+
+                    $('#pv32').html(_rLT.toFixed(2));
+                    var s1 = _rLT / 1.5;
+                    $('#pv23').html(s1.toFixed(2));
+                    $('#pv31').html($('#pv23').html());
+
+                    nVal = Math.round(newRval) * s1.toFixed(2);
+                    $('#pv11').html(nVal.toFixed(2));
+                    $('#pv21').html(nVal.toFixed(2));
+
+
+                    var s2 = 1.5 * _rLT / 1.5;
+                    /*$('#pv32').html(s2.toFixed(2));*/
+
+                    /*$('#pv33').html(number_of_regular_licensees);*/
+
+                    $('#pv34').html(s2.toFixed(2));
+                    var s3 = s2.toFixed(2) * Math.round(newRval1);
+                    $('#pv35').html(s3.toFixed(2));
+                    s3 = s3 / 3;
+                    $('#pv36').html(s3.toFixed(2));
+
+                    $('#pv41').html(s2.toFixed(2));
+                    s2 *= 2;
+                    $('#pv42').html(s2.toFixed(2));
+
+                    /*$('#pv43').html(number_of_risk_averse_licensees);*/
+
+                    $('#pv44').html(s2.toFixed(2));
+
+                    var s4 = s2.toFixed(2) * Math.round(newRval2);
+                    $('#pv45').html(s4.toFixed(2));
+                    var s5 = s4 / 3;
+                    $('#pv46').html(s5.toFixed(2));
+
+
+                    _particpantCost = s1 - (s3 + s5) / (-1 * nR);
+                    if (_particpantCost < 0) {
+                        $('#pv24').css('color', '#CD3333').html(_particpantCost.toFixed(2));
+                    } else {
+                        $('#pv24').css('color', '#333333').html(_particpantCost.toFixed(2));
+                    }
+
+                };
+                $('#your_asking_price').change(showOnPatentImage);
+                $('#number_of_participants').change(showOnPatentImage);
+                $('#number_of_licensees').change(showOnPatentImage);
+                $('#number_of_risk_averse_licensees').change(showOnPatentImage);
+
+            });
+        })(jQuery);
+    </script>
+
+
+    <script type="text/javascript">if (!NREUMQ.f) {
+    NREUMQ.f = function () {
+        NREUMQ.push(["load", new Date().getTime()]);
+        var e = document.createElement("script");
+        e.type = "text/javascript";
+        e.src = (("http:" === document.location.protocol) ? "http:" : "https:") + "//" +
+          "js-agent.newrelic.com/nr-100.js";
+        document.body.appendChild(e);
+        if (NREUMQ.a) NREUMQ.a();
+    };
+
+    NREUMQ.a = window.onload; window.onload = NREUMQ.f;
+};
+
+        NREUMQ.push(["nrfj", "beacon-3.newrelic.com", "2eb03ba309", "2437756", "dFwLREYJCQkGRhsLW1pWSllaAgAd", 0, 238, new Date().getTime(), "", "", "", "", ""]);</script>
+    <script src="http://www.staging3.synpat.com/wp-content/themes/synpat/assets/application-3cc4b400bac731d61374353b28fd0d2e.js" type="text/javascript"></script>
+    <script>
+	function openUrl(str){
+		
+		window.location = "http://"+str;
+	}
+	
+	
+        //<![CDATA[
+        jQuery(document).ready(Substantial.init);
+        //]]>
+
+        jQuery('.team-photo-tile img').click(function () {
+            var el = jQuery(this).next().find('.team-caption');
+            curHeight = el.height(),
+            autoHeight = el.css('height', 'auto').height();
+
+            if (jQuery(this).next().find('.team-read-more').text() == "Read Full Background") {
+                jQuery(this).next().find('.team-read-more').text("Collapse Detail");
+                el.height(curHeight).animate({ height: autoHeight }, 600, function () {
+                    el.css('height', 'auto');
+                });
+            }
+            else {
+                jQuery(this).next().find('.team-read-more').text("Read Full Background");
+                el.animate({ height: '185px' }, 600)
+            }
+        });
+
+        jQuery('.team-read-more').click(function (e) {
+            e.preventDefault();
+
+            var el = jQuery(this).prev();
+            curHeight = el.height(),
+            autoHeight = el.css('height', 'auto').height();
+
+            if (jQuery(this).text() == "Read Full Background") {
+                jQuery(this).text("Collapse Detail");
+                el.height(curHeight).animate({ height: autoHeight }, 600, function () {
+                    el.css('height', 'auto');
+                });
+            }
+            else {
+                jQuery(this).text("Read Full Background");
+                el.animate({ height: '185px' }, 600)
+            }
+        });
+
+        jQuery(".login-popup-on").click(function (e) {
+            e.preventDefault();
+            jQuery('.login-popup').fadeIn('fast');
+        });
+
+        jQuery(".login-popup-off").click(function (e) {
+            e.preventDefault();
+            jQuery('.login-popup').fadeOut('fast');
+        });
+
+        jQuery(document).ready(function () {
+            jQuery(".wp_show_login").click(function () {
+                jQuery("#wpmem_login").slideToggle("slow");
+            });
+            jQuery(".wp_show_reg_form").click(function () {
+                jQuery("#wpmem_reg").slideToggle("slow");
+            });
+            jQuery('.wp-post-image').removeAttr('width').removeAttr('height');
+            jQuery('.wp-post-image').removeAttr('width').removeAttr('height');
+            jQuery('.panel-row-style-accordion h3').click(function (e) {
+                jQuery(this).toggleClass('over');
+                jQuery(this).next('div').slideToggle('slow');
+            });
+            jQuery('.accordionfront section h3').click(function (e) {
+                jQuery(this).toggleClass('over');
+                jQuery(this).next('div').slideToggle('slow');
+            });
+        });
+        jQuery(function ($) {
+            $(".wp_show_login").click(function () {
+                setTimeout(function () {
+                    loadPopup();
+                }, 500);
+                return false;
+            });
+            $("div.close").click(function () {
+                disablePopup();
+            });
+            $(this).keyup(function (event) {
+                if (event.which == 27) {
+                    disablePopup();
+                }
+            });
+
+            var popupStatus = 0;
+            function loadPopup() {
+                if (popupStatus == 0) {
+                    closeloading();
+                    $("#wpmem_login").fadeIn(0500);
+                    popupStatus = 1;
+                }
+            }
+
+            function disablePopup() {
+                if (popupStatus == 1) {
+                    $("#wpmem_login").fadeOut("normal");
+                    popupStatus = 0;
+                }
+            }
+
+        });
+
+        //<![CDATA[
+        jQuery(document).ready(function () {
+            Substantial.Newsletter('.newsletter-register-button', '.newsletter-sign-up');
+        });
+        //]]>
+
+        jQuery(".wp_show_login").click(function () {
+            setTimeout(function () {
+                loadPopup();
+            }, 500);
+
+            return false;
+        });
+        
+        jQuery("div.close").click(function () {
+            disablePopup();
+        });
+
+        jQuery(this).keyup(function (event) {
+            if (event.which == 27) {
+                disablePopup();
+            }
+        });
+
+        var popupStatus = 0;
+
+        function loadPopup() {
+            if (popupStatus == 0) {
+                closeloading();
+                jQuery("#wpmem_login").fadeIn(0500);
+                popupStatus = 1;
+            }
+        }
+
+        function disablePopup() {
+            if (popupStatus == 1) {
+                jQuery("#wpmem_login").fadeOut("normal");
+                popupStatus = 0;
+            }
+        }
+
+    </script>
+
+    <!-- Generated in 1.308 seconds. (41 q) -->
+
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-includes/js/comment-reply.min.js?ver=4.2.2'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-content/themes/synpat/js/navigation.js?ver=1.0'></script>
+    <script type='text/javascript' src='http://www.staging3.synpat.com/wp-content/plugins/s2member/s2member-o.php?ws_plugin__s2member_js_w_globals=1&#038;qcABC=1&#038;ver=150311-2063064355'></script>
+    <style>
+        @media (max-width:780px) {
+            #pgc-5602-1 .panel-grid-cell {
+            }
+
+            #pgc-5602-1-0 {
+                width: 49.943% !important;
+                float: left !important;
+                padding: 0 15px !important;
+            }
+
+            #pg-4937-1 .panel-grid-cell, #pg-5602-6 .panel-grid-cell {
+                float: left !important;
+            }
+
+            #pgc-4937-1-0, #pgc-4937-1-1, #pgc-4937-1-2, #pgc-5602-6-0, #pgc-5602-6-1, #pgc-5602-6-2 {
+                width: 33.333% !important;
+                padding: 0 15px !important;
+            }
+
+            .textwidget h4 {
+                font-size: 21px !important;
+            }
+
+            #pg-5602-6 .textwidget h4 {
+                font-size: 19px !important;
+            }
+        }
+
+        @media (max-width:632) {
+            #pgc-5602-6-0, #pgc-5602-6-1, #pgc-5602-6-2 {
+                width: auto !important;
+                padding: 0 !important;
+            }
+
+            .textwidget h4 {
+                font-size: 23px !important;
+            }
+
+            #pg-5602-6 .panel-grid-cell {
+                float: none !important;
+            }
+        }
+
+        @media (max-width:540px) {
+            #pgc-5602-1 .panel-grid-cell {
+            }
+
+            #pgc-5602-1-0 {
+                width: auto !important;
+                float: none !important;
+                padding: 0 !important;
+            }
+
+            #pg-4937-1 .panel-grid-cell, #pg-5602-6 .panel-grid-cell {
+                float: none !important;
+            }
+
+            #pgc-4937-1-0, #pgc-4937-1-1, #pgc-4937-1-2, #pgc-5602-6-0, #pgc-5602-6-1, #pgc-5602-6-2 {
+                width: auto !important;
+                padding: 0 !important;
+            }
+
+            .textwidget h4 {
+                font-size: 23px !important;
+            }
+        }
+    </style>
+    <!-- Comes from Seller  -->
+    <!-- End -->
+</body>
+
+</html>

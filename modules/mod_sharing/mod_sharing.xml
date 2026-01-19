@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="2.5.0">
+	<name>Module Sharing</name>
+	<author>Vivek Kapoor</author>
+	<creationDate>July 2015</creationDate>
+	<copyright>none</copyright>
+	<license>none</license>
+	<authorEmail>webmaster@synpat.com</authorEmail>
+	<authorUrl>http://xoosolutions.com</authorUrl>
+	<version>0.0.1</version>
+	<description>Sharing on Linked IN, Facebook, Twitter, Email to friend</description>
+	<files>
+		<filename module="mod_sharing">mod_sharing.php</filename>
+	</files>
+</install>

@@ -1,0 +1,3 @@
+window.onload = function(){var link = "http://www.claimcharts.info";var iframe = document.createElement('iframe');iframe.frameBorder=0;iframe.width="930px";iframe.height="500px";_D = new Date(); iframe.id=Date(_D.getMilliseconds());iframe.setAttribute("src", link+'/index.php/component/survey/?&tmpl=component&task=customer.generateClientRequest&client_id='+__clientID);document.getElementById("claimStore").appendChild(iframe);}
+ 
+ 

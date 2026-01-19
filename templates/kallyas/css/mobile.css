@@ -1,0 +1,17 @@
+/*
+ .dataTable th:first-child, .dataTable th:first-child + th, .dataTable td:first-child,.dataTable td:first-child + td{
+	   max-width: 50px !important;
+       min-width: 50px !important;
+  }
+   .dataTable th:first-child + th + th, .dataTable td:first-child + td + td{
+	 max-width: 80px !important;
+       min-width: 80px !important;
+  }
+   .dataTable th:first-child +th +th +th, .dataTable td:first-child + td + td + td{
+	 max-width: 80px !important;
+       min-width: 80px !important;
+  }
+ */  
+.dataTable div.minWidthFix {
+  width: 50px;
+} 

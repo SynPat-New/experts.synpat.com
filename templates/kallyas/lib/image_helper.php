@@ -1,0 +1,92 @@
+<?php
+/**
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE
+ */
+
+defined('_JEXEC') or die;
+
+jimport('joomla.image.image');
+jimport('joomla.filesystem.file');
+
+class kallyasImageHelper
+{
+	
+	public static function createThumb($path, $width = 100, $height = '', $scale = 2, $crop = 0)
+	{
+		$myImage = new JImage(); 
+		$myImage->loadFile(JPATH_SITE . DS . $path);
+		
+		if(!$height) $height = ceil($width*self::getImgProportion($path));
+		
+		if ($myImage->isLoaded()) { 
+			// $filename = end(explode('/', $path));
+			$filename = JFile::getName($path);
+			
+			$filefolder = substr(md5(self::getFolderPath($path)),1,10);
+			
+			$newfilename = $width.'x'.$height.'_'.$filefolder.'_'.JFile::makeSafe($filename);
+			$fileExists = JFile::exists(JPATH_CACHE .'/'.$newfilename);
+			
+			if(!$fileExists) {
+				$resizedImage = $myImage->resize($width, $height, true, $scale);
+				$properties = $myImage->getImageFileProperties($path);
+				
+				$mime = $properties->mime;
+				if ($mime == 'image/jpeg') {
+					$type = IMAGETYPE_JPEG;
+				} elseif ($mime = 'image/png') {
+					$type = IMAGETYPE_PNG;
+				} elseif ($mime = 'image/gif') {
+					$type = IMAGETYPE_GIF;
+				}
+				
+				if($crop) {
+					$finalImage = $resizedImage->crop($width, $height, 0, 0);
+				} else {
+					$finalImage = $resizedImage;
+				}
+				
+				$finalImage->toFile(JPATH_CACHE .'/'.$newfilename, $type);
+			}
+			return $newfilename;
+		} else { 
+			return "My file is not loaded"; 
+		} 
+	}
+	
+	public static function getFolderPath($path) {
+		$rootPath = $_SERVER['DOCUMENT_ROOT'];
+		$thisPath = dirname($path);
+		$onlyPath = str_replace($rootPath, '', $thisPath);
+		return $onlyPath;	
+	}
+	
+	public static function getProportion($path) 
+	{
+		$myImage = new JImage();
+		$imgPath = JPATH_SITE . DS . $path;
+		$myImage->loadFile($imgPath);
+		if ($myImage->isLoaded()) { 
+			$properties = $myImage->getImageFileProperties($imgPath);
+			return round(($properties->height/$properties->width)*100);
+		} else { 
+			return; 
+		} 
+	}
+	public static function getImgProportion($path) 
+	{
+		$myImage = new JImage();
+		$imgPath = JPATH_SITE . DS . $path;
+		$myImage->loadFile($imgPath);
+		if ($myImage->isLoaded()) { 
+			$properties = $myImage->getImageFileProperties($imgPath);
+			return $properties->height/$properties->width;
+		} else { 
+			return; 
+		} 
+	}
+	public static function returnBool($val) {
+		return $val ? 'true':'false';
+	}
+}

@@ -1,0 +1,85 @@
+#text_1,#text_2,#text_3,#text_4,#text_5,#text_6,#text_7,#text_8,#text_9,#text_10,#text_11,#text_12,#text_13 {
+	white-space: normal;
+}
+
+#rowspreq tr {
+	background-color:#EEEEEE;
+}
+
+#filesFolder{
+	visibility:hidden;
+}
+
+table.layout_table td{
+	padding:4px;
+	font-family:Georgia;
+}
+
+.header_row{
+	background-color:#999999;
+	font-size:13px;
+}
+
+.header_row2{
+	background-color:#CCCCCC;
+	font-size:13px;
+}
+
+.layout_table_column1{
+	width:20%;
+}
+
+.layout_table_column2{
+	width:10%;
+}
+
+div.m{
+	border-left: 1px solid #CCCCCC !important;
+	border-right: 1px solid #CCCCCC !important;	
+}
+div#element-box div.m {
+	background-color:#FFFFFF !important;
+}
+
+#sbox-window {
+    background-color: black !important;    
+}
+
+table.adminform td {
+    font-size: 11px !important;
+}
+
+.jgrid span.state {
+    height: 13px !important;
+    width: 13px !important;
+}
+.guru_buynow {
+	-moz-box-shadow:inset 0px 1px 0px 0px #fff6af;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #fff6af;
+	box-shadow:inset 0px 1px 0px 0px #fff6af;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23) );
+	background:-moz-linear-gradient( center top, #ffec64 5%, #ffab23 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23');
+	background-color:#ffec64;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #ffaa22;
+	display:inline-block;
+	color:#333333;
+	font-family:arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffee66;	
+}.guru_buynow:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64) );
+	background:-moz-linear-gradient( center top, #ffab23 5%, #ffec64 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64');
+	background-color:#ffab23;
+}
+
+/*fieldset li, ol#property-values li {
+    list-style: disc inside none !important;
+}*/

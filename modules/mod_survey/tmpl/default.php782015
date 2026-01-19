@@ -1,0 +1,672 @@
+<?php
+/**
+ * @package		Joomla.Site
+ * @subpackage	mod_whosonline
+ * @copyright	Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ */
+// no direct access
+defined('_JEXEC') or die;
+
+$db = JFactory::getDBO();
+$sql = "SELECT * FROM #__paypal_setting";
+$db->setQuery($sql);
+$getPaypalData = $db->loadObject();
+$paypalEmail = $getPaypalData->email_id;
+$paypalURL = "";
+if ($getPaypalData->mode == 1) {
+    $paypalURL = "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&notify_version=2.9";
+} else { 
+    $paypalURL = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_xclick&notify_version=2.9";
+}
+?>
+<style>
+.gobox.ok{
+	background:#797979 !important;text-transform:none;
+}
+.gobox.ok h4{
+	font-size:17.5px;margin-top:5px;
+}
+/*.table th, .table td{border-top:1px solid #DDDDDD;}*/
+#header{background:rgba(0,0,0,0.5);}
+nav#main_menu > ul.sf-menu > li > a{color:#fff;}
+.topnav > li > a, .topnav li .menu li a{color:#fff;}
+div.span1.btnDeleteSpan{margin-left:2.014102564102564% !important;}
+#patentImplementedAll .elementClaim:nth-child(odd){
+	/*background-color:#dff0d8;border:1px solid #d6e9c6 !important*/
+	border:1px solid #cccccc !important;
+}
+#patentImplementedAll .elementClaim:nth-child(even){
+	border:1px solid #cccccc !important
+}
+
+
+	@media (min-width: 768px) {
+		.nextButton {
+			position: relative;
+		}
+		.nextButton [type=file] {
+			position: absolute;
+			top: 84px;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.nextButton [type=file] {
+			/*position: relative;
+			top: 55px;*/
+		}
+	}
+
+
+	/** Tooltips */
+	.tooltip-inner {
+		background-color: #404040 !important;
+		border-radius: 2px !important;
+		font-size: 13px !important;
+		opacity: 0.7 !important;
+	}
+	.tooltip.top .tooltip-arrow {
+  		border-top-color: #404040 !important;
+		opacity: 0.7 !important;
+	}
+
+
+</style>
+<div class="visible-desktop visible-phone visible-tablet"> 
+    <div id="order_scripts">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.2/themes/smoothness/jquery-ui.css" />
+        <script src="http://code.jquery.com/ui/1.8.2/jquery-ui.js"></script>
+    </div>
+    <form action='index.php' method="POST" onsubmit="return updateShoppingCartTable(2);" enctype="multipart/form-data">
+	<div class="row-fluid" style='background:#ececec;border:1px solid #cccccc !important'>
+		<div class="span2" style='padding:10px; '>			
+			<div class="span12">
+				<div class="controls">
+					<input type="text" maxlength="7"  id="project_name_multiple" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Please set a name for your order so that you could check from time to time whether reports have been created for you." class="input-block-level" placeholder="Set a Order Name" name="project_name_multiple" required="required" >
+				</div>	
+			</div>
+			<div class="span12 noMargin">			
+				<div class="controls">
+					<input type="text" id="project_deadline_multiple" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Deadline for Delivery" class="input-block-level" placeholder="Dealine for Delivery" name="project_deadline_multiple" >
+					
+				</div>			
+			</div>			
+		</div>
+		<div class="span2" style='padding:10px; '>			
+			<div class="span12">
+				<div class="controls">
+					<input type="text" onkeypress="return isNumber(event)"
+  id="maximum_price_claim" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Please state here how highly you would be willing to reward PeXperts for a good report. We would like to encourage PeXperts to invest as much time and efforts as they could in order to provide you with reports of the highest quality. This field is not mandatory, but if you like PeXperts to know that your budget allows high rewards for high quality reports - this is the place to do that!" class="input-block-level" placeholder="Maximum Price/Claim" name="maximum_price_claim" >
+				</div>	
+			</div>
+			<div class="span12 noMargin">			
+				<div class="controls">
+					<input type="text" id="specific_expert" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="If you like a specific <?php echo JFactory::getConfig()->get('pexpert');?> to work on your project rather than ClaimCharts.info to send your order to the entire network of <?php echo JFactory::getConfig()->get('pexpert');?>s, you can state here the <?php echo JFactory::getConfig()->get('pexpert');?> Name of the expert you wish to work on your order." class="input-block-level" placeholder="Specific Expert" name="specific_expert" >	
+				</div>			
+			</div>	
+		</div>
+		<div class="span2" style='padding:10px; '>		
+			<div class="span12">
+				<div class="controls">
+					<input type="text"  id="email_sms" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="This filed is optional. If you like ClaimCharts.info to send you alerts each time a report is submitted to your order, you may leave here your email address or phone number to receive an SMS message. You may leave this filed empty and simply search in the Download page whether reports were sumbitted to your order." class="input-block-level" placeholder="Email/SMS" name="email_sms" >
+				</div>	
+			</div>			
+		</div>
+		<div class="span6" style='padding:10px; '>						
+			<div class="controls">
+				<textarea id="comment" style='resize:none;min-height:71px' class='span12' placeholder="Please provide comments and specific instruction to the experts" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="You may provide the PeXperts or ClaimCharts.info team with specific instructions as to your requested reports. For example, if you like ClaimCharts.info to break the claim into its elements in a specific manner, or to ask that the PeXperts will interprate a claim element in a specific way (e.g. due to limitations in the specs or the file history)." name="comment" ></textarea>
+			</div>			  
+		</div>		
+	</div>		
+	<div class="row-fluid tM" id="patentImplementedAll">
+		<div class='elementClaim row' style='margin-left: 0px; padding:10px;'>			
+			<div class='span2'>
+				<div class="span12 noMarginLeft">
+					<select data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Each box is dedicated for one claim, in which you may order either a PriorArt Report or a ClaimChart Report. Both reports pretty much look the same, but for one main difference - the publication date of the evidence provided by the PeXperts. In PriorArt Repots the evidence must precede the filing date of the patent application, while in ClaimChart Reports it's the opposite." name="type_of_report[]" class='span12' onchange="changeElement(jQuery(this))">
+						<option value="0">Type of Report</option>
+						<option value="1">PriorArt Report</option>
+						<option value="2">ClaimChart Report</option>
+					</select>	
+				</div>
+				<div class="span12 noMarginLeft">
+					<select data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="You may order a ClaimChart report only for issued patents, while PriorArt reports can be ordered not only for issued patents (to find prior art that the patent examiner overlooked so that a patent can be declared invalid), but also for patent applications (helps to determine whether the invention is novel before committing the resources necessary to obtain a patent)." name="type_of_document[]" class='span12' onchange="changeElement(jQuery(this))">
+						<option value="0">Type of Document</option>
+						<option value="1">Patent</option>
+						<option value="2">Published Application</option>
+						<option value="3">Unpublished Application</option>
+					</select>	
+				</div>		
+				<div class="span12 noMarginLeft">
+					<select data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="You may ask that the reports for this claim will not be sold to others but you, or, you may allow ClaimCharts.info to offer the reports for sale to others as well. Knowing about the potential to sell to others, PeXperts might lower their asking price for their reports." name="type_of_exclusivity[]" class='span12' onchange="checkExclusive()">
+						<option value="0">Exclusivity</option>
+						<option value="1">Exclusively made for you</option>
+						<option value="2">Available for others</option>
+					</select>
+				</div>				
+			</div>
+			<div class='span2 nextElement'></div>
+			<div class='span6 nextElement1'></div>
+			<div class='span2 nextButton'><div class='span12 btnDeleteSpan' style='display:none'><a class='btn btn-flat pull-right' href='javascript://' onclick='deleteSkelton(jQuery(this));'>Remove</a></div><div class='span12 btnAddSpan noMargin'><a class='btn btn-flat pull-right' href='javascript://' onclick='implementedSkelton(jQuery(this));'>Add Claim</a></div><div class='span12  noMargin fileEvidence' style='display:none'><input type="file" name="upload_evidence_0[]" class='span12 file' multiple style='font-size: 12px;'/></div></div>			
+		</div>
+	</div>
+	<div class="row-fluid visible-desktop visible-phone hidden-tablet">
+		<div class="span5 tMxxx">
+			<table class="table" style='border:1px solid #DDDDDD;margin-bottom:10px;'>
+				<tr style='border:1px solid #DDDDDD;'>
+					<th style='text-align:left;'>Type of Report</th>
+					<th style='text-align:left;'>Price per Claim</th>
+					<th style='text-align:left;'>Claims ordered</th>
+					<th style='text-align:left;'>Subtotal</th>
+				</tr>
+				<tr>
+					<th style='text-align:left;'>ClaimCharts</th>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style='text-align:left;'><span style='margin-left;5px;overflow:hidden;'>Non-Exclusive</span></td>
+					<td class="aCenter">$400</td>
+					<td class='ccNon aCenter'>-</td>
+					<td class='ccNonSub aCenter'>-</td>
+				</tr>
+				<tr>
+					<td style='text-align:left;'><span style='margin-left;5px;overflow:hidden;'>Exclusive</span></td>
+					<td class="aCenter">$700</td>
+					<td class='ccExc aCenter'>-</td>
+					<td class='ccSub aCenter'>-</td>
+				</tr>
+				<tr>
+					<th style='text-align:left;'>PriorArt</th>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style='text-align:left;'><span style='margin-left;5px;overflow:hidden;'>Non-Exclusive</span></td>
+					<td class="aCenter">$700</td>
+					<td class='panon aCenter'>-</td>
+					<td class='paNonSub aCenter'>-</td>
+				</tr>
+				<tr>
+					<td style='text-align:left;'><span style='margin-left;5px;overflow:hidden;'>Exclusive</span></td>
+					<td class="aCenter">$900</td>
+					<td class='paExc aCenter'>-</td>
+					<td class='paSub aCenter'>-</td>
+				</tr>
+				<tr style='border:1px solid #DDDDDD;'>
+					<td style='text-align:left;'>Total</td>
+					<td class="aCenter"></td>
+					<td class="reportTotal aCenter" style='font-weight:bold;'>-</td>
+					<td class='grandTotal aCenter' style='font-weight:bold;'>-</td>
+				</tr>
+			</table>
+		</div>
+	</div>	
+	<div class="row-fluid hidden-desktop hidden-phone visible-tablet">
+		<div class="span8 tMxxx">
+			<table class="table" style='border:1px solid #DDDDDD;margin-bottom:10px;'>
+				<tr style='border:1px solid #DDDDDD;'>
+					<th style='text-align:left;'>Type of Report</th>
+					<th style='text-align:left;'>Price per Claim</th>
+					<th style='text-align:left;'>Claims ordered</th>
+					<th style='text-align:left;'>Subtotal</th>
+				</tr>
+				<tr>
+					<th style='text-align:left;'>ClaimCharts</th>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style='text-align:left;'><span style='margin-left;5px;overflow:hidden;'>Non-Exclusive</span></td>
+					<td class="aCenter">$400</td>
+					<td class='ccNon aCenter'>-</td>
+					<td class='ccNonSub aCenter'>-</td>
+				</tr>
+				<tr>
+					<td style='text-align:left;'><span style='margin-left;5px;overflow:hidden;'>Exclusive</span></td>
+					<td class="aCenter">$700</td>
+					<td class='ccExc aCenter'>-</td>
+					<td class='ccSub aCenter'>-</td>
+				</tr>
+				<tr>
+					<th style='text-align:left;'>PriorArt</th>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style='text-align:left;'><span style='margin-left;5px;overflow:hidden;'>Non-Exclusive</span></td>
+					<td class="aCenter">$700</td>
+					<td class='panon aCenter'>-</td>
+					<td class='paNonSub aCenter'>-</td>
+				</tr>
+				<tr>
+					<td style='text-align:left;'><span style='margin-left;5px;overflow:hidden;'>Exclusive</span></td>
+					<td class="aCenter">$900</td>
+					<td class='paExc aCenter'>-</td>
+					<td class='paSub aCenter'>-</td>
+				</tr>
+				<tr style='border:1px solid #DDDDDD;'>
+					<td style='text-align:left;'>Total</td>
+					<td class="aCenter"></td>
+					<td class="reportTotal aCenter" style='font-weight:bold;'>-</td>
+					<td class='grandTotal aCenter' style='font-weight:bold;'>-</td>
+				</tr>
+			</table>
+		</div>
+	</div>	
+	<div class="row-fluid" style='margin-bottom:0px'>
+		<div class="span5">
+			<div class="form-horizontal-1 visible-desktop visible-phone visible-tablet">
+				<div class="span8">
+					<div class="controls">
+						<input type="text" id="coupon_code" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Enter coupon code." class="input-block-level" placeholder="Coupon Code" name="coupon_code"/>
+					</div>
+				</div>
+				<div class="span4" style="padding:0px">
+					<a class='btn btn-flat pull-right' href='javascript://' onclick='applyCoupon();'>Apply Coupon</a>
+				</div>
+			</div>
+		</div>
+		<div class="span12" style='margin:0px;'>
+			<div class="form-horizontal-1 visible-desktop visible-phone visible-tablet">
+				<div class="control-group">
+					<div class="controls controls-row">
+						<div class="controls pull-left" style="text-align:center;">
+							<!--<a href="javascript://" id="multiple_pay" class="multiple_pay btn btn-flat" >Place your Order</a>-->
+							<input type="submit" class="btn btn-flat" name="submit" value="Place Your Order" />
+						</div>
+					</div>
+				</div>
+			</div> 
+		</div> 
+    </div> 
+		<input type="hidden" name="option" value="com_survey"/>
+		<input type="hidden" name="task" value="customer.projectSurveyQuestionMultiple"/>
+	</form>
+    <script>		
+        __DataExcel1 = '';
+        __SiteURL = '<?php echo JUri::base() ?>';
+        __PPURLForA = '<?php echo $paypalURL; ?>&business=<?php echo $paypalEmail; ?>'; 
+       
+		function applyCoupon(){
+			if(jQuery("#coupon_code").val()!=""){
+				if(updateShoppingCartTable(2)){
+					jQuery.ajax({
+						type:'POST',
+						url:'<?php echo JUri::base();?>',
+						data:{option:'com_survey',task:'survey.apply_coupon',cou:jQuery("#coupon_code").val(),format:''},
+						cache:false,
+						success:function(data){
+							_data = jQuery.parseJSON(data);
+							if(typeOf(_data.error)!='number'){
+								_amt = jQuery('.grandTotal').eq(0).text();
+								_amt= _amt.substr(1);
+								disc = (_amt*_data.discount)/100;
+								newAmt = _amt - disc;
+								jQuery('.finalAmount').remove();
+								jQuery('.reportTotal').parent().parent().append("<tr class='finalAmount' style='border:1px solid #DDDDDD'><td style='text-align:left;'>Final Amount</td><td class='aCenter'></td><td class='aCenter'></td><td class='aCenter' style='font-weight:bold;'>$"+parseFloat(newAmt).toFixed(2)+"</td></tr>");
+							} else{
+								alert("Invalid coupon!");
+							}
+						}
+					});
+				}
+			} else {
+				alert("Enter coupon code");
+			}			
+		}
+		
+		function changeElement(object){
+			/*PriorArt || ClaimChart*//*Patent || Published || Unpublished*//*Exclusive for you || Available for others*/	
+			__index = object.parent().parent().parent().index();	
+			if(__index>0){
+				object.parent().parent().parent().find('div.nextButton').html("<div class='span12 btnDeleteSpan'><a class='btn btn-flat pull-right' href='javascript://' onclick='deleteSkelton(jQuery(this));'>Remove</a></div><div class='span12 btnAddSpan noMargin'><a class='btn btn-flat pull-right' href='javascript://' onclick='implementedSkelton(jQuery(this));'>Add Claim</a></div><div class='span12  noMargin fileEvidence' style='display:none;'><input type='file' multiple name='upload_evidence_"+__index+"[]' style='font-size: 12px;' class='span12 file'/></div>");	
+			}
+			switch(parseInt(object.parent().parent().find('select[name="type_of_report[]"]').val())){
+				case 1:	
+					if(object.attr('name')=='type_of_report[]'){
+						object.parent().parent().find('select[name="type_of_document[]"]').html('<option value="0">Type of Document</option><option value="1">Patent</option><option value="2">Published Application</option><option value="3">Unpublished Application</option>');
+					}
+					switch(parseInt(object.parent().parent().find('select[name="type_of_document[]"]').val())){
+						case 1:
+							/*Patent*/
+							object.parent().parent().parent().find('div.nextElement').removeClass('span8').addClass('span2').html('<div class="span12"><div class="controls"><input class="input-block-level patent" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Patent Number" maxlength="10" name="patent'+__index+'" type="text" placeholder="Enter Patent Number"></div></div><div class="span12 noMarginLeft"><div class="controls"><input class="input-block-level minimum" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Please state here the minimum dollar amount you would be willing to pay for one report, as it would allow PeXperts to adjust the time and efforts they invest in your order." maxlength="10" onkeypress="return isNumber(event)" name="minimum_price_claim'+__index+'" type="text" placeholder="Minimum Price/Claim"></div></div><div class="span12 noMarginLeft"><input class="input-block-level claim" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Enter a Claim Number" maxlength="3" name="claim'+__index+'" type="text" placeholder="Enter a Claim Number"></div>');object.parent().parent().parent().find('div.nextElement1').css('display','block').addClass('span6').html('<div class="span4"><input class="input-block-level datepublished" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Latest evidence date" name="target'+__index+'" type="text" placeholder="Latest evidence date"></div><div class="span12 noMarginLeft"><textarea class="span12" style="resize:none;min-height:71px" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Please provide comments for claim" name="claim_comment'+__index+'" type="text" placeholder="Please provide comments for claim"></textarea></div>');
+							enableDate();
+							addToolTip();
+							object.parent().parent().parent().find('div.fileEvidence').css('display','');
+						break;
+						case 2:
+							/*Published*/
+							object.parent().parent().parent().find('div.nextElement').removeClass('span8').addClass('span2').html('<div class="span12"><input class="input-block-level application" maxlength="20" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Application Number" name="application'+__index+'" type="text" placeholder="Enter Application Number"></div><div class="span12 noMarginLeft"><input class="input-block-level datepublished" maxlength="20" name="published_date'+__index+'" type="text" placeholder="Published on or before" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Please enter the latest publication date for the prior art to be searched."></div><div class="span12 noMarginLeft"><div class="controls"><input class="input-block-level minimum" maxlength="10" name="minimum_price_claim'+__index+'" type="text" onkeypress="return isNumber(event)" placeholder="Minimum Price/Claim" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Please state here the minimum dollar amount you would be willing to pay for one report, as it would allow PeXperts to adjust the time and efforts they invest in your order."></div></div>');object.parent().parent().parent().find('div.nextElement1').css('display','block').addClass('span6').html('<div class="span4"><input class="input-block-level claim" maxlength="3" name="claim'+__index+'" type="text" placeholder="Enter a Claim Number" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Claim Number"></div><div class="span12 noMarginLeft"><textarea class="span12" style="resize:none;min-height:71px" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Please provide comments for claim" name="claim_comment'+__index+'" type="text" placeholder="Please provide comments for claim"></textarea></div>');
+							enableDate();addToolTip();
+							object.parent().parent().parent().find('div.fileEvidence').css('display','');
+						break;
+						case 3:
+							/*Unpublished*/
+							object.parent().parent().parent().find('div.nextElement').removeClass('span8').addClass('span2').html('<div class="span12"><input class="input-block-level datepublished" maxlength="20" data-placement="top" data-rel="tooltip" data-original-title="Please enter the latest publication date for the prior art to be searched." data-trigger="manual" required="required" name="published_date'+__index+'" type="text" placeholder="Published on or before"></div><div class="span12 noMarginLeft"><div class="controls"><input class="input-block-level minimum" maxlength="10" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Please state here the minimum dollar amount you would be willing to pay for one report, as it would allow PeXperts to adjust the time and efforts they invest in your order." onkeypress="return isNumber(event)" name="minimum_price_claim'+__index+'" type="text" placeholder="Minimum Price/Claim"></div></div>');object.parent().parent().parent().find('div.nextElement1').css('display','block').addClass('span6').html('<div class="span12 noMarginLeft"><textarea style="height:50px;" name="claim_language'+__index+'" class="claim_language span12" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Since the application is not published yet, you have to provide the language." placeholder="Enter the claim language"></textarea></div><div class="span12 noMarginLeft"><textarea class="span12 " style="resize:none;min-height:50px" data-placement="top" data-trigger="manual" data-rel="tooltip" data-original-title="Please provide comments for claim" name="claim_comment'+__index+'" type="text" placeholder="Please provide comments for claim"></textarea></div>');
+							enableDate();addToolTip();
+							object.parent().parent().parent().find('div.fileEvidence').css('display','');							
+						break;
+						default:
+							/*Remove Everything*/
+							object.parent().parent().parent().find('div.nextElement').html('');
+							object.parent().parent().parent().find('div.nextElement1').html('');
+							//object.parent().parent().find('div.nextButton').html('');
+						break;
+					}
+				break;
+				case 2:
+					if(object.attr('name')=='type_of_report[]'){
+						object.parent().parent().find('select[name="type_of_document[]"]').html('<option value="0">Type of Document</option><option value="1">Patent</option>');
+					}
+					switch(parseInt(object.parent().parent().find('select[name="type_of_document[]"]').val())){
+						case 1:
+							/*Patent*/
+							object.parent().parent().parent().find('div.nextElement').removeClass('span8').addClass('span2').html('<div class="span12"><input class="input-block-level patent" maxlength="10" data-placement="top" data-trigger="manual" data-rel="tooltip" data-original-title="Patent Number" name="patent'+__index+'" type="text" placeholder="Enter Patent Number"></div><div class="span12 noMarginLeft"><input class="input-block-level minimum" onkeypress="return isNumber(event)" maxlength="10" name="minimum_price_claim'+__index+'" type="text" placeholder="Minimum Price/Claim" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Please state here the minimum dollar amount you would be willing to pay for one report, as it would allow PeXperts to adjust the time and efforts they invest in your order."></div><div class="span12 noMarginLeft" ><input class="input-block-level claim" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Claim Number" maxlength="3" name="claim'+__index+'" type="text" placeholder="Enter a Claim Number"></div>');
+							object.parent().parent().parent().find('div.nextElement1').css('display','block').addClass('span6').html('<div class="span12 noMarginLeft"><input class="input-block-level target" name="target'+__index+'" type="text" placeholder="List the target products and /or companies to research (Optional)"></div><div class="span12 noMarginLeft"><input class="input-block-level avoided" name="avoided'+__index+'" type="text" placeholder="List the target products and /or companies you wish the expert not to research (Optional)"></div><div class="span12 noMarginLeft"><textarea class="span12 " style="resize:none;min-height:30px;height:30px" data-placement="top" data-rel="tooltip" data-trigger="manual" data-original-title="Please provide comments for claim"  name="claim_comment'+__index+'" type="text" placeholder="Please provide comments for claim"></textarea></div>');addToolTip();	
+							object.parent().parent().parent().find('div.fileEvidence').css('display','');
+						break;
+						case 2:
+						case 3:
+						default:
+							/*Remove Everything*/
+							object.parent().parent().parent().find('div.nextElement').html('');
+							object.parent().parent().parent().find('div.nextElement1').html('');
+							//object.parent().parent().find('div.nextButton').html('');
+						break;
+					}
+				break;
+				default:
+					/*Remove Everything*/
+					object.parent().parent().parent().find('div.nextElement').html('');
+					object.parent().parent().parent().find('div.nextElement1').html('');
+					//object.parent().parent().find('div.nextButton').html('');					
+				break;
+			}
+			updateShoppingCartTable(1);
+		}
+		
+		
+        function checkExclusive(){
+			updateShoppingCartTable(1);
+		}
+       
+		function updateShoppingCartTable(type){
+			_errorReport = 0;
+			_indexObject = 0;
+			_errorMessage="";
+			if(type==2){
+				jQuery('.elementClaim').each(function(index){
+					_indexObject = index;
+					if(jQuery(this).find('select[name="type_of_report[]"]').val()=='0'){
+						_errorReport = 1;
+						_errorMessage ="Please select type of report.";
+						return false;
+					}
+					if(jQuery(this).find('select[name="type_of_document[]"]').val()=='0'){
+						_errorReport = 1;
+						_errorMessage ="Please select type of document.";
+						return false;
+					}
+					if(jQuery(this).find('select[name="type_of_exclusivity[]"]').val()=='0'){
+						_errorReport = 1;
+						_errorMessage ="Please select exclusivity.";
+						return false;
+					}
+					switch(parseInt(jQuery(this).find('select[name="type_of_report[]"]').val())){
+						case 1:
+							/*PriorArt*/
+							switch(parseInt(jQuery(this).find('select[name="type_of_document[]"]').val())){
+								case 1:
+									/*Patent*/
+									if(jQuery(this).find('input.patent').val()==""){
+										_errorReport = 1;
+										_errorMessage ="Please enter patent number.";
+										return false;
+									}
+									if(jQuery(this).find('input.claim').val()==""){
+										_errorReport = 1;
+										_errorMessage ="Please enter claim number.";
+										return false;
+									}
+								break;
+								case 2:
+									/*Published*/
+									if(jQuery(this).find('input.application').val()==""){
+										_errorReport = 1;
+										_errorMessage ="Please enter application number.";
+										return false;
+									}
+									if(jQuery(this).find('input.claim').val()==""){
+										_errorReport = 1;
+										_errorMessage ="Please enter claim number.";
+										return false;
+									}
+								break;
+								case 3:
+									/*Unpublished*/
+									if(jQuery(this).find('textarea.claim_language').val()==""){
+										_errorReport = 1;
+										_errorMessage ="Please enter claim language.";
+										return false;
+									}
+								break;								
+							}
+						break;
+						case 2:
+							/*ClaimChart*/
+							switch(parseInt(jQuery(this).find('select[name="type_of_document[]"]').val())){
+								case 1:
+									/*Patent*/
+									if(jQuery(this).find('input.patent').val()==""){
+										_errorReport = 1;
+										_errorMessage ="Please enter patent number.";
+										return false;
+									}
+									if(jQuery(this).find('input.claim').val()==""){
+										_errorReport = 1;
+										_errorMessage ="Please enter claim number.";
+										return false;
+									}
+								break;
+								case 2:
+								case 3:
+								default:
+									_errorReport = 1;
+									_errorMessage ="Please select other document type in ClaimChart report.";
+									return false;
+								break;
+							}
+						break;
+					}
+				});
+			}
+			
+			if(_errorReport == 0){
+				jQuery('.elementClaim').removeClass('alert-error');
+				_claimChartExclusive = 0;
+				_claimChartNonExclusive = 0;
+				_priorArtNonExclusive = 0;
+				_priorArtExclusive = 0;
+				jQuery('.elementClaim').each(function(index){
+					switch(parseInt(jQuery(this).find('select[name="type_of_report[]"]').val())){
+						case 1:
+							/*PriorArt*/
+							switch(parseInt(jQuery(this).find('select[name="type_of_exclusivity[]"]').val())){
+								case 1:
+									/*Exclusive*/
+									_priorArtExclusive = _priorArtExclusive + 1;
+								break;
+								case 2:
+									/*Non Exclusive*/
+									_priorArtNonExclusive = _priorArtNonExclusive +1;
+								break;
+							}
+						break;
+						case 2:
+							/*ClaimChart*/
+							switch(parseInt(jQuery(this).find('select[name="type_of_exclusivity[]"]').val())){
+								case 1:
+									/*Exclusive*/
+									if(parseInt(jQuery(this).find('select[name="type_of_document[]"]').val())==1){
+										_claimChartExclusive = _claimChartExclusive + 1;
+									}
+								break;
+								case 2:
+									/*Non Exclusive*/
+									if(parseInt(jQuery(this).find('select[name="type_of_document[]"]').val())==1){
+										_claimChartNonExclusive = _claimChartNonExclusive + 1;
+									}
+								break;
+							}
+						break;
+					}
+				});
+				
+				jQuery('.ccNon').html((_claimChartNonExclusive>0)?_claimChartNonExclusive:'-');
+				jQuery('.ccExc').html((_claimChartExclusive>0)?_claimChartExclusive:'-');
+				jQuery('.panon').html((_priorArtNonExclusive>0)?_priorArtNonExclusive:'-');
+				jQuery('.paExc').html((_priorArtExclusive>0)?_priorArtExclusive:'-');
+				_total = 0;
+				if(_claimChartNonExclusive>0){
+					_ss = _claimChartNonExclusive * 400;
+					_total = _total + _ss;
+					jQuery('.ccNonSub').html('$'+_ss);
+				} else {
+					jQuery('.ccNonSub').html('-');
+				}
+				if(_claimChartExclusive>0){
+					_ss = _claimChartExclusive * 700;
+					_total = _total + _ss;
+					jQuery('.ccSub').html('$'+_ss);
+				} else {
+					jQuery('.ccSub').html('-');
+				}
+				if(_priorArtNonExclusive>0){
+					_ss = _priorArtNonExclusive * 700;
+					_total = _total + _ss;
+					jQuery('.paNonSub').html('$'+_ss);
+				} else {
+					jQuery('.paNonSub').html('-');
+				}
+				if(_priorArtExclusive>0){
+					_ss = _priorArtExclusive * 900;
+					_total = _total + _ss;
+					jQuery('.paSub').html('$'+_ss);
+				} else {
+					jQuery('.paSub').html('-');
+				}
+				/*Grand Total*/
+				if(_total>0){
+					jQuery('.grandTotal').html('$'+_total);
+					jQuery('.reportTotal').html(_claimChartNonExclusive + _claimChartExclusive + _priorArtNonExclusive + _priorArtExclusive);
+				} else {
+					jQuery('.grandTotal').html('-');
+					jQuery('.reportTotal').html('-');
+				}
+				return true;
+			} else {
+				alert(_errorMessage);
+				jQuery("#patentImplementedAll>div.elementClaim").eq(_indexObject).addClass('alert-error');	
+				return false;			
+			}			
+		}
+			function implementedSkelton(object){ 
+				if(updateShoppingCartTable(1)){
+					jQuery('.btnAddSpan').css('display','none');
+					jQuery('.btnDeleteSpan').css('display','block');
+					_length = jQuery("#patentImplementedAll>div.elementClaim").length;
+					jQuery("#patentImplementedAll").append('<div id="patentImplementedChild'+_length+'" class="elementClaim row" style="margin-left: 0px; padding:10px;"><div class="span2"><div class="span12 noMarginLeft"><select name="type_of_report[]"  data-rel="tooltip" data-original-title="Each box is dedicated for one claim, in which you may order either a PriorArt Report or a ClaimChart Report. Both reports pretty much look the same, but for one main difference - the publication date of the evidence provided by the PeXperts. In PriorArt Repots the evidence must precede the filing date of the patent application, while in ClaimChart Reports it\'\s the opposite."  class="span12" onchange="changeElement(jQuery(this))"><option value="0">Type of Report</option><option value="1">PriorArt Report</option><option value="2">ClaimChart Report</option></select></div><div class="span12 noMarginLeft"><select name="type_of_document[]" data-placement="top" data-rel="tooltip" data-original-title="You may order a ClaimChart report only for issued patents, while PriorArt reports can be ordered not only for issued patents (to find prior art that the patent examiner overlooked so that a patent can be declared invalid), but also for patent applications (helps to determine whether the invention is novel before committing the resources necessary to obtain a patent)." class="span12" onchange="changeElement(jQuery(this))"><option value="0">Type of Document</option><option value="1">Patent</option><option value="2">Published Application</option><option value="3">Unpublished Application</option></select></div><div class="span12 noMarginLeft"><select data-placement="top" data-rel="tooltip" data-original-title="You may ask that the reports for this claim will not be sold to others but you, or, you may allow ClaimCharts.info to offer the reports for sale to others as well. Knowing about the potential to sell to others, PeXperts might lower their asking price for their reports." name="type_of_exclusivity[]" class="span12" onchange="checkExclusive()"><option value="0">Exclusivity</option><option value="1">Exclusively made for you</option><option value="2">Available for others</option></select></div></div><div class="span2 nextElement"></div><div class="span6 nextElement1"></div><div class="span2 nextButton"><div class="span12 btnDeleteSpan" style="display:none"><a class="btn btn-flat pull-right" href="javascript://" onclick="deleteSkelton(jQuery(this));">Remove</a></div><div class="span12 btnAddSpan noMargin"><a class="btn btn-flat pull-right" href="javascript://" onclick="implementedSkelton(jQuery(this));">Add Claim</a></div></div></div>'); 
+					var destination = jQuery("#patentImplementedChild"+_length).offset().top;
+					jQuery("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination-40}, 1100);
+					addToolTip();
+				}				
+			} 
+
+            function refreshCaptcha() {
+                jQuery("#order_captcha").empty().html('<img src="' + __SiteURL + 'index.php?option=com_survey&format=&task=customer.getCaptcha"/>');
+            }
+			
+			function deleteSkelton(object){
+				if(jQuery('.btnDeleteSpan').length>1){
+					object.parent().parent().parent().remove();
+					var destination = object.offset().top;
+					jQuery("#patentImplementedAll>div.elementClaim").eq(jQuery("#patentImplementedAll>div.elementClaim").length-1).find('.btnAddSpan').css('display','block');
+					jQuery("#patentImplementedAll>div.elementClaim").eq(jQuery("#patentImplementedAll>div.elementClaim").length-1).find('.btnDeleteSpan').css('display','block');
+					updateShoppingCartTable(1);
+					jQuery('.elementClaim').each(function(index){
+						if(jQuery(this).find('input.patent').length>0){
+							jQuery(this).find('input.patent').attr('name','patent'+index);
+						}
+						if(jQuery(this).find('input.claim').length>0){
+							jQuery(this).find('input.claim').attr('name','claim'+index);
+						}
+						if(jQuery(this).find('input.application').length>0){
+							jQuery(this).find('input.application').attr('name','application'+index);
+						}
+						if(jQuery(this).find('textarea.claim_language').length>0){
+							jQuery(this).find('textarea.claim_language').attr('name','claim_language'+index);
+						}
+						if(jQuery(this).find('input.target').length>0){
+							jQuery(this).find('input.target').attr('name','target'+index);
+						}
+						if(jQuery(this).find('input.avoided').length>0){
+							jQuery(this).find('input.avoided').attr('name','avoided'+index);
+						}
+						if(jQuery(this).find('input.file').length>0){
+							jQuery(this).find('input.file').attr('name','upload_evidence_'+index+'[]');
+						}
+					});   
+					if(jQuery('.btnDeleteSpan').length==1){
+						jQuery('.btnDeleteSpan').css('display','none');
+					}
+					object.parent().parent().parent().find('div.fileEvidence').css('display','none');
+				} else {
+					alert('You cannot remove it.');
+				}
+			}
+			
+			function isNumber(evt) {
+				evt = (evt) ? evt : window.event;
+				var charCode = (evt.which) ? evt.which : evt.keyCode;
+				if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+					return false;
+				}
+				return true;
+			}
+		
+			function addToolTip(){
+				/*jQuery('input,textarea,select').tooltip('hide');*/
+				jQuery('input,textarea,select').mouseenter(function(){
+					var that = jQuery(this);
+					that.delay(4000).fadeIn(0).tooltip('show');
+					/*setTimeout(function(){
+						that.tooltip('hide');
+					}, 2000);*/
+				}).mouseleave(function(){
+					jQuery(this).tooltip('hide');
+				});
+			}
+			function enableDate(){
+				jQuery(".datepublished").datepicker({dateFormat: 'yy-mm-dd'});				
+				jQuery("#project_deadline_multiple").datepicker({dateFormat: 'yy-mm-dd'/*,minDate: '+1M'*/});				
+			}
+			jQuery(document).ready(function() {
+                jQuery(".datepublished").datepicker({dateFormat: 'yy-mm-dd'});
+                jQuery("#project_deadline_multiple").datepicker({dateFormat: 'yy-mm-dd'/*,minDate: '+1M'*/});
+				jQuery('[data-rel="tooltip"]').mouseenter(function(){
+					var that = jQuery(this);
+					that.delay(5000).fadeIn(0).tooltip('show');
+					/*setTimeout(function(){
+						that.tooltip('hide');
+					}, 2000);*/
+				}).mouseleave(function(){
+					jQuery(this).tooltip('hide');
+				});
+			});
+    </script>
+</div>

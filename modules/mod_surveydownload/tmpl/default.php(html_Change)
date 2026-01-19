@@ -1,0 +1,574 @@
+<?php
+/**
+ * @package		Joomla.Site
+ * @subpackage	mod_surveyorder
+ * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+// no direct access
+defined('_JEXEC') or die;
+
+$db = JFactory::getDBO();
+$sql = "SELECT * FROM #__paypal_setting";
+$db->setQuery($sql);
+$getPaypalData = $db->loadObject();
+$paypalEmail = $getPaypalData->email_id;
+$paypalURL = "";
+if($getPaypalData->mode==1){
+	$paypalURL = "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&notify_version=2.9";		
+} else {
+	$paypalURL = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_xclick&notify_version=2.9";
+}
+
+
+?>
+
+<style>
+#questionlist th{
+font-size:13px !important;
+font-weight:normal !important;
+}
+.table th, .table td{border-top:1px solid #DDDDDD;}
+#header{background:rgba(0,0,0,0.5);}
+nav#main_menu > ul.sf-menu > li > a{color:#fff;}
+.topnav > li > a, .topnav li .menu li a{color:#fff;}
+.smallm_title{border-bottom:1px solid #e5e5e5;}
+</style>
+<div class="visible-desktop visible-phone visible-tablet">
+			<div class="row-fluid" style='margin-bottom:0px'>
+				<div class="span4">	
+					
+					<div class="controls">
+						<input type="text" maxlength="9" placeholder="Enter the Patent Number" name="patent_number_find" id="patent_number_find"  class="input-block-level" >
+						<span class="help-block">Search a report by the Patent Number</span>
+					</div>
+				</div>				
+				<div class="span4">	
+					
+					<div class="controls">
+						<input type="text" maxlength="7" placeholder="Enter the Project Name"  name="project_nane_find" id="project_nane_find" class="input-block-level" >
+						<span class="help-block">Search a report by the Project Name</span>
+					</div>
+				</div>
+				<div class="span4">	
+					
+					<div class="controls">
+						<input type="text"  placeholder="Enter the Expert Name"  name="expert_nane_find" id="expert_nane_find" class="input-block-level" >
+						<span class="help-block">Search a report by the Expert Name</span>
+					</div>
+				</div>				
+				<div class="span12 noMargin">	
+					<!-- <label class="control-label">&nbsp;</label> -->
+					<div class="controls">
+						<div class="visible-desktop visible-phone visible-tablet">
+							<a href="#searchData" id="find_survey" onclick="fundSurvey();"   class="btn btn-flat" >Find</a>
+						</div>	
+						<span class="help-block tM">Once you find a report of interest, and agree to the expert's asking price, click Buy and you''ll be led to the expert's shopping cart at PayPal. You''ll be able to pay with a regular credit card. Upon payment you''ll be able to download the report in a PDF format.</span>						
+					</div>
+				</div>
+			</div>
+<!--CONTANTAREA STARTS-->
+		<section class="dPx" id="searchData" style="display:none;">
+			<!-- -->
+			<style>
+			.loader , .loader1 , .loader2 , .loader_2 , .loader_1 , .loader_3{
+				display:none;
+				margin:0 auto;
+				width:50px;
+				height:50px;
+			}
+			.nav-tabs.nav-stacked > li a.active{
+				background:none !important;
+				color:red !important;
+			}
+			#questionlist thead tr th , #expertList tbody tr td{
+				border-top:0px !important;
+			}
+			#surveylist > li > a:hover, #surveylist > li > a:focus ,#projectList > li > a:hover, #projectList > li > a:focus {
+				background: none !important;
+			}
+			.table th{
+				padding-top:5px !important;
+			}
+			</style>
+			<div class="container contCustom">
+				<div class="row-fluid">
+					<div class="span12 white">
+						
+						<!-- START DESKTOP -->
+							<div class="row-fluid visible-desktop visible-phone visible-tablet custom-1">
+								<div class="span12 showError"></div>
+								<div class="span2 noMargin">
+									<div id="project">
+										<div class="loader2">
+											<img src="<?php echo JUri::base();?>components/com_survey/images/loader.gif"/>
+										</div>
+									</div>
+								</div>
+								<div class="span2" style="margin-left:0px; width:100px;"> 
+									<div id="survey">
+										<div class="loader">
+											<img src="<?php echo JUri::base();?>components/com_survey/images/loader.gif"/>
+										</div>
+									</div>
+								</div>
+								<div class="span8" style="margin-left:0; width:755px;">
+									<div class="row-fluid" id="question">
+										<div class="loader1">
+											<img src="<?php echo JUri::base();?>components/com_survey/images/loader.gif"/>
+										</div>
+									</div>
+								</div>
+								<div class="span12 noMargin" id="embedCode" style='display:none'>
+									<div class="moduletable span12 " id="mod133" data-id="133">
+										<div class="bghelper">										
+											<h4 class="moduletitle m_title">Embed Code</h4>
+											<div class="modulecontent">
+												<div class="custom ">
+													<ul class="list-style1 cols-1 clearfix ">
+														<li>If you would like to embed this "shopping cart" in your html page, please click here to receive the embedding code: <a href="#myModal" role="button" data-toggle="modal"><img src="<?php echo JUri::base();?>templates/kallyas/images/html-source.png"/></a>
+														</li>
+														<li>If you would like to receive an email alert each time an expert report is created under this<br/> <span class='checkbox-inline'><input type="checkbox" style='margin-top: 0px;' name="type" id="type" value="project" class='chcsdc'/> Project <input type="checkbox" name="type" id="type" style='margin-top: 0px;' class='chcsdc' value="claim"/> Claim <input class='chcsdc' type="checkbox" name="type" id="type" style='margin-top: 0px;' value="both" checked="checked"/> Both</span>, please enter your email &nbsp; <input type='text' name='user_email_address' id='user_email_address'/> <input type='hidden' name='project_id' id='project_id' value='0'/> <a  class='btn btn-flat' href='javascript:void(0);'onclick='sendAlert();' style='margin-top:-10px;'>Send Alert</a></li>		
+													</ul>
+												</div>
+											</div><!-- end modulecontent-->
+										</div><!-- end bghelper -->
+									</div>									
+									<!--<a href="<?php echo JUri::base();?>index.php?option=com_survey&view=customer&format=feed&type=rss" target="_BLANK" id="rssFeed">
+										<img src="<?php echo JUri::base();?>templates/survey/images/rss.png"/>
+									</a>-->
+								</div>
+							</div>
+						<!-- END DESKTOP -->
+					</div>
+				</div>
+			</div><!-- -->
+		</section><!--CONTANTAREA STARTS-->
+		
+		<script>
+			__SiteURL = '<?php echo JUri::base();?>';
+			if (jQuery.browser.msie || jQuery.browser.webkit) {
+                    jQuery(document).keydown(function(e) {
+                        if (e.keyCode == 13) {
+                            __GETID = jQuery("input:text:focus").attr("id");
+                            if (__GETID == "patent_number_find" || __GETID == "project_nane_find" || __GETID == "expert_nane_find") {
+                                fundSurvey();
+                            }
+                        }
+                    });
+                } else {
+                    jQuery(document).keypress(function(e) {
+                        if (e.keyCode == 13) {
+                            __GETID = jQuery("input:text:focus").attr("id");
+                            if (__GETID == "patent_number_find" || __GETID == "project_nane_find" || __GETID == "expert_nane_find") {
+                                fundSurvey();
+                            }
+                        }
+                    });
+                }
+			jQuery(document).ready(function(){
+				jQuery('.chcsdc').click(function(){
+					__this = jQuery(this);
+					jQuery('.chcsdc').each(function(){
+						jQuery(this).removeAttr('checked');
+					});
+					__this.attr('checked','checked');
+				});
+				<?php 
+					$param = JRequest::getVar('awse','');
+					if(!empty($param)){
+						$explodeParam = explode('@',base64_decode($param));
+						if(isset($explodeParam[0]) && !empty($explodeParam[0])){
+				?>
+							jQuery("#project_nane_find").val('<?php echo $explodeParam[0];?>');
+							fundSurvey();
+				<?php	
+							/*
+							if(isset($explodeParam[1]) && !empty($explodeParam[1])){
+				?>
+								su(jQuery("#projectList li a").eq(0),<?php echo $explodeParam[1]?>);
+				<?php
+							}
+							*/
+						}
+					}
+				?>
+			});
+			function sendAlert(){		
+				if(jQuery("#user_email_address").val()==""){
+					alert('Please enter email address.');
+					jQuery("#user_email_address").focus();
+				} else {
+					__c = 0;
+					if(jQuery("input[name'type']:checked").val()=='claim'){
+						_findActiveObject = jQuery("#surveylist>li>a.active");
+						if(_findActiveObject!=undefined){
+							__c = _findActiveObject.parent().data('surveyID');
+						}
+					}
+					
+					if(jQuery("input[name'type']:checked").val()=='claim' && (__c==0 || __c==undefined)){
+						alert('Please select claim');
+					} else if(jQuery("#project_id").val()=='0'){
+						alert('Please select project');
+					} else {
+						jQuery.ajax({
+							url:__SiteURL+'index.php?option=com_survey&task=customer.sendAlert',
+							type:'POST',
+							data:{p:jQuery("#project_id").val(),c:__c,t:jQuery("input[name'type']:checked").val(),e:jQuery("#user_email_address").val(),format:''},
+							dataType: 'json',
+							cache:false,
+							success:function(data){
+								if(data>0){
+									alert('Email alerts update for this project.');
+									jQuery("#project_id").val(0);
+									jQuery("#user_email_address").val('');
+								} else {
+									alert('Please try after sometime.');
+								}
+							}
+							
+						});
+					}
+				}
+				
+			}
+		function fundSurvey(){
+			jQuery('.showError').empty();
+			jQuery("#embedCode").css('display','none');
+			if(jQuery("#patent_number_find").val()=="" && jQuery("#project_nane_find").val()=="" && jQuery("#expert_nane_find").val()==""){
+				alert('Please enter Patent number or Project name or Expert Name.');
+				return false;
+			}
+			jQuery("#searchData").css('display','block');
+			jQuery("#find_survey").attr('disabled',true);
+			jQuery('.loader2').css('display','block');
+			jQuery("#project").find('legend').remove();					
+			jQuery("#projectList").remove();		
+			jQuery("#surveylist").remove();		
+			jQuery("#survey").find('legend').remove();
+			jQuery("#expertList").parent().remove();
+			jQuery("#expertList").remove();			
+			jQuery("#questionlist").parent().remove();
+			jQuery("#questionlist").remove();
+			jQuery.ajax({
+			url:__SiteURL+'index.php?option=com_survey&task=customer.search',
+			type:'POST',
+			data:{p:jQuery("#project_nane_find").val(),s:jQuery("#patent_number_find").val(),e:jQuery("#expert_nane_find").val(),format:''},
+			dataType: 'json',
+			cache:false,
+			success:function(data){
+				jQuery("#find_survey").removeAttr('disabled');
+				
+				_ul = jQuery("<ul/>").attr('id','projectList').addClass('nav nav-tabs nav-stacked');
+				if(data.data!=null && data.data.length>0){	
+					jQuery("#project").append('<legend class="noMargin smallm_title" style="font-size: 14px; margin-bottom: 8px; font-weight: bold; white-space: nowrap; width: 100%; display: block; line-height: 53px; border-bottom: 1px solid #e5e5e5;">Project</legend>');
+					if(data.data.length==1){
+						_row =data.data[0];
+						jQuery(_ul).append("<li><a data-name='"+_row.name+"' data-id='"+_row.id+"' href='javascript://' class='active' onclick='su(jQuery(this),"+_row.id+")'>"+_row.name+"</a></li>");
+						jQuery("#project_id").val(_row.id);						
+						su(jQuery("#projectList li a").eq(0),_row.id);
+					} else {
+						for(i=0;i<data.data.length;i++){
+							_row =data.data[i];
+							jQuery(_ul).append("<li ><a href='javascript://' data-name='"+_row.name+"' data-id='"+_row.id+"' onclick='su(jQuery(this),"+_row.id+")'>"+_row.name+"</a></li>");
+						}		
+					}														
+				} else {
+					jQuery('.showError').append("<p class='alert alert-danger'>We have a project that with a name close to this one, but not exactly. Please correct your query.</p>");
+					jQuery("#project").find('legend').remove();
+				}
+				jQuery("#project").append(_ul);
+				jQuery('.loader2').css('display','none');
+			}
+			});
+		}
+								
+								
+								
+		function su(object,d){
+			jQuery("#projectList li a").removeClass('active');
+			jQuery("#rssFeed").attr('href',__SiteURL+'index.php?option=com_survey&view=customer&p_d='+d+'&format=feed&type=rss');
+			object.addClass('active');
+			jQuery("#questionlist").parent().remove();
+			jQuery("#questionlist").remove();
+			jQuery("#expertList").parent().remove();
+			jQuery("#expertList").remove();
+		if(d!=""){
+			jQuery("#surveylist").remove();
+			jQuery("#survey").find('legend').remove();									
+			jQuery(".loader").before('<legend class="noMargin smallm_title" style="font-size: 14px; margin-left: 5px; margin-bottom: 8px; font-weight: bold; white-space: nowrap; width: 100%; display: block; border-bottom: 1px solid #e5e5e5; line-height: 53px;">Claim</legend>');
+			jQuery('.loader').css('display','block');									
+			jQuery.ajax({
+			url:__SiteURL+'index.php?option=com_survey&task=customer.surveyListAnother',
+			data:{ps:d,format:''},
+			cache:false,
+			success:function(html){
+				__data = jQuery.parseJSON(html);
+				jQuery("#surveylist").remove();
+				_HTML = jQuery('<ul/>').attr('id','surveylist').addClass('nav nav-tabs nav-stacked');
+				if(__data.length>0){
+					for(i=0;i<__data.length;i++){
+						_LI = jQuery('<li/>').data('surveyID',__data[i].id).click(function(){
+																				qu(jQuery(this),jQuery(this).data('surveyID'));
+																			}).append('<a style="padding-left:0px;padding-right:0px;" href="javascript://">'+__data[i].combine_name+'</a>');
+						<?php 
+							$param = JRequest::getVar('awse','');
+							if(!empty($param)){
+								$explodeParam = explode('@',base64_decode($param));
+								if(isset($explodeParam[1]) && !empty($explodeParam[1])){
+						?>
+									if(__data[i].combine_name=='<?php echo $explodeParam[1]?>'){
+										qu(jQuery("#surveylist>li").eq(i),__data[i].id);
+									}
+						<?php
+								}
+							}
+						?>
+						jQuery(_HTML).append(_LI);
+					}
+				} else {
+					jQuery(_HTML).append("<li>No record found</li>");	
+				}
+				
+				jQuery("#survey").append(_HTML);
+				jQuery('.loader').css('display','none');
+			}	
+			});
+		}
+	}
+								
+								
+							
+	function qu(object,su){
+		/*__PPURL ="https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_xclick&notify_version=2.9&business=";*/
+		__PPURL ="<?php echo $paypalURL;?>&business=";
+		__SU = parseInt(su);
+		jQuery("#surveylist li a").removeClass('active');
+		object.find('a').addClass('active');
+		if(__SU!=0 && __SU!='NAN' &&  __SU!='NAN'){
+		
+			jQuery("#questionlist").parent().remove();
+			jQuery("#questionlist").remove();
+			jQuery("#expertList").parent().remove();
+			jQuery("#expertList").remove();		
+			jQuery('.loader1').css('display','block');
+			jQuery.ajax({
+			url:__SiteURL+'index.php?option=com_survey&task=customer.quList',	
+			data:{ps:__SU,format:''},
+			cache:false,
+			success:function(html){
+				__data = jQuery.parseJSON(html);
+				jQuery("#questionlist").remove();
+				jQuery("#expertList").remove();
+				__GRID2Div = jQuery('<div/>').addClass('span8').css({marginLeft:'10px'});
+				__GRID5Div = jQuery('<div/>').addClass('grid_6 alpha omega');
+				__LegendGrid2 = jQuery('<legend/>').addClass('noMargin smallm_title').append('Elements').css({height:'53px',fontWeight:'bold',whiteSpace:'wrap',paddingLeft:'8px',borderBottom:'1px solid #e5e5e5'});
+				
+				jQuery(__GRID2Div).append(__LegendGrid2);
+				
+				_HTML = jQuery('<table/>').attr('id','questionlist').addClass('table');
+				__ETable = jQuery("<table/>").attr('id','expertList').addClass('table result-table').css('background','none').css('margin-top','0px');
+				__GRID10Div = jQuery('<div/>').addClass('span4').css({overflowX:'scroll',margin:'0'});
+				__GRID7Div = jQuery('<div/>').addClass('grid_6').css({overflowX:'scroll',margin:'0'});
+				if(__data['question'].length>0){
+					if(jQuery("#projectList li a.active").length>0){						
+						jQuery("#rssFeed").attr('href',__SiteURL+'index.php?option=com_survey&view=customer&p_d='+jQuery("#projectList li a.active").attr('data-id')+'&format=feed&type=rss');
+						jQuery("#myModal").find('.modal-body').find('textarea').val('<iframe src="'+__SiteURL+'index.php/component/survey/?&tmpl=component&task=customer.generateClientRequest&client_id='+jQuery("#projectList li a.active").attr('data-name')+'" width="950" height="600" frameborder="0" scrolling="no"></iframe>');
+						jQuery("#embedCode").css('display','block');
+					}
+					for(i=0;i<__data['question'].length;i++){
+						_QueThread = jQuery("<thead/>");							
+						if(i==(__data['question'].length-1)){
+							_MAINTR = jQuery("<tr/>").data('quData',__data['question'][i]);
+						} else {
+							_MAINTR = jQuery("<tr/>").data('quData',__data['question'][i]);
+						}							
+						_TH = jQuery("<th/>").append(__data['question'][i]['data'].description);
+						jQuery(_MAINTR).append(_TH);
+						jQuery(_QueThread).append(_MAINTR);
+						jQuery(_HTML).append(_QueThread);
+						if(i==0){ 
+							
+							_Thead = jQuery("<thead/>");
+							/*_TR = jQuery("<tr/>").css({borderBottom:'1px solid #E5E5E5'});	*/							
+							_TR = jQuery("<tr/>");								
+							for(s=0;s<__data['expert'].length;s++){
+								if(__data['expert'][s].linkedin_profile_url==""){
+									jQuery(_TR).append("<th valign='top' class=' smallm_title "+__data['expert'][s].id+"' style='text-align:center;height:33px;'><a target='_BLANK' href='"+__SiteURL+"index.php?option=com_survey&task=customer.expertProfile&display="+__data['expert'][s].id+"'>"+__data['expert'][s].name+"</a></th>");
+								} else {
+									jQuery(_TR).append("<th valign='top' class='smallm_title "+__data['expert'][s].id+"' style='text-align:center;height:33px;'><a target='_BLANK' href='"+__SiteURL+"index.php?option=com_survey&task=customer.expertProfile&display="+__data['expert'][s].id+"'>"+__data['expert'][s].name+"</a></th>");
+								}
+								
+								jQuery.ajax({
+									url:__SiteURL+'index.php?option=com_survey&task=customer.showExpertRating',	
+									data:{expert_id:__data['expert'][s].id,format:''},
+									type:'POST',
+									cache:false,
+									success:function(html){
+										_ratingData = jQuery.parseJSON(html);
+										if(_ratingData.data.length){
+											expertID = 0;
+											totalProject = 0;
+											totalRate = 0;
+											for(r=0;r<_ratingData.data.length;r++){													
+												if(r==0){
+													expertID = _ratingData.data[r].id;
+												}
+												totalProject = totalProject+_ratingData.data[r].countSurvey;
+												   totalRate = totalRate+_ratingData.data[r].rating;
+											}
+											
+											if(totalProject>0 && totalRate>0){
+												$calcRating = totalRate/totalProject;
+												if($calcRating==1){
+													__class="s_star_1_0";
+												} else if(($calcRating>1 && $calcRating<1.5) || ($calcRating>1.5 && $calcRating<2)){
+													__class="s_star_1_5";
+												} else if($calcRating==2){
+													__class="s_star_2_0";
+												} else if(($calcRating>2 && $calcRating<2.5) || ($calcRating>2.5 && $calcRating<3)){
+													__class="s_star_2_5";
+												} else if($calcRating==3){
+													__class="s_star_3_0";
+												} else if(($calcRating>3 && $calcRating<3.5) || ($calcRating>3.5 && $calcRating<4)){
+													__class="s_star_3_5";
+												} else if($calcRating==4){
+													__class="s_star_4_0";
+												} else if(($calcRating>4 && $calcRating<4.5) || ($calcRating>4.5 && $calcRating<5)){
+													__class="s_star_4_5";
+												} else if($calcRating==5){
+													__class="s_star_5_0";
+												}
+												if(jQuery("."+expertID).find('.swSprite').length==0){
+													jQuery("."+expertID).append('<br/><label title="'+__calcRating+' out of 5 stars" class="swSprite '+__class+'"></label>');
+												}
+											} else {
+												_class="s_star_0_0";
+												if(jQuery("."+expertID).find('.swSprite').length==0){
+													jQuery("."+expertID).append('<br/><label title="0 out of 5 stars" class="swSprite '+_class+'"></label>');
+												}
+											}
+										} else {
+											_class="s_star_0_0";
+											if(jQuery("."+_ratingData.id).find('.swSprite').length==0){
+												jQuery("."+_ratingData.id).append('<br/><label title="0 out of 5 stars" class="swSprite '+_class+'"></label>');
+											}
+										}
+									}
+								});
+							}
+							jQuery(_Thead).append(_TR);
+							jQuery(__ETable).append(_Thead);
+						}
+						__TR = jQuery("<tr/>");
+						for(s=0;s<__data['expert'].length;s++){
+							if(__data['question'][i]['answer'].length>0){
+								__parseFlag = 0;
+								__DipTo = 0;
+								for(an=0;an<__data['question'][i]['answer'].length;an++){
+									if(__DipTo==0){
+										if(__data['expert'][s].id==__data['question'][i]['answer'][an].expert_id){
+											__DipTo = 1;
+											if(__data['question'][i]['answer'][an].status==1){
+												_TD = jQuery("<td/>").addClass('aCenter').append('<i class="icon-ok aCenter"> </i>');
+											} else {
+												_TD = jQuery("<td/>").addClass('aCenter');
+											}
+											__parseFlag = 1;
+										}
+									}
+									jQuery(__TR).append(_TD);
+								}
+								if(__parseFlag==0){
+									_TD = jQuery("<td/>").append("");
+									jQuery(__TR).append(_TD);
+								}
+							} else{
+								_TD = jQuery("<td/>").append("");
+								jQuery(__TR).append(_TD);
+							}
+						}
+						jQuery(__ETable).append(__TR);
+					}						
+						__TR = jQuery("<tr/>");
+						if(__data['survey'].length>0){
+							for(s=0;s<__data['expert'].length;s++){
+								__DIP2=0;
+								for(am=0;am<__data['survey'].length;am++){
+									if(__DIP2==0){
+										if((__data['expert'][s].id==__data['survey'][am].expert_id) && (__data['expert'][s].target==__data['survey'][am].target)){
+											__DIP2 = 1;
+											__SUR = __data['survey'][am].survey_id;
+											__EXP = __data['expert'][s].id;
+											_TD = jQuery("<td/>").css('background','none').addClass('aCenter').data('expertAmount',__data['survey'][am].amount).append('<span class="dM">'+__data['survey'][am].target+'</span><br/><span class="dM">$'+__data['survey'][am].amount+'</span><br/>');									
+											__A = jQuery("<a/>").addClass('btn btn-flat').attr('data-expertID',__data['expert'][s].id).attr('data-target',__data['survey'][am].target).data('expertEmail',__data['expert'][s].paypal_id).click(function(){
+																																						_TTHISS = jQuery(this);
+																																						_TTHISS.attr('disabled',true);
+																																						__cEM = jQuery(this).data('expertEmail');
+																																						__target = jQuery(this).attr('data-target');
+																																						__expertID = jQuery(this).attr('data-expertID');
+																																						__amTT = jQuery(this).parent().data('expertAmount');
+																																						//alert(__expertID);
+																																						jQuery.ajax({
+																																						url:__SiteURL+'index.php?option=com_survey&task=customer.transaction',
+																																						data:{amt:__amTT,su:__SUR,ex:__expertID,target:__target,format:''},
+																																						cache:false,
+																																						success:function(data){
+																																							if(data>0){
+																																								__ram = data;
+																																								__PPURL = __PPURL+__cEM+"&lc=US&item_name=Purchase Report&amount="+__amTT+"&currency_code=USD&item_number="+__ram+"&notify_url=<?php echo urlencode(JUri::base().'index.php?option=com_survey&task=customer.notify&raw=');?>"+__ram+"&return=<?php echo urlencode(JUri::base().'index.php?option=com_survey&task=customer.success&raw=');?>"+__ram+"&cancel=<?php echo urlencode(JUri::base().'index.php?option=com_survey&task=customer.cancel&raw=');?>"+__ram;
+																																								_TTHISS.removeAttr('disabled');
+																																								window.location.href=__PPURL;
+																																							}
+																																						}
+																																						});
+																																					}).append('Buy');
+											jQuery(_TD).append(__A);
+											jQuery(__TR).append(_TD);
+										}
+									}
+								}
+							}
+							jQuery(__ETable).append(__TR);								
+						}
+				} else {
+					jQuery(_HTML).append('<tr><th>No record found!</th></tr>');		
+					__ETable ='';
+					__GRID10Div = jQuery('<div/>');
+				}
+				
+				jQuery(__GRID2Div).append(_HTML);
+				
+				jQuery(__GRID10Div).append(__ETable);
+				
+				jQuery("#question").append(__GRID2Div).append(__GRID10Div);
+				/*Change height for the Questions*/
+					jQuery('#questionlist>thead').each(function(index){
+							_height = jQuery(this).height();		
+							jQuery("#expertList>tbody>tr").eq(index).css('height',_height+'px');		
+					});
+					/*End Change height for the Questions*/
+				jQuery('.loader1').css('display','none');
+			}
+			});
+		}
+	}
+							
+			
+						
+							</script>
+							</div>
+							<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id="myModalLabel">HTML Embed code</h3>
+  </div>
+  <div class="modal-body">
+    <textarea style='width:490px; height:60px' onclick="this.select();" ></textarea>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>

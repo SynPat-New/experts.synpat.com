@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="module"
+	version="2.5"
+	client="site"
+	method="upgrade">
+	<name>mod_surveyexpertsearch</name>
+	<author>ILeverage Group</author>
+	<creationDate>Dec 2013</creationDate>
+	<copyright>Copyright (C) 2013 SynPat.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>it@ilvrge.com</authorEmail>
+	<authorUrl>www.ilvrge.com</authorUrl>
+	<version>2.5.0</version>
+	<description>Module Survey Expert Search</description>
+	<files>
+		<filename module="mod_surveyexpertsearch">mod_surveyexpertsearch.php</filename>
+		<folder>tmpl</folder>
+		<filename>mod_surveyexpertsearch.xml</filename>
+	</files>
+</extension>

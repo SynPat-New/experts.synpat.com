@@ -1,0 +1,441 @@
+
+/* All three CSS files above will be loaded from this single document. */
+@import url('reuse.css');
+@import url('font.css');
+@import url("http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold"); 
+
+/* Body for default settings 
+----------------------------------------------- */
+body{margin:0; height:auto;  background:#fff; font-family:"arial"; color:#000;}
+
+ 
+ul#global_navigation li ul{
+list-style:none;
+}
+.contCustom{max-width:940px; padding:0px} 
+ul#global_navigation {list-style:none; margin:0; padding:0; float:right;}
+ul#global_navigation li {list-style:none;float: left; margin:0 0 0 0.7em;}
+ul#global_navigation li a {font-size:0.9em !important; font-weight: bold; margin:0; padding: 0; text-transform:uppercase; color:#000; font-family:"kievitregular", Arial; color:#000000;}
+
+#hero_tagline {font-size: 2.1em; color:#fff; font-weight:100; left: 0; line-height: 0.9; margin: 0 0 0 15px; opacity: 0; padding: 5px 0 0; position: absolute; top: 205px;}
+.home_hero_summary {font-size:24px; font-weight:normal; font-family:arial; line-height:30px}
+.home_hero_summary:hover{text-decoration:underline}
+.homeCopy{font-size:14px; font-weight:normal; font-family:arial; line-height:25px}
+.homeCopy:hover{text-decoration:underline}
+ul.phn-foooter-link{float:right; margin:0px; padding:0px;}
+ul.phn-foooter-link li{float:left; margin:0px; margin-left:10px; padding:0px;}
+ul.phn-foooter-link li a{color:#fff; font-family:arial; font-size:1em !important; margin:0px; padding:0px; float:left}
+.copyRight{color:#fff; font-family:arial; margin-top:5px}
+ul.phn-foooter-link li a:hover{background:none; text-decoration:underline}
+.arial{font-family:arial; font-size:12px}
+#global_nav_share_element em{background: url("../img/icon_share-b60d8e95.png") no-repeat;  height: 25px; margin: 0 0 3px; position:relative; display:inline-block; width:35px; color:hsl(0, 0%, 40%)}
+#global_nav_share_element span{color:hsl(0, 0%, 40%); font-size:0.8em; text-transform:uppercase;}
+#global_nav_share_element{margin-left:30px !important; }
+ul#project{margin:0px; padding:0px}
+ul#project{margin:0px; padding:0px; list-style:none}
+.fullImg a img{width:100%}
+.btn-O{background:#EF3224; color:#fff}
+/*ABSOLUTE BAR STARTS*/
+
+
+/* 3 boxes starts 
+------------------------------------- */
+.box{display:block; border:0px solid red;}
+.box p{font-family:arial; font-size:14px;}
+
+/* table settings starts */
+table.result-table tr th{white-space:nowrap; font-weight:bold; color:#0055ad}
+table.result-table tr th a{color:#005580}
+table.result-table tr td{text-align:center;height:20px !important}
+.btn.cButton{white-space:nowrap; margin-top:5px;}
+.shareB{background-position:0 -52px !important;}
+ul.star{margin:0}
+ul.star li{display:inline-block}*/
+span.ss{
+ background: url("../img/star.png") no-repeat scroll 0 3px transparent;
+    height: 16px;
+    text-indent: -9999px;
+    
+    display:inline-block;width:16px;
+}
+h2.rating{font-family: "KievitWebBold",Verdana,Helvetica,Arial,san-serif; color:#006699 !important; font-size:18px !important}
+
+
+.s_star_1_0{
+ background-position: -82px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_1_5 {
+    background-position: -69px -20px !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_2_0{
+background-position: -69px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_2_5 {
+    background-position: -56px -20px !important;
+    height: 13px;
+    width: 65px;
+}
+
+.s_star_3_0 {
+    background-position: -56px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_3_5 {
+    background-position: -43px -20px !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_4_0 {
+    background-position: -43px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_4_5 {
+    background-position: -30px -20px !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_5_0 {
+    background-position: -30px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+
+.swSprite {
+    background: url("../img/sprite-star.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    vertical-align: middle;
+}
+.swSprite span{
+	 left: -9999px;
+    position: absolute;
+}
+
+
+
+.navLi li{line-height:12px !important;}
+.fullImg{font-family:"PT Sans", Arial,sans-serif !important; font-weight:normal !important; line-height:30px !important;}
+.customhheading{font-family:"PT Sans", Arial,sans-serif !important; font-weight:normal !important; line-height:23px !important;}
+
+.footer_column_280 {
+
+margin:0 0px 0 0;
+padding: 0;
+}
+.footer_column_280 ul {
+margin:0; 
+padding:0; 
+list-style:none;
+}
+.footer_column_280 li{
+margin:0 0 20px 0; 
+padding:0;
+}
+
+.foo a{color:#ccc;}
+.fOO { font-family: "KievitWebBold",Verdana,Helvetica,Arial,san-serif;color:#CCCCCC;  font-size: 1em; font-weight: bold; padding: 0; text-align: left;}
+span.fOO{ font-family: "KievitWebBold",Verdana,Helvetica,Arial,san-serif;color:#CCCCCC;  font-size: 1em;  padding: 0; text-align: left;}
+.navFoo a {color: hsl(0, 0%, 80%);}
+ul.navFoo{margin:0px; padding:0px; display:table;}
+ul.navFoo li{list-style:none; float:left; width:100%; margin:0 0 10px 0}
+.borderCustom{border:1px solid #666666 !important; line-height:0px;}
+
+
+
+
+/* Dhaka */
+.pull-left1{display:block; height:auto;}
+.s_star_0_0 {
+    background-position: -95px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+
+
+.nav-tabs.nav-stacked > li a.active{
+	
+	background:#EFEFEF !important;
+	
+}
+
+/* Menu Float Left
+--------------------------- */
+#global_header_global_nav_container{float:right;}
+
+.mNav .nav-tabs.nav-stacked > li > a{ border-left:none; border-right:none; font-weight:bold}
+.mNav .nav-tabs.nav-stacked > li > a:hover{background:none !important; color:#444 !important}
+
+
+
+
+/* -- TAB STYLES ----------------------------- */
+dl.tabs {
+	float: left;
+	margin: 10px 0 -1px 0;
+	z-index: 50;
+}
+
+dl.tabs dt {
+	float: left;
+	padding: 4px 10px;
+	border: 1px solid #ccc;
+	margin-left: 3px;
+	background: #e9e9e9;
+	color: #666;
+}
+
+dl.tabs dt.open {
+	background: #F9F9F9;
+	border-bottom: 1px solid #f9f9f9;
+	z-index: 100;
+	color: #000;
+}
+div#profileData > div.current {
+	clear: both;
+	border: 1px solid #ccc;
+	padding: 10px 10px;
+}
+
+div#profileData > div.current dd {
+	padding: 0;
+	margin: 0;
+}
+/*
+div.current {
+	clear: both;
+	border: 1px solid #ccc;
+	padding: 10px 10px;
+}
+
+div.current dd {
+	padding: 0;
+	margin: 0;
+}
+
+dl#content-pane.tabs {
+	margin: 1px 0 0 0;
+}
+
+div.current label,
+div.current span.faux-label {
+	display: block;
+	min-width: 150px;
+	float: left;
+	clear: left;
+	margin-top: 8px;
+}
+
+div.current fieldset {
+	border: none 0;
+}
+
+div.current fieldset.adminform {
+	border: 1px #ccc solid;
+}
+
+div.current fieldset.radio {
+	float: left;
+}
+
+div.current fieldset.radio input {
+	clear: none;
+	min-width: 15px;
+	float: left;
+	margin: 3px 0 0 2px;
+}
+
+div.current fieldset.radio label {
+	clear: none;
+	min-width: 45px;
+	float: left;
+	margin: 3px 0 0 5px;
+}
+
+div.current fieldset.checkboxes {
+	float: left;
+	clear: right;
+}
+
+div.current fieldset.checkboxes input {
+	clear: left;
+	min-width: 15px;
+	float: left;
+	margin: 3px 0 0 2px;
+}
+
+div.current fieldset.checkboxes label {
+	clear: right;
+	min-width: 45px;
+	margin: 3px 0 0 5px;
+}
+
+div.current input,
+div.current textarea,
+div.current select {
+	clear: none;
+	float: left;
+	margin: 3px 0 0 2px;
+}
+
+div.current select {
+	margin-bottom: 15px;
+}
+*/
+p.tab-description {
+	font-size: 1.091em;
+	margin-left: 0;
+	margin-top: 5px;
+}
+
+ul.phn-nav{list-style:none; width:100%}
+ul.phn-nav > li{width:100%}
+
+/* */
+.custom-1 .nav-tabs.nav-stacked > li > a{border:none;}
+ul#projectList li a{border:0;}
+
+ul#projectList{margin-left:-10px; margin-top:12px}
+ul#surveylist{margin-left:0; margin-top:12px}
+
+a.current-active{
+color:red !important;
+}
+
+ul#surveylist {margin-left: 0; margin-top: 12px;}
+ul#surveylist li a{border: none;}
+.power_by{display:none;}
+.power_link{display:none;}
+
+.button-link{
+color:#1155CC !important;text-decoration:none !important;font-size:14px !important; padding:5px !important;
+}
+.button-link:hover{
+text-decoration:underline !important;
+background-color:#EEEEEE !important;
+}
+
+
+.button, .button:visited {
+	display: inline-block; 
+	padding: 5px 10px 6px; 
+	color: #fff; 
+	text-decoration: none;
+	border-radius:5px;
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer;
+	font:normal 12px arial;
+	text-transform:uppercase;
+}
+.button span{ font-size:16px;}
+.button:hover{color:#fff;}
+.lg-l-r {
+/* fallback */
+background-color: #126792;
+background-repeat: repeat-y;
+/* Safari 4-5, Chrome 1-9 */
+background: -webkit-gradient(linear, left top, right top, from(#126792), to(#2689bb));
+/* Safari 5.1, Chrome 10+ */
+background: -webkit-linear-gradient(left, #126792, #2689bb);
+/* Firefox 3.6+ */
+background: -moz-linear-gradient(left, #126792, #2689bb);
+/* IE 10 */
+background: -ms-linear-gradient(left, #126792, #2689bb);
+/* Opera 11.10+ */
+background: -o-linear-gradient(left, #126792, #2689bb);
+}
+
+.lg-l-r:hover {
+/* fallback */
+background-color: #6a6a6a;
+background-repeat: repeat-y;
+/* Safari 4-5, Chrome 1-9 */
+background: -webkit-gradient(linear, left top, right top, from(#6a6a6a), to(#9f9f9f));
+/* Safari 5.1, Chrome 10+ */
+background: -webkit-linear-gradient(left, #6a6a6a, #9f9f9f);
+/* Firefox 3.6+ */
+background: -moz-linear-gradient(left, #6a6a6a, #9f9f9f);
+/* IE 10 */
+background: -ms-linear-gradient(left, #6a6a6a, #9f9f9f);
+/* Opera 11.10+ */
+background: -o-linear-gradient(left, #6a6a6a, #9f9f9f);
+}
+	ul#global_navigation li ul.menu {
+		margin-left:0;
+		}
+	ul#global_navigation li ul.menu li.active a{
+		color:#EE3224;
+    } 
+    
+    
+    
+    
+    
+    .divHolder{width:761px; float:left}
+ul.placeHolder{width:100%; float:left}
+ul.placeHolder li{width:97.3%; float:left;  padding:5px 0; padding-left:21px; line-height:normal !important;  border-bottom: 1px solid hsl(210, 3%, 77%);}
+ul.placeHolder li .checkboxHolder{width:22px; float:left; border:0px solid red; margin-top:1px}
+ul.placeHolder li .checkboxHolder img{vertical-align:middel}
+ul.placeHolder li .symbolHolder{width:96px; float:left; margin-top:4px}
+ul.placeHolder li .symbolHolder a{ font-weight: bold; color: hsl(3, 95%, 38%); font-size:12px; font-family:arial}
+ul.placeHolder li .titleBar{width:541px; float:left; margin-top:4px}
+ul.placeHolder li .titleBar{font-weight: bold;  color: hsl(212, 58%, 13%); font-size:12px; font-family:arial}
+ul.placeHolder li a.btn-s {width:40px; height:20px; float:left; margin-top:2px;}
+ul.placeHolder li a.btn-s span{background: url("../img/icon_sprite.gif") no-repeat scroll 0px -29048px transparent; width:13px; height:18px; float:left; border-bottom:1px solid hsl(3, 81%, 34%)}
+ul.placeHolder li a.btn-s span:hover{background: url("../img/icon_sprite.gif") no-repeat scroll -50px -29048px transparent;}
+ul.placeHolder li a.btn-m  span{background: url("../img/icon_sprite.gif") no-repeat scroll 0px -28748px transparent; width:18px; height:20px; float:left; border-bottom:1px solid hsl(3, 81%, 34%)}
+ul.placeHolder li a.btn-m span:hover{background: url("../img/icon_sprite.gif") no-repeat scroll -20px -28748px transparent; margin-right:20px}
+.un{text-decoration:underline; color: hsl(3, 81%, 34%); font-weight:bold}
+
+#treeHeader{background: none repeat scroll 0 0 hsl(210, 8%, 76%); border-top: 1px solid hsl(210, 4%, 62%); width:98.4%; float:left; font-weight: bold; margin: 0 0 2px; padding: 0.333em 0.5em;}
+.symbol{width:101px; float:left; margin-left:33px}
+.symbol p{font-weight: bold;  color: hsl(212, 58%, 13%); font-size:12px; font-family:arial}
+.description{width:220px; float:left;}
+.description p{font-weight: bold;  color: hsl(212, 58%, 13%); font-size:12px; font-family:arial}
+
+.notes{background: none repeat scroll 0 0 hsl(194, 75%, 87%);  padding: 0.6em 0.3em; float:left; width:520px; margin:10px 0}
+.note-p{background: url("../img/icon_notes_selected.png") no-repeat scroll 2px 2px transparent; padding-bottom: 0.5em; padding-left: 22px;  float:left;color: hsl(212, 58%, 13%); font:12px arial;  margin-bottom: 1em; margin-top: 1em;}
+.section-title{width:100%; color: hsl(212, 58%, 13%); font:bold 12px arial;}
+
+
+.containerCustom{max-width:800px}
+a.btn-s span{background: url("../img/icon_sprite.gif") no-repeat scroll 0px -29048px transparent; width:13px; height:18px; float:left; border-bottom:1px solid hsl(3, 81%, 34%)}
+a.btn-s span:hover{background: url("../img/icon_sprite.gif") no-repeat scroll -50px -29048px transparent;}
+a.btn-m  span{background: url("../img/icon_sprite.gif") no-repeat scroll 0px -28748px transparent; width:18px; height:20px; float:left; border-bottom:1px solid hsl(3, 81%, 34%)}
+a.btn-m span:hover{background: url("../img/icon_sprite.gif") no-repeat scroll -20px -28748px transparent;}
+.table tbody tr td label a{font-weight: bold; color: hsl(3, 95%, 38%) !important; font-size:12px; font-family:arial}
+.table tbody tr td p{font-weight: bold; text-align:left !important;  color: #0E2034; font-size:12px; font-family:arial}
+.table thead tr th p{font-weight: bold; text-align:left !important; color: #0E2034; font-size:12px; font-family:arial}
+.table tbody tr td{padding:0px; line-height:14px !important;}
+.table tbody tr td label{margin:0px; line-height:normal}
+.table tbody tr td{border-bottom: 1px solid hsl(210, 3%, 77%); background:none !important; padding-top:4px; padding-bottom:4px;}
+
+.table thead tr th{border-bottom: 1px solid hsl(210, 3%, 77%); background:none !important; padding-top:4px; padding-bottom:4px; padding-left:0px}
+
+td.dot{font-weight:bold; font-size:14px; color:#000; padding-left:2px !important; padding-right:2px !important; padding-top:6px !important;}
+table.customTable tbody tr td{border:0px solid #fff !important}
+table.customTable tbody tr td{padding-top:0px !important; padding-bottom:0px}
+.table tbody tr td.arrow{background:#3A414D url(../img/arrowTop.png) no-repeat 4px 7px !important; width:2%}
+.table tbody tr td.arrow2{background:#E9E7D9 url(../img/aow.jpg) no-repeat 4px 7px !important; width:2%}
+table.table.table > tbody > tr.hover1:hover > td{ border-top:1px solid #000000 !important; border-bottom:1px solid #000 !important;}
+
+table tbody tr td.check-align{
+	padding-left:10px !important;
+	text-align:right !important;
+}
+.classitemFocus{
+	background-color:#EFEFEF !important;
+	color:#0E2034 !important;
+}
+

@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'kievitregular';
+    src: url('font/ufonts.com_kievit_bold_1_-webfont.eot');
+    src: url('font/ufonts.com_kievit_bold_1_-webfont.eot?#iefix') format('embedded-opentype'),
+         url('font/ufonts.com_kievit_bold_1_-webfont.woff') format('woff'),
+         url('font/ufonts.com_kievit_bold_1_-webfont.ttf') format('truetype'),
+         url('font/ufonts.com_kievit_bold_1_-webfont.svg#kievitregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}

@@ -1,0 +1,2517 @@
+<?php
+
+// No direct access. 
+defined('_JEXEC') or die;
+
+// Include dependancy of the main controllerform class
+jimport('joomla.application.component.controllerform');
+
+class SurveyControllerCustomer extends JControllerForm
+{
+
+    public function __construct()
+    {
+        parent::__construct(); 
+    }
+
+    public function getModel($name = 'Customer', $prefix = 'SurveyModel', $config = array('ignore_request' => true))
+    {
+        return parent::getModel($name, $prefix, array('ignore_request' => false));
+    }
+
+    function childData()
+    {
+        $parentID = JRequest::getInt('pat');
+        $level = JRequest::getInt('l');
+        if ($level == 1 || $level == 2 || $level == 0) {
+            $getData = $this->getModel()->getChildExpertise($parentID);
+            echo json_encode($getData);
+        } else if ($level == 3) {
+            $getData = $this->getModel()->getChildExpertise($parentID);
+            $newArray = "";
+            if (count($getData) > 0) {
+                for ($i = 0; $i < count($getData); $i++) {
+                    $newArray[] = array('id' => $getData[$i]->id, 'name' => $getData[$i]->name, 'classification_description' => $getData[$i]->classification_description, 'parent' => 0, 'level' => 1, 'big_parent' => 0);
+                    $checkData = $this->getModel()->getChildExpertise($getData[$i]->id);
+                    if (count($checkData) > 0) {
+                        for ($s = 0; $s < count($checkData); $s++) {
+                            $newArray[] = array('id' => $checkData[$s]->id, 'name' => $checkData[$s]->name, 'classification_description' => $checkData[$s]->classification_description, 'parent' => $getData[$i]->id, 'level' => 2, 'big_parent' => $getData[$i]->id);
+                            $checkData1 = $this->getModel()->getChildExpertise($checkData[$s]->id);
+                            if (count($checkData1) > 0) {
+                                for ($h = 0; $h < count($checkData1); $h++) {
+                                    $newArray[] = array('id' => $checkData1[$h]->id, 'name' => $checkData1[$h]->name, 'classification_description' => $checkData1[$h]->classification_description, 'parent' => $checkData[$s]->id, 'level' => 3, 'big_parent' => $getData[$i]->id);
+                                    $checkData2 = $this->getModel()->getChildExpertise($checkData1[$h]->id);
+                                    if (count($checkData2) > 0) {
+                                        for ($m = 0; $m < count($checkData2); $m++) {
+                                            $newArray[] = array('id' => $checkData1[$m]->id, 'name' => $checkData2[$m]->name, 'classification_description' => $checkData2[$m]->classification_description, 'parent' => $checkData1[$h]->id, 'level' => 4, 'big_parent' => $getData[$i]->id);
+                                            $checkData3 = $this->getModel()->getChildExpertise($checkData2[$m]->id);
+                                            if (count($checkData3) > 0) {
+                                                for ($n = 0; $n < count($checkData3); $n++) {
+                                                    $newArray[] = array('id' => $checkData3[$n]->id, 'name' => $checkData3[$n]->name, 'classification_description' => $checkData3[$n]->classification_description, 'parent' => $checkData2[$m]->id, 'level' => 5, 'big_parent' => $getData[$i]->id);
+                                                    $checkData4 = $this->getModel()->getChildExpertise($checkData3[$n]->id);
+                                                    if (count($checkData4) > 0) {
+                                                        for ($a = 0; $a < count($checkData4); $a++) {
+                                                            $newArray[] = array('id' => $checkData4[$a]->id, 'name' => $checkData4[$a]->name, 'classification_description' => $checkData4[$a]->classification_description, 'parent' => $checkData3[$n]->id, 'level' => 6, 'big_parent' => $getData[$i]->id);
+                                                            $checkData5 = $this->getModel()->getChildExpertise($checkData4[$a]->id);
+                                                            if (count($checkData5) > 0) {
+                                                                for ($j = 0; $j < count($checkData5); $j++) {
+                                                                    $newArray[] = array('id' => $checkData5[$j]->id, 'name' => $checkData4[$j]->name, 'classification_description' => $checkData4[$j]->classification_description, 'parent' => $checkData4[$a]->id, 'level' => 7, 'big_parent' => $getData[$i]->id);
+                                                                    $checkData6 = $this->getModel()->getChildExpertise($checkData5[$j]->id);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                echo json_encode($newArray);
+            }
+        }
+    }
+
+    function checklist()
+    {
+        JRequest::setVar("view", "customer");
+        $view = $this->getView("customer", "html");
+        $view->setLayout("default");
+        $view->setModel($this->getModel(), true);
+        $view->projectlist();
+    }
+
+    function expertArea()
+    {
+        JRequest::setVar("view", "customer");
+        $view = $this->getView("customer", "html");
+        $view->setLayout("expertarea");
+        $view->setModel($this->getModel(), true);
+        $view->expertArea();
+    }
+    
+    function expertFeedback(){
+		 JRequest::setVar("view", "customer");
+		 $view = $this->getView("customer", "html");
+		 $view->setLayout("expertfeedback");
+		 $view->setModel($this->getModel(), true);
+         $view->expertFeedback();
+	}
+
+    function expertRating()
+    {
+        JRequest::setVar("view", "customer");
+        $view = $this->getView("customer", "html");
+        $view->setLayout("rating");
+        $view->setModel($this->getModel(), true);
+        $view->expertRating();
+    }
+
+    function viewReport()
+    {
+        JRequest::setVar("view", "customer");
+        $view = $this->getView("customer", "html");
+        $view->setLayout("report");
+        $view->setModel($this->getModel(), true);
+        $view->expertReport();
+    }
+    
+    function expertReport(){
+		 JRequest::setVar("view", "customer");
+		 $view = $this->getView("customer", "html");
+		 $view->setLayout("expertreport");
+		 $view->setModel($this->getModel(), true);
+		 $view->getExpertReport();
+	}
+	
+	function expertProcess(){
+		 JRequest::setVar("view", "customer");
+		 $view = $this->getView("customer", "html");
+		 $view->setLayout("expertprocess");
+		 $view->setModel($this->getModel(), true);
+		 $view->expertProcess();
+	}
+	
+	function expertOpportunites(){
+		JRequest::setVar("view", "customer");
+		 $view = $this->getView("customer", "html");
+		 $view->setLayout("expertopportunites");
+		 $view->setModel($this->getModel(), true);
+		 $view->expertOpportunites();
+	}
+    function generateClientRequest()
+    {
+        JRequest::setVar("view", "customer");
+        $view = $this->getView("customer", "html");
+        $view->setLayout("generateclientrequest");
+        $view->setModel($this->getModel(), true);
+        $view->generateClientRequest();
+    }
+
+    function surveyList()
+    {
+        $surveyParam = base64_decode(JRequest::getVar('ps', ''));
+        if (!empty($surveyParam)) {
+            $surveyData = explode('@', $surveyParam);
+            if (count($surveyData) == 2) {
+                $getList = $this->getModel()->surveyList($surveyData[1]);
+                echo json_encode($getList);
+            } else {
+                echo json_encode(array());
+            }
+        } else {
+            echo json_encode(array());
+        }
+    }
+
+    function notification()
+    {
+        JRequest::setVar("view", "customer");
+        $view = $this->getView("customer", "html");
+        $view->setLayout("notification");
+        $view->setModel($this->getModel(), true);
+        $view->notification();
+    }
+	
+	function sendAlert(){
+		$p = JRequest::getVar('p', '0');
+		$t = JRequest::getVar('t', '');
+		$email = JRequest::getVar('e', '');
+		$c = JRequest::getVar('c', '0');
+		$saveData = $this->getModel()->saveEmailAlert(array('project_id'=>$p,'email_address'=>$email,'survey_id'=>$c));
+		echo $saveData;
+	}
+	
+	
+    function surveyListAnother()
+    {
+        $surveyParam = JRequest::getVar('ps', '');
+        if (!empty($surveyParam)) {
+            $getList = $this->getModel()->surveyList($surveyParam);
+            echo json_encode($getList);
+        } else {
+            echo json_encode(array());
+        }
+    }
+
+    function quList()
+    {
+        $quParam = JRequest::getVar('ps', '');
+        if (!empty($quParam)) {
+            $getList = $this->getModel()->quList($quParam);
+            echo json_encode($getList);
+        } else {
+            echo json_encode(array('question' => array()));
+        }
+    }
+
+    function quListExpert()
+    {
+        $quParam = JRequest::getVar('ps', '');
+        $expertID = JRequest::getInt('f');
+        if (!empty($quParam)) {
+            $getList = $this->getModel()->quListExpert($quParam, $expertID);
+            echo json_encode($getList);
+        } else {
+            echo json_encode(array('question' => array()));
+        }
+    }
+
+    function notify()
+    {
+        echo "notify";
+        echo $_SERVER['QUERY_STRING'];
+        die;
+    }
+
+    function orderNotify()
+    {
+        echo "notify";
+        echo $_SERVER['QUERY_STRING'];
+        die;
+    }
+
+    function success()
+    {
+        $getRawID = JRequest::getVar('raw');
+        $checkID = $this->getModel()->checkTrans($getRawID);
+        if (count($checkID) > 0) {
+            JRequest::setVar("view", "customer");
+            $view = $this->getView("customer", "html");
+            $view->setLayout("thanks");
+            $view->setModel($this->getModel(), true);
+            $view->thanks();
+        } else {
+            JRequest::setVar("view", "customer");
+            $view = $this->getView("customer", "html");
+            $view->setLayout("nopage");
+            $view->setModel($this->getModel(), true);
+            $view->nopage();
+        }
+    }
+
+    function orderSuccess()
+    {
+        $getRawID = JRequest::getVar('raw');
+        $checkID = $this->getModel()->checkTrans($getRawID);
+        if (count($checkID) > 0) {
+            $app = JFactory::getApplication();
+            JFactory::getApplication()->enqueueMessage(JText::_('Payment has successfully been done.'), 'message');
+            $app->redirect('index.php');
+        } else {
+            JRequest::setVar("view", "customer");
+            $view = $this->getView("customer", "html");
+            $view->setLayout("nopage");
+            $view->setModel($this->getModel(), true);
+            $view->nopage();
+        }
+
+    }
+
+    function cancel()
+    {
+        $app = JFactory::getApplication();
+        $app->redirect('index.php', "You have cancel your payment.", 'message');
+    }
+
+    function orderCancel()
+    {
+        /*Payment Cancelled, Now Delete Every Survey && Project*/
+        $transactionID = JRequest::getInt('raw');
+        if ($transactionID > 0) {
+            $this->getModel('Customer')->deleteRecordClaimAndProject($transactionID);
+        }
+        $app = JFactory::getApplication();
+        $app->redirect('index.php', "You have cancel your payment.", 'message');
+    }
+
+    function transaction()
+    {
+        $random = JRequest::getVar('amt');
+        $surveyID = JRequest::getVar('su');
+        $expertID = JRequest::getVar('ex');
+        $target = JRequest::getVar('target');
+        if ($random != "") {
+            $getList = $this->getModel()->insertTrans($random, $surveyID, $expertID, 0, $target);
+            echo $getList;
+        } else {
+            echo "0";
+        }
+    }
+
+    function reEditReport()
+    {
+        $expertID = JRequest::getVar('ex');
+        $surveyID = JRequest::getVar('su');
+        $target = JRequest::getVar('target');
+        $getSurveyData = $this->getModel()->getSurveyData($surveyID);
+        $app = JFactory::getApplication();
+        if (count($getSurveyData) > 0) {
+            $app->redirect('index.php?option=com_survey&view=answer&target=' . $target . '&param=' . base64_encode($getSurveyData->name . '@' . $surveyID . '@' . $expertID));
+        } else {
+            $app->redirect('index.php?option=com_survey&task=customer.expertProfile&display=' . $expertID);
+        }
+    }
+
+    function expertProfile()
+    {
+        JRequest::setVar("view", "customer");
+        $view = $this->getView("customer", "html");
+        $view->setLayout("profile");
+        $view->setModel($this->getModel(), true);
+        $view->expertProfile();
+    }
+
+    function submitRating()
+    {
+        $post = JRequest::get('post');
+        $app = JFactory::getApplication();
+        $dataDecode = base64_decode($post['string']);
+        $explodeCode = explode('@', $dataDecode);
+        if (count($explodeCode) == 4) {
+            $rating = $this->getModel('Customer')->saveRating($post['rating'], $explodeCode[0], $explodeCode[1], $post['feedback']);
+            if ($rating > 0) {
+                /*Delete Code for rating*/
+                $this->getModel('Customer')->updateDigiCode($post['string'], 1);
+                $app->redirect('index.php', 'Thankyou for submit rating for expert.', 'message');
+                /*End Delete Code*/
+            } else {
+                $app->redirect('index.php', 'Please try after some time.', 'message');
+                //$this->expertRating();
+            }
+        } else {
+            $app->redirect('index.php', 'Wrong input. Please try after some time', 'message');
+        }
+    }
+
+    function downloadSurvey()
+    {
+        $post = JRequest::get('post');
+        
+		$getSurevyData = $this->getModel()->checkTrans($post['date_status']);			
+        if (count($getSurevyData) > 0) {			
+            $getQueAnsData = $this->getModel()->getQueAnsData($getSurevyData->survey_id, $getSurevyData->expert_id, $getSurevyData->target);
+            $getExpertData = $this->getModel()->expertData($getSurevyData->expert_id);
+            $getSurveyInfo = $this->getModel()->getSurveyData($getSurevyData->survey_id);
+		    $patentNumber = "";
+            $claimNumber = "";
+            if (count($getSurveyInfo) > 0) {
+                $claimNumber = substr($getSurveyInfo->combine_name, strlen($getSurveyInfo->combine_name) - 3, -1);
+                $patentNumber = "US" . $getSurveyInfo->name;
+            }
+            $name = $getExpertData->name;
+            $profileImage = $getExpertData->linkedin_pic;
+            if ($profileImage == "") {
+                $profileImage = 'http://placehold.it/120x120';
+            }
+            $profileUrl = $getExpertData->linkedin_profile_url;
+            if (count($getQueAnsData) > 0) {
+                $expertRatingData = $this->getModel()->expertRatingData($getSurevyData->expert_id);
+                $overAllRating = 0;
+                $totalProject = 0;
+                $calcRating = 0;
+                for ($i = 0; $i < count($expertRatingData); $i++) {
+                    if ($i == 0) {
+
+                    }
+                    $overAllRating = $overAllRating + $expertRatingData[$i]->rating;
+                    $totalProject = $totalProject + $expertRatingData[$i]->countSurvey;
+                }
+                if ($totalProject > 0 && $overAllRating > 0) {
+                    $calcRating = round($overAllRating / $totalProject, 1);
+                }
+                $class = "";
+                if ($calcRating > 0) {
+                    if ($calcRating == 1) {
+                        $class = "s_star_1_0";
+                    } else if (($calcRating > 1 && $calcRating < 1.5) || ($calcRating > 1.5 && $calcRating < 2)) {
+                        $class = "s_star_1_5";
+                    } else if ($calcRating == 2) {
+                        $class = "s_star_2_0";
+                    } else if (($calcRating > 2 && $calcRating < 2.5) || ($calcRating > 2.5 && $calcRating < 3)) {
+                        $class = "s_star_2_5";
+                    } else if ($calcRating == 3) {
+                        $class = "s_star_3_0";
+                    } else if (($calcRating > 3 && $calcRating < 3.5) || ($calcRating > 3.5 && $calcRating < 4)) {
+                        $class = "s_star_3_5";
+                    } else if ($calcRating == 4) {
+                        $class = "s_star_4_0";
+                    } else if (($calcRating > 4 && $calcRating < 4.5) || ($calcRating > 4.5 && $calcRating < 5)) {
+                        $class = "s_star_4_5";
+                    } else if ($calcRating == 5) {
+                        $class = "s_star_5_0";
+                    }
+                } else {
+                    $class = "s_star_0_0";
+                }
+                $checkCodeGenerate = $this->getModel('Customer')->checkDigiCodeGenerate($post['date_status']);
+                $urlQueryString = "";
+                $urlQueryString = base64_encode($getSurevyData->survey_id . "@" . $getSurevyData->expert_id . "@" . $post['date_status']);
+                $getDigiID = $this->getModel('Customer')->generateDigiCode($urlQueryString, $post['date_status']);
+				
+                if ($getDigiID > 0) {
+                    if (count($checkCodeGenerate) == 0) {
+                        $urlQueryString = base64_encode($getSurevyData->survey_id . "@" . $getSurevyData->expert_id . "@" . $post['date_status'] . "@" . $getDigiID);
+                    } else {
+                        $urlQueryString = $checkCodeGenerate->code_generate;
+                        $urlQueryString = base64_decode($urlQueryString);
+                        $urlQueryString .= "@" . $checkCodeGenerate->id;
+                        $urlQueryString = base64_encode($urlQueryString);
+                    }
+					
+                    $URL = JUri::base() . 'index.php?option=com_survey&task=customer.expertRating&display=' . $urlQueryString;					
+					
+                    $html = "";
+
+                    $html .= '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>PDF Report</title>
+	<style type="text/css">
+		body{font-family:times new roman,Serif; font-size:12px }
+		
+		a:hover { text-decoration: underline !important; }
+		.s_star_1_0{
+ background-position: -82px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_1_5 {
+    background-position: -69px -20px !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_2_0{
+background-position: -69px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_2_5 {
+    background-position: -56px -20px !important;
+    height: 13px;
+    width: 65px;
+}
+
+.s_star_3_0 {
+    background-position: -56px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_3_5 {
+    background-position: -43px -20px !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_4_0 {
+    background-position: -43px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_4_5 {
+    background-position: -30px -20px !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_5_0 {
+    background-position: -30px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_0_0 {
+    background-position: -95px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.swSprite {
+    background: url("' . JUri::base() . 'templates/survey/img/sprite-star.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    vertical-align: middle;
+
+
+}
+.swSprite span{
+	 left: -9999px;
+	</style>
+</head>
+
+<body marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px;  leftmargin="0">';
+
+                    $html .= '
+   <table width="723" border="0" align="center" cellpadding="5" cellspacing="0">
+	<tr> 
+		<td styke="height:100px;">
+			<table width="723" cellspacing="0" cellpadding="0" border="0" align="left">
+				<tr>
+					<td width="200"><img width="200" height="20" style="width:200px; height:20px;" src="' . JUri::base() . 'templates/survey/img/logo.png"/></td>
+					<td width="478" align="right" style="width:478px;">						
+						<table width="478" style="width:478px;">
+							<tr>
+								<td>
+								<a style="font-family:times new roman,Serif; font-size:12px; color:#000;" href="' . JUri::base() . '">HOME</a>&nbsp;&nbsp;
+								<a style="font-family:times new roman,Serif; font-size:12px; color:#000;" href="' . JUri::base() . 'index.php/order">ORDER</a>&nbsp;&nbsp;
+								<a style="font-family:times new roman,Serif; font-size:12px; color:#000;" href="' . JUri::base() . 'index.php/download">DOWNLOAD</a>&nbsp;&nbsp;
+								<a style="font-family:times new roman,Serif; font-size:12px; color:#000;" href="' . JUri::base() . 'index.php/blog">BLOG</a>&nbsp;&nbsp;
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	
+	<tr>
+		<td height="30">&nbsp;</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<table width="650" border="0" cellspacing="0" cellpadding="0" align="center">
+				<tr>
+					<td valign="top" width="150"><img src="' . $profileImage . '" style="width=80; height=80;"/></td>
+					<td width="10"></td>
+					<td valign="top" width="540">
+						<p style="display:block;">
+						' . $name . '&nbsp;<span class="swSprite ' . $class . '"></span><br /> ' ;
+						if(!empty($getExpertData->address)){
+							$html .= $getExpertData->address . ',<br /> ';
+						}
+						if(!empty($getExpertData->email)){
+							$html .= $getExpertData->email . ',<br /> ';
+						}
+						if(!empty($getExpertData->phone)){
+							$html .= $getExpertData->phone . ',<br /> ';
+						}
+						if(!empty($getExpertData->web)){
+							$html .= $getExpertData->web . ',<br /> ';
+						}						
+					$html .= '</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	</table>';
+                    $html .= '<div style="margin:0 auto;width:723px;border-bottom:4px solid #b90022;">&nbsp;</div><div style="margin:0 auto;width:723px;margin-top:1px;border-bottom:1px solid #b90022;">&nbsp;</div>';
+
+                    $html .= '<table cellspacing="0" border="0" width="624"><tr><td></table> <table cellspacing="0" border="0" cellpadding="0" width="100%">
+	  <tr>
+		<td valign="top" align="left">
+			<h5 style="font-size: 14px; font-weight: bold; color: #333333; font-family: times new roman; margin-top: 0px; margin-bottom: 5px;">Report of Evidence of Use</h5>
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			The views presented here are of the author only and do not necessarilyreflect the views of others. The author is an independent contractor that acts on behalf of neither the patent owner nor any other third party, including ClaimCharts.info. We would like to thank ClaimCharts.info for introducing to us the opportunity to prepare this report.  For comments and questions, please feel free to contact us directly, or via my profile at ClaimCharts.info.</p>
+		</td>
+	  </tr>
+	</table>
+	
+    <table cellspacing="0" border="0" cellpadding="0" width="100%">
+	  <tr>
+		<td height="10">&nbsp; </td>
+	  </tr>
+	</table><table cellspacing="0" border="0" cellpadding="0" width="100%">
+	  <tr>
+		<td valign="top" align="left">
+			<h5 style="font-size: 14px; font-weight: bold; color: #cd2122; font-family: times new roman; margin-top: 0px; margin-bottom: 10px;">Patent Number: ' . $patentNumber . '</h5>
+			<h5 style="font-size: 14px; font-weight: bold; color: #cd2122; font-family: times new roman; margin-top: 0px; margin-bottom: 10px;">Claim Number: ' . $claimNumber . '</h5>
+			<div style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">';
+                    $textShow = "";
+                    for ($i = 0; $i < count($getQueAnsData); $i++) {
+                        $textShow .= $getQueAnsData[$i]->description . " ";
+                    }
+
+
+                    $html .= $textShow . '</div>
+		</td>
+	  </tr>
+	</table>
+	
+	
+    <table cellspacing="0" border="0" cellpadding="0" width="100%">
+	  <tr>
+		<td height="20">&nbsp; </td>
+	  </tr>
+	</table>';
+
+                    $d = 1;
+                    for ($i = 0; $i < count($getQueAnsData); $i++) {
+
+                        $html .= '<table cellspacing="0" border="0" cellpadding="0" width="100%">
+													
+													<tr>
+														<td valign="top" align="left">
+															<h5 style="font-size: 14px; font-weight: bold; color: #cd2122; font-family: times new roman; margin-top: 0px; margin-bottom: 10px;">Element ' . $d . ':</h5>
+															<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">' . $getQueAnsData[$i]->description . '<br /><br />
+															<div style="font-family: times new roman;font-size: 16px;">' . $getQueAnsData[$i]->answer . ' </div>
+														</td>
+												  </tr>
+												  <tr>
+													<td height="5">&nbsp; </td>
+												  </tr>';
+
+
+                        if ($getQueAnsData[$i]->supporting_document != "") {
+                            $html .= ' <tr>
+													<td valign="top">
+														<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #126792; margin: 0px;">Supporting Evidence:</p>
+														<img style="width:500px !important;" src="' . JUri::base() . 'components/com_survey/document/' . $getQueAnsData[$i]->supporting_document . '"/>
+													</td>
+												  </tr>';
+                        }
+
+                        $html .= '</table>
+				
+				
+											<table  cellspacing="0" border="0" cellpadding="0" width="100%">
+											  <tr>
+												<td height="5">&nbsp; </td>
+											  </tr>
+											</table>';
+                        $d++;
+
+                    }
+
+                    $html .= '
+										<table cellspacing="0" border="0" cellpadding="0" width="100%">
+										  <tr>
+											<td align="center">*&nbsp;&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;*</td>
+										  </tr>
+										   <tr>
+											<td height="20" align="center"><p style="font-size:14px">End of Report</p></td>
+										  </tr>
+										</table>
+										
+										
+										<table cellspacing="0" border="0" cellpadding="0" width="100%">
+										  <tr>
+											<td valign="top" align="left" height="10px">&nbsp;</td>
+										  </tr>';
+                    $html .= '<tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			Please rank my report. The following link leads to our profile at ClaimCharts.info, where you could rank our report.<br/><a href="' . $URL . '">Rank Here</a></p>
+		</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			We are available to answer follow up questions, provide clarifications and search for additional materials upon request. For public contact - please refer to our profile at <a href="' . JUri::base() . 'index.php?option=com_survey&task=customer.expertProfile&display=' . $getSurevyData->expert_id . '#commenting">ClaimCharts.info</a>. For private contact - please call/email us.</p>
+		</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	   <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			Our hourly rate is: $' . $getExpertData->hourly_rate . '</p>
+		</td>
+	  </tr>
+	  
+	</table>
+	
+	
+    <table cellspacing="0" border="0" cellpadding="0" width="100%">
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	 
+	 <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; font-weight:bold; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">Non-Disclosure Agreement:</p>
+		</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			We understand that for the purpose of assisting you in collecting data, you may disclose to us certain confidential information that you want to keep confidential; therefore, for good and valuable consideration, the receipt and sufficiency of which is hereby acknowledged, we agree as follows:</p>
+		</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	     
+	   <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			1.	For a period of twelve (36) months from the date we receive your confidential information ("Effective Date"), we will not use or disclose the information, except: (a) in the event that such information (i) comes into the public domain not through us; (ii) is already known to us at the time of disclosure; (iii) is lawfully otherwise learnt or independently developed by us; or (iv) is required to be disclosed by law.</p>
+		</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	   <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			2.	Since a breach of our obligations hereunder may result in irreparable harm to you, we agree that upon such breach or threat thereof, you shall be entitled to specific performance and other injunctive relief without posting a bond, and in the event of disclosures required by court order, we shall promptly notify you of the proceeding.</p>
+		</td>
+	  </tr>
+	  
+	   <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			3.	This agreement supersedes all prior discussions and writings and constitutes the entire agreement between you and us with respect to the subject matter hereof.  This Agreement shall be binding upon the successors and assigns of the respective parties, and may not be modified except by an instrument executed by both parties.</p>
+		</td>
+	  </tr>
+	</table>
+	
+	
+    <table cellspacing="0" border="0" cellpadding="0" width="100%">
+	  
+	  
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			' . $name . '<br />' . $getExpertData->company_name . '</p>
+		</td>
+	  </tr>
+	</table>
+	
+    </td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>
+
+
+    <table width="680" border="0" align="center" cellpadding="30" cellspacing="0">
+	  <tr>
+		<td height="30"></td>
+		<td height="30"></td>
+	  </tr>
+	</table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>';
+
+
+                    //$html .='</td></tr></table></body></html>';
+                    $file = JPATH_LIBRARIES . '/dompdf/dompdf_config.inc.php';
+                    if (!JFile::exists($file)) {
+                        return false;
+                    }
+                    if (!defined('DOMPDF_ENABLE_REMOTE')) {
+                        define('DOMPDF_ENABLE_REMOTE', true);
+                    }
+
+                    /*End Generate Code*/
+                   // $random = time();
+                    $random = $name;
+                    require_once($file);
+                    $dompdf = new DOMPDF();
+                    $dompdf->load_html($html);
+                    /*
+                    $dompdf->set_paper($_POST["paper"], $_POST["orientation"]);
+                    */
+
+                    $dompdf->render();
+
+                    $dompdf->stream($random . ".pdf", array("Attachment" => true));
+
+                    exit(0);
+                }
+            }
+        }		
+    }
+
+    function downloadSurvey1()
+    {
+        $post = JRequest::get('post');
+        $getSurevyData = $this->getModel()->checkTrans($post['date_status']);
+        if (count($getSurevyData) > 0) {
+            $getQueAnsData = $this->getModel()->getQueAnsData($getSurevyData->survey_id, $getSurevyData->expert_id, $getSurevyData->target);
+            $getExpertData = $this->getModel()->expertData($getSurevyData->expert_id);
+            $getSurveyInfo = $this->getModel()->getSurveyData($getSurevyData->survey_id);
+            $patentNumber = "";
+            $claimNumber = "";
+            if (count($getSurveyInfo) > 0) {
+                $claimNumber = substr($getSurveyInfo->combine_name, strlen($getSurveyInfo->combine_name) - 3, -1);
+                $patentNumber = "US" . $getSurveyInfo->name;
+            }
+            $name = $getExpertData->name;
+            $profileImage = $getExpertData->linkedin_pic;
+            if ($profileImage == "") {
+                $profileImage = 'http://placehold.it/120x120';
+            }
+            $profileUrl = $getExpertData->linkedin_profile_url;
+            if (count($getQueAnsData) > 0) {
+                $expertRatingData = $this->getModel()->expertRatingData($getSurevyData->expert_id);
+                $overAllRating = 0;
+                $totalProject = 0;
+                $calcRating = 0;
+                for ($i = 0; $i < count($expertRatingData); $i++) {
+                    if ($i == 0) {
+
+                    }
+                    $overAllRating = $overAllRating + $expertRatingData[$i]->rating;
+                    $totalProject = $totalProject + $expertRatingData[$i]->countSurvey;
+                }
+                if ($totalProject > 0 && $overAllRating > 0) {
+                    $calcRating = round($overAllRating / $totalProject, 1);
+                }
+                $class = "";
+                if ($calcRating > 0) {
+                    if ($calcRating == 1) {
+                        $class = "s_star_1_0";
+                    } else if (($calcRating > 1 && $calcRating < 1.5) || ($calcRating > 1.5 && $calcRating < 2)) {
+                        $class = "s_star_1_5";
+                    } else if ($calcRating == 2) {
+                        $class = "s_star_2_0";
+                    } else if (($calcRating > 2 && $calcRating < 2.5) || ($calcRating > 2.5 && $calcRating < 3)) {
+                        $class = "s_star_2_5";
+                    } else if ($calcRating == 3) {
+                        $class = "s_star_3_0";
+                    } else if (($calcRating > 3 && $calcRating < 3.5) || ($calcRating > 3.5 && $calcRating < 4)) {
+                        $class = "s_star_3_5";
+                    } else if ($calcRating == 4) {
+                        $class = "s_star_4_0";
+                    } else if (($calcRating > 4 && $calcRating < 4.5) || ($calcRating > 4.5 && $calcRating < 5)) {
+                        $class = "s_star_4_5";
+                    } else if ($calcRating == 5) {
+                        $class = "s_star_5_0";
+                    }
+                } else {
+                    $class = "s_star_0_0";
+                }
+                $checkCodeGenerate = $this->getModel('Customer')->checkDigiCodeGenerate($post['date_status']);
+                $urlQueryString = "";
+                $urlQueryString = base64_encode($getSurevyData->survey_id . "@" . $getSurevyData->expert_id . "@" . $post['date_status']);
+                $getDigiID = $this->getModel('Customer')->generateDigiCode($urlQueryString, $post['date_status']);
+                if ($getDigiID > 0) {
+                    if (count($checkCodeGenerate) == 0) {
+                        $urlQueryString = base64_encode($getSurevyData->survey_id . "@" . $getSurevyData->expert_id . "@" . $post['date_status'] . "@" . $getDigiID);
+                    } else {
+                        $urlQueryString = $checkCodeGenerate->code_generate;
+                        $urlQueryString = base64_decode($urlQueryString);
+                        $urlQueryString .= "@" . $checkCodeGenerate->id;
+                        $urlQueryString = base64_encode($urlQueryString);
+                    }
+                    $URL = JUri::base() . 'index.php?option=com_survey&task=customer.expertRating&display=' . $urlQueryString;
+                    $html = "";
+
+                    $html .= '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>PDF Report</title>
+	<style type="text/css">
+		body{font-family:times new roman,Serif; font-size:12px }
+		
+		a:hover { text-decoration: underline !important; }
+		.s_star_1_0{
+ background-position: -82px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_1_5 {
+    background-position: -69px -20px !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_2_0{
+background-position: -69px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_2_5 {
+    background-position: -56px -20px !important;
+    height: 13px;
+    width: 65px;
+}
+
+.s_star_3_0 {
+    background-position: -56px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_3_5 {
+    background-position: -43px -20px !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_4_0 {
+    background-position: -43px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_4_5 {
+    background-position: -30px -20px !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_5_0 {
+    background-position: -30px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.s_star_0_0 {
+    background-position: -95px 0 !important;
+    height: 13px;
+    width: 65px;
+}
+.swSprite {
+    background: url("' . JUri::base() . 'templates/survey/img/sprite-star.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    vertical-align: middle;
+}
+.swSprite span{
+	 left: -9999px;
+	</style>
+</head>
+
+<body marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px;  leftmargin="0">';
+
+                    $html .= '
+   <table width="723" border="0" align="center" cellpadding="5" cellspacing="0">
+	<tr> 
+		<td styke="height:100px;">
+			<table width="723" cellspacing="0" cellpadding="0" border="0" align="left">
+				<tr>
+					<td width="200"><img width="200" height="20" style="width:200px; height:20px;" src="' . JUri::base() . 'templates/survey/img/logo.png"/></td>
+					<td width="478" align="right" style="width:478px;">						
+						<table width="478" style="width:478px;">
+							<tr>
+								<td>
+								<a style="font-family:times new roman,Serif; font-size:12px; color:#000;" href="' . JUri::base() . '">HOME</a>&nbsp;&nbsp;
+								<a style="font-family:times new roman,Serif; font-size:12px; color:#000;" href="' . JUri::base() . 'index.php/order">ORDER</a>&nbsp;&nbsp;
+								<a style="font-family:times new roman,Serif; font-size:12px; color:#000;" href="' . JUri::base() . 'index.php/download">DOWNLOAD</a>&nbsp;&nbsp;
+								<a style="font-family:times new roman,Serif; font-size:12px; color:#000;" href="' . JUri::base() . 'index.php/blog">BLOG</a>&nbsp;&nbsp;
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	
+	<tr>
+		<td height="30">&nbsp;</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<table width="650" border="0" cellspacing="0" cellpadding="0" align="center">
+				<tr>
+					<td valign="top" width="150"><img src="' . $profileImage . '" style="width=80; height=80;"/></td>
+					<td width="10"></td>
+					<td valign="top" width="540">
+						<p style="display:block;">
+						' . $name . '&nbsp;<span class="swSprite ' . $class . '"></span><br /> ' . $getExpertData->company_name . ',<br/>' . $getExpertData->degree . '<br/>
+						' . $getExpertData->address . ',<br /> ' . $getExpertData->email . ',<br /> ' . $getExpertData->phone . '</p>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	</table>';
+                    $html .= '<div style="margin:0 auto;width:723px;border-bottom:4px solid #b90022;">&nbsp;</div><div style="margin:0 auto;width:723px;margin-top:1px;border-bottom:1px solid #b90022;">&nbsp;</div>';
+
+                    $html .= '<table cellspacing="0" border="0" width="624"><tr><td></table> <table cellspacing="0" border="0" cellpadding="0" width="100%">
+	  <tr>
+		<td valign="top" align="left">
+			<h5 style="font-size: 14px; font-weight: bold; color: #333333; font-family: times new roman; margin-top: 0px; margin-bottom: 5px;">Report of Evidence of Use</h5>
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			The views presented here are of the author only and do not necessarilyreflect the views of others. The author is an independent contractor that acts on behalf of neither the patent owner nor any other third party, including ClaimCharts.info. We would like to thank ClaimCharts.info for introducing to us the opportunity to prepare this report.  For comments and questions, please feel free to contact us directly, or via my profile at ClaimCharts.info.</p>
+		</td>
+	  </tr>
+	</table>
+	
+    <table cellspacing="0" border="0" cellpadding="0" width="100%">
+	  <tr>
+		<td height="10">&nbsp; </td>
+	  </tr>
+	</table><table cellspacing="0" border="0" cellpadding="0" width="100%">
+	  <tr>
+		<td valign="top" align="left">
+			<h5 style="font-size: 14px; font-weight: bold; color: #126792; font-family: times new roman; margin-top: 0px; margin-bottom: 10px;">Patent Number: ' . $patentNumber . '</h5>
+			<h5 style="font-size: 14px; font-weight: bold; color: #126792; font-family: times new roman; margin-top: 0px; margin-bottom: 10px;">Claim Number: ' . $claimNumber . '</h5>
+			<div style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">';
+                    $textShow = "";
+                    for ($i = 0; $i < count($getQueAnsData); $i++) {
+                        $textShow .= $getQueAnsData[$i]->description . " ";
+                    }
+
+
+                    $html .= $textShow . '</div>
+		</td>
+	  </tr>
+	</table>
+	
+	
+    <table cellspacing="0" border="0" cellpadding="0" width="100%">
+	  <tr>
+		<td height="20">&nbsp; </td>
+	  </tr>
+	</table>';
+
+                    $d = 1;
+                    for ($i = 0; $i < count($getQueAnsData); $i++) {
+
+                        $html .= '<table cellspacing="0" border="0" cellpadding="0" width="100%">
+													
+													<tr>
+														<td valign="top" align="left">
+															<h5 style="font-size: 14px; font-weight: bold; color: #126792; font-family: times new roman; margin-top: 0px; margin-bottom: 10px;">Element ' . $d . ':</h5>
+															<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">' . $getQueAnsData[$i]->description . '<br /><br />
+															<div style="font-family: times new roman;font-size: 16px;">' . $getQueAnsData[$i]->answer . ' </div>
+														</td>
+												  </tr>
+												  <tr>
+													<td height="5">&nbsp; </td>
+												  </tr>';
+
+
+                        if ($getQueAnsData[$i]->supporting_document != "") {
+                            $html .= ' <tr>
+													<td valign="top">
+														<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #126792; margin: 0px;">Supporting Evidence:</p>
+														<img style="width:500px !important;" src="' . JUri::base() . 'components/com_survey/document/' . $getQueAnsData[$i]->supporting_document . '"/>
+													</td>
+												  </tr>';
+                        }
+
+                        $html .= '</table>
+				
+				
+											<table  cellspacing="0" border="0" cellpadding="0" width="100%">
+											  <tr>
+												<td height="5">&nbsp; </td>
+											  </tr>
+											</table>';
+                        $d++;
+
+                    }
+
+                    $html .= '
+										<table cellspacing="0" border="0" cellpadding="0" width="100%">
+										  <tr>
+											<td align="center">*&nbsp;&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;*</td>
+										  </tr>
+										   <tr>
+											<td height="20" align="center"><p style="font-size:14px">End of Report</p></td>
+										  </tr>
+										</table>
+										
+										
+										<table cellspacing="0" border="0" cellpadding="0" width="100%">
+										  <tr>
+											<td valign="top" align="left" height="10px">&nbsp;</td>
+										  </tr>';
+                    $html .= '<tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			Please rank my report. The following link leads to our profile at ClaimCharts.info, where you could rank our report.<br/><a href="' . $URL . '">Rank Here</a></p>
+		</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			We are available to answer follow up questions, provide clarifications and search for additional materials upon request. For public contact - please refer to our profile at <a href="' . JUri::base() . 'index.php?option=com_survey&task=customer.expertProfile&display=' . $getSurevyData->expert_id . '#commenting">ClaimCharts.info</a>. For private contact - please call/email us.</p>
+		</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	   <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			Our hourly rate is: $' . $getExpertData->hourly_rate . '</p>
+		</td>
+	  </tr>
+	  
+	</table>
+	
+	
+    <table cellspacing="0" border="0" cellpadding="0" width="100%">
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	 
+	 <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; font-weight:bold; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">Non-Disclosure Agreement:</p>
+		</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			We understand that for the purpose of assisting you in collecting data, you may disclose to us certain confidential information that you want to keep confidential; therefore, for good and valuable consideration, the receipt and sufficiency of which is hereby acknowledged, we agree as follows:</p>
+		</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	     
+	   <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			1.	For a period of twelve (36) months from the date we receive your confidential information ("Effective Date"), we will not use or disclose the information, except: (a) in the event that such information (i) comes into the public domain not through us; (ii) is already known to us at the time of disclosure; (iii) is lawfully otherwise learnt or independently developed by us; or (iv) is required to be disclosed by law.</p>
+		</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	   <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			2.	Since a breach of our obligations hereunder may result in irreparable harm to you, we agree that upon such breach or threat thereof, you shall be entitled to specific performance and other injunctive relief without posting a bond, and in the event of disclosures required by court order, we shall promptly notify you of the proceeding.</p>
+		</td>
+	  </tr>
+	  
+	   <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			3.	This agreement supersedes all prior discussions and writings and constitutes the entire agreement between you and us with respect to the subject matter hereof.  This Agreement shall be binding upon the successors and assigns of the respective parties, and may not be modified except by an instrument executed by both parties.</p>
+		</td>
+	  </tr>
+	</table>
+	
+	
+    <table cellspacing="0" border="0" cellpadding="0" width="100%">
+	  
+	  
+	  <tr>
+		<td valign="top" align="left" height="10px">&nbsp;</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top" align="left">
+			<p style="font-size: 14px; line-height: 16px; font-family: times new roman; color: #333; margin: 0px;">
+			' . $name . '<br />' . $getExpertData->company_name . '</p>
+		</td>
+	  </tr>
+	</table>
+	
+    </td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>
+
+
+    <table width="680" border="0" align="center" cellpadding="30" cellspacing="0">
+	  <tr>
+		<td height="30"></td>
+		<td height="30"></td>
+	  </tr>
+	</table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>';
+
+
+                    //$html .='</td></tr></table></body></html>';
+                    $file = JPATH_LIBRARIES . '/dompdf/dompdf_config.inc.php';
+                    if (!JFile::exists($file)) {
+                        return false;
+                    }
+                    if (!defined('DOMPDF_ENABLE_REMOTE')) {
+                        define('DOMPDF_ENABLE_REMOTE', true);
+                    }
+
+                    /*End Generate Code*/
+                    //$random = time();
+                    $random = $name;
+                    require_once($file);
+                    $dompdf = new DOMPDF();
+                    $dompdf->load_html($html);
+                    /*
+                    $dompdf->set_paper($_POST["paper"], $_POST["orientation"]);
+                    */
+
+                    $dompdf->render();
+
+                    $dompdf->stream($random . ".pdf", array("Attachment" => true));
+
+                    exit(0);
+                }
+            }
+        }
+    }
+
+    function projectSurveyQuestion()
+    {
+        $data = JRequest::get('post');
+        $checkData = $this->getModel()->checkProjectWithName($data['p']);
+        if (count($checkData) == 0) {
+            $project = array('name' => $data['p'], 'exclusive' => $data['e']);
+            $projectID = $this->getModel('Project')->save($project);
+            if ($projectID > 0) {
+                $survey = array('name' => $data['s'], 'project_id' => $projectID);
+                $surveyID = $this->getModel('Survey')->save($survey);
+                if ($surveyID > 0) {
+                    $description = ($data['q'] != "") ? $data['q'] : '1';
+                    $question = array('description' => $description, 'survey_id' => $surveyID);
+                    $questionID = $this->getModel('Question')->save($question);
+                    if ($questionID > 0) {
+                        /*Now enter the data to transaction table for order*/
+                        $type = 1; // For Order
+                        $amount = 500;
+                        $transactionID = $this->getModel()->insertTrans($amount, $surveyID, 0, $type);
+                        echo json_encode(array('error' => '', 'id' => $transactionID));
+                        /*End enter transaction*/
+                    } else {
+                        /* Delete Project and Survey*/
+                        $this->getModel('Project')->delete($projectID);
+                        $this->getModel('Survey')->delete($surveyID);
+                        echo json_encode(array('error' => 'Project not saved, Please try after sometime.', 'id' => 0));
+                    }
+                } else {
+                    /*Delete Save Project*/
+                    $this->getModel('Project')->delete($projectID);
+                    echo json_encode(array('error' => 'Project not saved, Please try after sometime.', 'id' => 0));
+                }
+            } else {
+                echo json_encode(array('error' => 'Project not saved, Please try after sometime.', 'id' => 0));
+            }
+        } else {
+            echo json_encode(array('error' => 'Project name already used.', 'id' => 0));
+        }
+    }
+
+
+    function projectSurveyQuestionMultiple()
+    {
+		/*
+       $user = JFactory::getUser();
+       $app = JFactory::getApplication();
+       if($user->id==0){
+			$app->redirect(JRoute::_('index.php/order'),"Please login first","error");
+	   } */      
+       /*Saving Multiple Project Data*/
+       $app = JFactory::getApplication();
+       $data = JRequest::get('post');
+	   $projectName = $data['project_name_multiple'];
+	   $projectDeadLine = $data['project_deadline_multiple'];
+	    if($projectName!=""){
+			$checkData = $this->getModel()->checkProjectWithName($projectName);
+			if (count($checkData) == 0) {
+			   /*Saving Project Data*/
+				$project = array('name' => $projectName);
+				$projectID = $this->getModel('Project')->save($project);
+				if($projectID > 0) {
+					$countNumberPatent = 0;
+					$claimExclusive = 0;
+					$claimNonExclusive = 0;
+					$priorExclusive = 0;
+					$priorNonExclusive = 0;
+					$flag = 0;
+					for($i=0;$i<count($data['type_of_report']);$i++){
+						if($data['type_of_report'][$i]!='0' && $data['type_of_document'][$i]!='0' && $data['type_of_exclusivity'][$i]!='0'){
+							$survey = array();
+							switch((int)$data['type_of_report'][$i]){
+								case 1:
+									/*Prior Art*/
+									switch((int)$data['type_of_document'][$i]){
+										case 1:
+											/*Patent*/
+											$combineName="US".$data['patent'.$i]."(".$data['claim'.$i].")";
+											$survey = array('name' => $data['patent'.$i], 'project_id' => $projectID, 'combine_name' => $combineName, 'exclude' => $data['type_of_exclusivity'][$i],'document_type'=>(int)$data['type_of_document'][$i],'report_type'=>(int)$data['type_of_report'][$i],'comment' => $data['comment'],'deadline' => $data['project_deadline_multiple'],'maximum_price_claim'=>$data['maximum_price_claim'],'specific_expert'=>$data['specific_expert'],'minimum_price_claim'=>$data['minimum_price_claim'.$i],'email_sms'=>$data['email_sms']);
+										break;
+										case 2:
+											/*Published: Save Application Number in Patent Field*/
+											$survey = array('name' => $data['application'.$i], 'project_id' => $projectID, 'combine_name' => $data['claim'.$i], 'exclude' => $data['type_of_exclusivity'][$i],'document_type'=>(int)$data['type_of_document'][$i],'report_type'=>(int)$data['type_of_report'][$i],'comment' => $data['comment'],'deadline' => $data['project_deadline_multiple'],'maximum_price_claim'=>$data['maximum_price_claim'],'specific_expert'=>$data['specific_expert'],'published_date' => $data['published_date'.$i],'minimum_price_claim'=>$data['minimum_price_claim'.$i],'email_sms'=>$data['email_sms']);
+										break;
+										case 3:
+											/*Unpublished*/
+											$survey = array('project_id' => $projectID,'exclude' => $data['type_of_exclusivity'][$i],'description'=>$data['claim_language'.$i],'document_type'=>(int)$data['type_of_document'][$i],'report_type'=>(int)$data['type_of_report'][$i],'comment' => $data['comment'],'deadline' => $data['project_deadline_multiple'],'maximum_price_claim'=>$data['maximum_price_claim'],'specific_expert'=>$data['specific_expert'],'published_date' => $data['published_date'.$i],'minimum_price_claim'=>$data['minimum_price_claim'.$i],'email_sms'=>$data['email_sms']);
+										break;
+									}
+								break;
+								case 2:
+									/*Claimchart*/
+									switch((int)$data['type_of_document'][$i]){
+										case 1:
+											/*Patent*/
+											$combineName="US".$data['patent'.$i]."(".$data['claim'.$i].")";
+											$survey = array('name' => $data['patent'.$i], 'project_id' => $projectID, 'combine_name' => $combineName, 'exclude' => $data['type_of_exclusivity'][$i],'document_type'=>(int)$data['type_of_document'][$i],'report_type'=>(int)$data['type_of_report'][$i],'comment' => $data['comment'],'target' => $data['target'.$i],'avoided' => $data['avoided'.$i],'deadline' => $data['project_deadline_multiple'],'maximum_price_claim'=>$data['maximum_price_claim'],'specific_expert'=>$data['specific_expert'],'minimum_price_claim'=>$data['minimum_price_claim'.$i],'email_sms'=>$data['email_sms']);
+										break;								
+									}
+								break;
+							}						
+							$surveyID = 0;
+							if(count($survey)>0){
+								$surveyID = $this->getModel('Survey')->save($survey);
+							}						
+							$flag = 0;
+							if ($surveyID > 0) {
+								switch((int)$data['type_of_report'][$i]){
+									case 1:
+										/*Prior Art*/
+										switch((int) $data['type_of_exclusivity'][$i]){
+											case 1:
+												/*Exclusive*/
+												$priorExclusive = $priorExclusive + 1;
+											break;
+											case 2:
+												/*Non Exclusive*/
+												$priorNonExclusive = $priorNonExclusive + 1;
+											break;
+										}
+									break;
+									case 2:
+										/*ClaimChart*/
+										switch((int) $data['type_of_exclusivity'][$i]){
+											case 1:
+												/*Exclusive*/
+												$claimExclusive = $claimExclusive + 1;
+											break;
+											case 2:
+												/*Non Exclusive*/
+												$claimNonExclusive = $claimNonExclusive + 1;
+											break;
+										}
+									break;
+								}
+							} else {
+								$flag = 1;
+							}
+							if ($flag == 0) {
+								$countNumberPatent++;
+							}
+						}
+					}
+					if ($countNumberPatent > 0 && $flag == 0) {
+						$type = 1; // For Order
+						$claimExclusiveAmount = 700;
+						$claimNonExclusiveAmount = 400;
+						$priorExclusiveAmount = 900;
+						$priorNonExclusiveAmount = 700;
+						$total = 0;
+						$total = $total + $claimExclusive * $claimExclusiveAmount;
+						$total = $total + $claimNonExclusive * $claimNonExclusiveAmount;
+						$total = $total + $priorNonExclusive * $priorNonExclusiveAmount;
+						$total = $total + $priorExclusive * $priorExclusiveAmount;
+						/*Saving Transaction*/
+						$transactionID = $this->getModel()->insertTrans($total, $projectID, 0, $type);
+						if($transactionID>0){
+							$db = JFactory::getDBO();
+							$sql = "SELECT * FROM #__paypal_setting";
+							$db->setQuery($sql);
+							$getPaypalData = $db->loadObject();
+							$paypalEmail = $getPaypalData->email_id;
+							$paypalURL = "";
+							if ($getPaypalData->mode == 1) {
+								$paypalURL = "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&notify_version=2.9";
+							} else {
+								$paypalURL = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_xclick&notify_version=2.9";
+							}
+							if(!empty($paypalURL)){
+								/*$paypalURL = $paypalURL."&business=".$paypalEmail."&lc=US&item_name=Order Of ClaimCharts&desc=Payment for the Orders&quantity=".$countNumberPatent. "&amount=" .$total. "&currency_code=USD&item_number=" .$transactionID. "&notify_url=".urlencode(JUri::base() . 'index.php?option=com_survey&task=customer.orderNotify&raw='.$transactionID)."&return=".urlencode(JUri::base() . 'index.php?option=com_survey&task=customer.orderSuccess&raw='.$transactionID)."&cancel=".urlencode(JUri::base() . 'index.php?option=com_survey&task=customer.orderCancel&raw=').$transactionID;*/
+								$paypalURL = $paypalURL."&business=".$paypalEmail."&lc=US&item_name=Order Of ClaimCharts&desc=Payment for the Orders&quantity=1&amount=" .$total. "&currency_code=USD&item_number=" .$transactionID. "&notify_url=".urlencode(JUri::base() . 'index.php?option=com_survey&task=customer.orderNotify&raw='.$transactionID)."&return=".urlencode(JUri::base() . 'index.php?option=com_survey&task=customer.orderSuccess&raw='.$transactionID)."&cancel=".urlencode(JUri::base() . 'index.php?option=com_survey&task=customer.orderCancel&raw=').$transactionID;
+								$app->redirect($paypalURL);
+							} else {
+								$this->getModel('Project')->delete($projectID);
+								$app->redirect('index.php/order','Please try after sometime.','error');
+							}
+						} else {
+							$this->getModel('Project')->delete($projectID);
+							$app->redirect('index.php/order','Please try after sometime.','error');
+						}
+					} else {
+						$this->getModel('Project')->delete($projectID);
+						$app->redirect('index.php/order','Please try after sometime.','error');
+					}
+				}
+		    } else {
+			   $app->redirect('index.php/order','Please try different project name.','error');
+		    }
+	    } else {
+			$app->redirect('index.php/order','Please enter project name.','error');
+		}		
+       /*End Saving*/
+    }
+
+    function search()
+    {
+        $data = JRequest::get('post');
+        if ($data['p'] != "") {
+            $getList = $this->getModel()->checkProjectWithName($data['p']);
+            echo json_encode(array('data' => $getList));
+        } else if ($data['s'] != "") {
+            $getList = $this->getModel()->checkProjectWithSurveyName($data['s']);
+            echo json_encode(array('data' => $getList));
+        } else if ($data['e'] != "") {
+            $getList = $this->getModel()->checkProjectWithExpertName($data['e']);
+            echo json_encode(array('data' => $getList));
+        } else {
+            echo json_encode(array('data' => array()));
+        }
+    }
+
+    function expertClaim()
+    {
+        $pID = JRequest::getInt('p');
+        $expertID = JRequest::getInt('f');
+        $db = JFactory::getDBo();
+        $sql = "SELECT s.* FROM #__question as q LEFT JOIN #__survey as s ON s.id = q.survey_id WHERE s.project_id = '" . $pID . "' AND q.id IN(SELECT ques_id FROM `#__survey_question_answer` as qa WHERE expert_id = '" . $expertID . "') GROUP BY s.id";
+        $db->setQuery($sql);
+        $getList = $db->loadObjectList();
+        echo json_encode($getList);
+    }
+
+    function showExpertRating()
+    {
+        $data = JRequest::get('post');
+        $getList = $this->getModel()->expertRatingData($data['expert_id']);
+        echo json_encode(array("data" => $getList, "id" => $data['expert_id']));
+    }
+	
+	function array_flatten($array) { 
+		if (!is_array($array)) { 
+			return FALSE; 
+		} 
+		$result = array(); 
+		foreach ($array as $key => $value) { 
+			if (is_array($value)) { 
+			  $result = array_merge($result, $this->array_flatten($value)); 
+			} 
+			else { 
+			  $result[$key] = $value; 
+			} 
+		} 
+		return $result; 
+	} 
+	
+    function updateAreaExpertise()
+    {
+        $data = JRequest::get('post');
+        $app = JFactory::getApplication();       
+		ini_set("safe_mode", false);
+		ini_set("max_execution_time", 0);
+		set_time_limit(0);
+		/*echo "<pre>";
+		print_r(ini_get_all());
+		die;*/
+        if (isset($data['parent_checked']) || isset($data['child_1']) || isset($data['child_2']) || isset($data['child_3']) || isset($data['child_4'])) {
+            $deleteOldArea = $this->getModel()->deleteOldExpertArea($data['e']);
+            if (isset($data['parent_checked'])) {
+                $this->getModel()->insertExpertArea($data['e'], $data['parent_checked']);				
+            }
+            if (isset($data['child_1']) && count($data['child_1']) > 0) {
+				$getSingleData = array();
+                for ($i = 0; $i < count($data['child_1']); $i++) {
+                    //$this->getModel()->insertExpertArea($data['e'], $data['child_1'][$i]);
+					$getData = $this->getModel()->getExpertAreaFromParent($data['child_1'][$i]);
+					$getSingleData[] = $this->array_flatten($getData);					
+                }
+				array_values($getSingleData);
+				/*echo "<pre>";
+				print_r($getSingleData);
+				die;*/
+				if(count($getSingleData)>0){
+					foreach($getSingleData as $singleData){
+						if(count($singleData)>0){							
+							foreach($singleData as $value){
+								$this->getModel()->insertExpertArea($data['e'], $value);
+							}
+						}
+					}
+				}
+            }
+            if (isset($data['child_2']) && count($data['child_2']) > 0) {
+                $getSingleData = array();
+				for ($i = 0; $i < count($data['child_2']); $i++) {
+                   // $this->getModel()->insertExpertArea($data['e'], $data['child_2'][$i]);
+					$getData = $this->getModel()->getExpertAreaFromParent($data['child_2'][$i]);
+					$getSingleData[] = $this->array_flatten($getData);
+                }
+				array_values($getSingleData);
+				if(count($getSingleData)>0){
+					foreach($getSingleData as $singleData){
+						if(count($singleData)>0){
+							foreach($singleData as $value){
+								$this->getModel()->insertExpertArea($data['e'], $value);
+							}
+						}
+					}
+				}
+            }
+            if (isset($data['child_3']) && count($data['child_3']) > 0) {
+				$getSingleData = array();
+                for ($i = 0; $i < count($data['child_3']); $i++) {
+                    //$this->getModel()->insertExpertArea($data['e'], $data['child_3'][$i]);
+					$getData = $this->getModel()->getExpertAreaFromParent($data['child_3'][$i]);
+					$getSingleData[] = $this->array_flatten($getData);
+                }
+				array_values($getSingleData);
+				if(count($getSingleData)>0){
+					foreach($getSingleData as $singleData){
+						if(count($singleData)>0){
+							foreach($singleData as $value){
+								$this->getModel()->insertExpertArea($data['e'], $value);
+							}
+						}
+					}
+				}
+            }
+            if (isset($data['child_4']) && count($data['child_4']) > 0) {
+                for ($i = 0; $i < count($data['child_4']); $i++) {
+                    $this->getModel()->insertExpertArea($data['e'], $data['child_4'][$i]);
+                }
+            }
+            $app->redirect('index.php?option=com_survey&task=customer.expertProfile&display=' . $data['e'], 'Expert area updated successfully', 'Success');
+        } else {
+            $app->redirect('index.php?option=com_survey&task=customer.expertProfile&display=' . $data['e'], 'No expert area is been selected', 'notice');
+        }
+    }
+
+
+    /*
+     * updateDesc - Called when Expert Profile is Updated/Submitted.
+     * Handles Rich Text Fields
+     * Handles File/Profile Picture Upload
+     */
+    function updateDesc()
+    {
+        $data = JRequest::get('post');
+		$meData = array();
+		if(is_array($data['me']) && count($data['me'])>0){
+			for($i=0;$i<count($data['me']) ;$i++){
+				$meData[] = $data['me'][$i]['value'];
+			}
+		}
+		$meData = implode(',',$meData);
+		$aeData = array();
+		if(is_array($data['ae']) && count($data['ae'])>0){
+			for($i=0;$i<count($data['ae']) ;$i++){
+				$aeData[] = $data['ae'][$i]['value'];
+			}
+		}
+		$aeData = implode(',',$aeData);
+       	$sgData = array();
+		if(is_array($data['sg']) && count($data['sg'])>0){
+			for($i=0;$i<count($data['sg']) ;$i++){
+				$sgData[] = $data['sg'][$i]['value'];
+			}
+		}
+		$sgData = implode(',',$sgData);
+		$data['me'] = $meData;
+		$data['ae'] = $aeData;
+		$data['sg'] = $sgData;
+        // Parse raw data from rich editor controls
+        $data['expl'] = JRequest::getVar('expl', '', 'post', 'string', JREQUEST_ALLOWHTML);
+        $update = $this->getModel()->updateExpertDesc($data);
+        echo $update;
+    }
+    
+    
+    /*
+     * Update Expert Big HTML Text
+     * 
+     * */
+    
+    function updateProfileUser(){
+		$session = JFactory::getSession();
+		$getSession = $session->get('expertSession', '');
+		$app = JFactory::getApplication();
+		if(is_object($getSession) && count($getSession) > 0){
+			$user_description = JRequest::getVar('descriptionEditor', '', 'post', 'string', JREQUEST_ALLOWHTML);
+			$update = $this->getModel()->updateProfileUser(array('expl'=>$user_description,'d'=>$getSession->id));
+			if($update){
+				$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display=' . $getSession->id, 'Update data', 'success');
+			} else {
+				$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display=' . $getSession->id, 'No expert area is been selected', 'notice');
+			}
+		} else {
+			$app->redirect('index.php', 'Please login first', 'warning');
+		}
+	}
+    
+    /*
+     * Method for uploading profile CV/Resume using AJAX
+     * Returns json response.
+     */
+    function uploadProfileResume()
+    {
+        $result = false;
+        
+        // Get Expert's ID for filename
+        $data = JRequest::get('post');
+        $id = $data['profileId'];
+        
+        // Handle File Upload
+        jimport('joomla.filesystem.file');
+        jimport('joomla.filesystem.folder');
+        $filename = $_FILES["profileResume"]['name'];
+        $fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
+        $fileTempPath = $_FILES["profileResume"]['tmp_name'];
+         $fileNewPath = $id .'_'. $filename.'_'.time().'.' . $fileExtension;
+        $uploadPath = JPATH_SITE.DS.'media'.DS.'com_survey'.DS.'profile_resumes'.DS.$fileNewPath;
+        
+        if(JFile::upload($fileTempPath, $uploadPath)){
+            $result = true;
+        }
+        
+        // Return JSON Response to ajax caller.
+        $response = array( 'status' => $result, 'filename' => $fileNewPath ); 
+        echo json_encode($response);
+        jexit(); // to only return json.
+    }
+    
+    /*
+     * Method for uploading profile image using AJAX
+     * Returns json response.
+     */
+    function uploadProfileImage()
+    {
+        $result = false;
+        
+        // Get Expert's ID for filename
+        $data = JRequest::get('post');
+        $id = $data['profileId'];
+        
+        // Handle File Upload
+        jimport('joomla.filesystem.file');
+        jimport('joomla.filesystem.folder');
+        $filename = $_FILES["profileImage"]['name'];
+        $fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
+        $fileTempPath = $_FILES["profileImage"]['tmp_name'];
+        $fileNewPath = $id .'_'. $filename.'_'.time().'.' . $fileExtension;
+        $uploadPath = JPATH_SITE.DS.'media'.DS.'com_survey'.DS.'profile_images'.DS.$fileNewPath;
+        
+        if(JFile::upload($fileTempPath, $uploadPath)){
+            $result = true;
+        }
+        
+        // Return JSON Response to ajax caller.
+        $response = array( 'status' => $result, 'filename' => $fileNewPath ); 
+        echo json_encode($response);
+        jexit(); // to only return json.
+    }
+	
+	function profileUpdate(){
+		$data = JRequest::get('post');
+		$getSession = JFactory::getUser();
+		$sessionEXpertID = 0;
+		$app = JFactory::getApplication();
+		if ($getSession->id==0) {
+			
+			$app->redirect('index.php', 'Please Login First', 'Error');
+		}
+		$getSession = $this->getModel()->expertUserData($getSession->id);
+		
+		switch($data['default_type']){
+			case 1:
+				/*profile*/
+				$image_file ="aboutus.jpg";
+				if(!empty($data['old_image'])){
+					$pathInfo = pathinfo($data['old_image']);
+					$image_file = $pathInfo['basename'];
+				}
+				/*$image_file = $data['old_image'];*/
+				if(isset($_FILES['file_image']) && !empty($_FILES['file_image']['name'])){
+					/*Upload Image File*/
+					jimport('joomla.filesystem.file');
+					jimport('joomla.filesystem.folder');
+					$filename = $_FILES["file_image"]['name'];
+					$fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
+					$fileTempPath = $_FILES["file_image"]['tmp_name'];
+					$fileNewPath = $id .'_'. $filename.'_'.time().'.' . $fileExtension;
+					$uploadPath = JPATH_SITE.DS.'images'.DS.'kallyas_images'.DS.$fileNewPath;					
+					if(JFile::upload($fileTempPath, $uploadPath)){
+						$image_file = $fileNewPath;
+					}
+				}
+				$description = "<p>". nl2br(htmlspecialchars($data['profile_desc'])) ."</p>";
+				
+				$returnData = $this->getModel()->updateExpertData(array('profile_desc'=>"<img src='".JUri::base()."/images/kallyas_images/".$image_file."' class='alignleftborder' style='width:200px;height:134px;'/>".$description),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 2:
+				/*Choose Us*/
+				$heading = "<h4 style='text-align:left;' class='m_title'>".trim($data['field_choose_heading'])."</h4>";
+				$elementChoose = "";
+				foreach($data['field_choose_us'] as $choose){
+					$elementChoose .="<li data-char='190'>".$choose."</li>";
+				}	
+				
+				$returnData = $this->getModel()->updateExpertData(array('choose_us'=>$heading.'<ul style="margin-bottom: 20px;" class="list-style1">'.$elementChoose.'</ul>'),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 3:
+				/*Testimonial*/
+				$testimonialData = trim($data['testimonial']);
+				$testimonialBy = $data['testimonial_by'];
+				$testiContent = "<blockquote><p>".$testimonialData."</p><small>".$testimonialBy."</small></blockquote>";
+				$returnData = $this->getModel()->updateExpertData(array('testimonial'=>$testiContent),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 4:
+				/*Main Area*/
+				echo "<pre>";
+				$editorData = 	JRequest::getVar('main_area_description', '', 'post', 'string', JREQUEST_ALLOWRAW);
+				echo $editorData;
+				//print_r($data);
+				die;
+				$image_file = 'support.jpg';
+				if(!empty($data['old_image'])){
+					$pathInfo = pathinfo($data['old_image']);
+					$image_file = $pathInfo['basename'];
+				}
+				if(isset($_FILES['main_area_image']) && !empty($_FILES['main_area_image']['name'])){
+					/*Upload Image File*/
+					jimport('joomla.filesystem.file');
+					jimport('joomla.filesystem.folder');
+					$filename = $_FILES["main_area_image"]['name'];
+					$fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
+					$fileTempPath = $_FILES["main_area_image"]['tmp_name'];
+					$fileNewPath = $id .'_'. $filename.'_'.time().'.' . $fileExtension;
+					$uploadPath = JPATH_SITE.DS.'images'.DS.'kallyas_images'.DS.'site_images'.DS.$fileNewPath;				
+					if(JFile::upload($fileTempPath, $uploadPath)){
+						$image_file = $fileNewPath;
+					}
+				}
+				$heading = "<h4 data-char='47'>".trim($data['main_area_heading'])."</h4>";
+				if($image_file!="undefined"){
+					$mainAreaContent = $heading."<p data-char='800'><img src='".JUri::base()."/images/kallyas_images/site_images/".$image_file."' style='width:194px;height:199px;' class='alignright'/></p><p data-char='800'>".nl2br($data['main_area_description'])."</p>";
+				} else {
+					$mainAreaContent = $heading."<p data-char='800'>".nl2br($data['main_area_description'])."</p>";
+				}
+				$returnData = $this->getModel()->updateExpertData(array('main_area'=>$mainAreaContent),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 5:
+				/*Standard Area*/
+				$image_file = '';
+				if(!empty($data['old_image'])){
+					$pathInfo = pathinfo($data['old_image']);
+					$image_file = $pathInfo['basename'];
+				}
+				if(isset($_FILES['main_standard_area_image']) && !empty($_FILES['main_standard_area_image']['name'])){
+					/*Upload Image File*/
+					jimport('joomla.filesystem.file');
+					jimport('joomla.filesystem.folder');
+					$filename = $_FILES["main_standard_area_image"]['name'];
+					$fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
+					$fileTempPath = $_FILES["main_standard_area_image"]['tmp_name'];
+					$fileNewPath = $id .'_'. $filename.'_'.time().'.' . $fileExtension;
+					$uploadPath = JPATH_SITE.DS.'images'.DS.'kallyas_images'.DS.'site_images'.DS.$fileNewPath;				
+					if(JFile::upload($fileTempPath, $uploadPath)){
+						$image_file = $fileNewPath;
+					}
+				}
+				$heading = "<h4 data-char='47'>".trim($data['main_standard_area_heading'])."</h4>";
+				if($image_file!="undefined"){
+					$mainAreaContent = $heading."<p data-char='800'><img src='".JUri::base()."/images/kallyas_images/site_images/".$image_file."' style='width:194px;height:199px;' class='alignright'/></p><p data-char='800'>".nl2br($data['main_standard_area_description'])."</p>";
+				} else {
+					$mainAreaContent = $heading."<p data-char='800'>".nl2br($data['main_standard_area_description'])."</p>";
+				}
+				$returnData = $this->getModel()->updateExpertData(array('standard_area'=>$mainAreaContent),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 6:
+				/*Membership*/
+				$image_file = '';
+				if(!empty($data['old_image'])){
+					$pathInfo = pathinfo($data['old_image']);
+					$image_file = $pathInfo['basename'];
+				}
+				if(isset($_FILES['main_membership_image']) && !empty($_FILES['main_membership_image']['name'])){
+					/*Upload Image File*/
+					jimport('joomla.filesystem.file');
+					jimport('joomla.filesystem.folder');
+					$filename = $_FILES["main_membership_image"]['name'];
+					$fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
+					$fileTempPath = $_FILES["main_membership_image"]['tmp_name'];
+					$fileNewPath = $id .'_'. $filename.'_'.time().'.' . $fileExtension;
+					$uploadPath = JPATH_SITE.DS.'images'.DS.'kallyas_images'.DS.'site_images'.DS.$fileNewPath;				
+					if(JFile::upload($fileTempPath, $uploadPath)){
+						$image_file = $fileNewPath;
+					}
+				}
+				$heading = "<h4 data-char='47'>".trim($data['main_membership_heading'])."</h4>";
+				if($image_file!="undefined"){
+					$mainAreaContent = $heading."<p data-char='800'><img src='".JUri::base()."/images/kallyas_images/site_images/".$image_file."' style='width:194px;height:199px;' class='alignright'/></p><p data-char='800'>".nl2br($data['main_membership_description'])."</p>";
+				} else {
+					$mainAreaContent = $heading."<p data-char='800'>".nl2br($data['main_membership_description'])."</p>";
+				}
+				$returnData = $this->getModel()->updateExpertData(array('new_membership'=>$mainAreaContent),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 7:
+				/*Standard Group*/
+				$image_file = '';
+				if(!empty($data['old_image'])){
+					$pathInfo = pathinfo($data['old_image']);
+					$image_file = $pathInfo['basename'];
+				}
+				if(isset($_FILES['main_standard_group_image']) && !empty($_FILES['main_standard_group_image']['name'])){
+					/*Upload Image File*/
+					jimport('joomla.filesystem.file');
+					jimport('joomla.filesystem.folder');
+					$filename = $_FILES["main_standard_group_image"]['name'];
+					$fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
+					$fileTempPath = $_FILES["main_standard_group_image"]['tmp_name'];
+					$fileNewPath = $id .'_'. $filename.'_'.time().'.' . $fileExtension;
+					$uploadPath = JPATH_SITE.DS.'images'.DS.'kallyas_images'.DS.'site_images'.DS.$fileNewPath;					
+					if(JFile::upload($fileTempPath, $uploadPath)){
+						$image_file = $fileNewPath;
+					}
+				}
+				$heading = "<h4 data-char='47'>".trim($data['main_standard_group_heading'])."</h4>";
+				if($image_file!="undefined"){
+					$mainAreaContent = $heading."<p data-char='800'><img src='".JUri::base()."/images/kallyas_images/site_images/".$image_file."' style='width:194px;height:199px;' class='alignright'/></p><p data-char='800'>".nl2br($data['main_standard_group_description'])."</p>";
+				} else {
+					$mainAreaContent = $heading."<p data-char='800'>".nl2br($data['main_standard_group_description'])."</p>";
+				}
+				$returnData = $this->getModel()->updateExpertData(array('standard_group'=>$mainAreaContent),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 8:
+				/*CV Resume*/
+				$image_file = '';
+				if(!empty($data['old_image'])){
+					$pathInfo = pathinfo($data['old_image']);
+					$image_file = $pathInfo['basename'];
+				}
+				if(isset($_FILES['main_cvresume_image']) && !empty($_FILES['main_cvresume_image']['name'])){
+					/*Upload Image File*/
+					jimport('joomla.filesystem.file');
+					jimport('joomla.filesystem.folder');
+					$filename = $_FILES["main_cvresume_image"]['name'];
+					$fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
+					$fileTempPath = $_FILES["main_cvresume_image"]['tmp_name'];
+					$fileNewPath = $id .'_'. $filename.'_'.time().'.' . $fileExtension;
+					$uploadPath = JPATH_SITE.DS.'images'.DS.'kallyas_images'.DS.'site_images'.DS.$fileNewPath;					
+					if(JFile::upload($fileTempPath, $uploadPath)){
+						$image_file = $fileNewPath;
+					}
+				}
+				$heading = "<h4 data-char='47'>".trim($data['main_cvresume_heading'])."</h4>";
+				if($image_file!="undefined"){
+					$mainAreaContent = $heading."<p data-char='800'><img src='".JUri::base()."/images/kallyas_images/site_images/".$image_file."' style='width:194px;height:199px;' class='alignright'/></p><p data-char='800'>".nl2br($data['main_cvresume'])."</p>";
+				} else {
+					$mainAreaContent = $heading."<p data-char='800'>".nl2br($data['main_cvresume'])."</p>";
+				}
+				$returnData = $this->getModel()->updateExpertData(array('cv_resume'=>$mainAreaContent),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 9:
+				/*Skills*/
+				$skillsContent="";
+				$skillsContent .='<li style="background-color:#97BE0D;" data-percent="'.$data['field_skill_value'][0].'">'.$data['field_skill_name'][0].'</li>';
+				$skillsContent .='<li style="background-color:#D84F5F;" data-percent="'.$data['field_skill_value'][1].'">'.$data['field_skill_name'][1].'</li>';
+				$skillsContent .='<li style="background-color:#88B8E6;" data-percent="'.$data['field_skill_value'][2].'">'.$data['field_skill_name'][2].'</li>';
+				$skillsContent .='<li style="background-color:#BEDBE9;" data-percent="'.$data['field_skill_value'][3].'">'.$data['field_skill_name'][3].'</li>';
+				$skillsContent .='<li style="background-color:#EDEBEE;" data-percent="'.$data['field_skill_value'][4].'">'.$data['field_skill_name'][4].'</li>';
+				$returnData = $this->getModel()->updateExpertData(array('skills'=>'<ul class="skills">'.$skillsContent.'</ul>'),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 10:
+				/*Address*/	
+				$returnData = $this->getModel()->updateExpertData(array('free_text'=>$data['free_text'],'contact_email'=>$data['email_address'],'address'=>$data['address'],'phone'=>$data['phone_number'],'web'=>$data['web']),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 11:
+				/*Completed Claim*/
+				$completeClaimNumber = $data['completed_claim'];
+				$returnData = $this->getModel()->updateExpertData(array('completed_claim'=>$completeClaimNumber),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 12:
+				/*Completed PriorArts*/
+				$completeClaimNumber = $data['completed_priorart'];
+				$returnData = $this->getModel()->updateExpertData(array('completed_priorart'=>$completeClaimNumber),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 13:
+				/*Sold Reports*/
+				$completeClaimNumber = $data['sold_report'];
+				$returnData = $this->getModel()->updateExpertData(array('sold_report'=>$completeClaimNumber),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 14:
+				/*Working Hours This Year*/
+				$completeClaimNumber = $data['working_hour'];
+				$returnData = $this->getModel()->updateExpertData(array('working_hour'=>$completeClaimNumber),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+			case 15:
+				/*Sub Title*/
+				$completeClaimNumber = $data['sub_title'];
+				$returnData = $this->getModel()->updateExpertData(array('sub_title'=>"<p style='margin:0px'>".$completeClaimNumber."</p>"),array('id'=>$getSession->id));
+				if($returnData==1){
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Data Updated', 'Success');
+				} else {
+					$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id, 'Try after sometime', 'Error');
+				}
+			break;
+		}	
+		$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$getSession->id);
+	}
+	
+	
+    function deleteInProcessClaim()
+    {
+        $post = JRequest::get('post');
+        echo $this->getModel()->deleteInProcessClaim($post);
+    }
+    
+    
+    function contact_us(){
+		$app = JFactory::getApplication();
+		$post = JRequest::get('post');
+		$CORRECT_SUBJECT = htmlentities($post["rp_subject"], ENT_COMPAT, "UTF-8");
+		$CORRECT_MESSAGE = htmlentities($post["rp_message"], ENT_COMPAT, "UTF-8");
+		// check email
+		if ($post["rp_email"] === "") {
+			$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$post['form_usage'],'Please enter email address','error');
+		}
+		if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/", strtolower($post["rp_email"]))) {
+			$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$post['form_usage'],'Please enter correct email address','error');
+		} else {
+			$CORRECT_EMAIL = htmlentities($post["rp_email"], ENT_COMPAT, "UTF-8");
+		}
+
+		$mySubject = $post["rp_subject"];
+		$myMessage = 'You received a message from '. $post["rp_email"] ."\n\n". $post["rp_message"];
+		$mailSender = JFactory::getMailer();
+		$mailSender->addRecipient($recipient);
+		$mailSender->setSender(array($fromEmail,$fromName));
+		$mailSender->addReplyTo(array( $post["rp_email"], '' ));
+		$mailSender->setSubject($mySubject);
+		$mailSender->setBody($myMessage);
+		if ($mailSender->Send() !== true) {
+			$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$post['form_usage'],'Please try after sometime','error');
+		}
+		else {
+			$app->redirect('index.php?option=com_survey&task=customer.expertProfile&display='.$post['form_usage'],'Email send to expert','success');
+		}
+	}
+
+    function getCountryStateData()
+    {
+        $post = JRequest::get('post');
+        $getList = $this->getModel()->getCountryStateData($post['p']);
+        echo json_encode($getList);
+    }
+
+    function updateLinkedProfile()
+    {
+        $app = JFactory::getApplication();
+        $session = JFactory::getSession();
+        $getSession = $session->get('expertSession', '');
+        if (count($getSession) > 0) {
+            $this->getAuthenticateUser();
+            if ($_SESSION['state'] == JRequest::getVar('state')) {
+                if ($this->getAccessToken()) {
+                    $user = $this->fetch('GET', '/v1/people/~:(id,first-name,last-name,email-address,picture-url,public-profile-url)');
+                    $firstname = $user->firstName;
+                    $lastname = $user->lastName;
+                    $emailaddress = $user->emailAddress;
+                    $profilePic = $user->pictureUrl;
+                    $linkedin_profile_url = $user->publicProfileUrl;
+                    $linkedID = $user->id;
+                    $session = JFactory::getSession();
+                    $getSession = $session->get('expertSession', '');
+                    if (count($getSession) > 0) {
+                        $updateData = $this->getModel()->updateExpertLinkedInProfile($linkedin_profile_url, $linkedID, $profilePic, $getSession->id);
+                        if ($updateData == 0) {
+                            $app->redirect('index.php?option=com_survey&task=customer.expertProfile&display=' . $getSession->id, 'Profile updated successfully.', 'Message');
+                        } else {
+                            $app->redirect('index.php?option=com_survey&task=customer.expertProfile&display=' . $getSession->id, 'Unable to update profile.', 'Error');
+                        }
+                    }
+                } else {
+                    $app->redirect('index.php?option=com_survey&task=customer.expertProfile&display=' . $getSession->id, 'Unable to retrive data from LinkedIn, Please try after some time.', 'Error');
+                }
+            } else {
+                $app->redirect('index.php?option=com_survey&task=customer.expertProfile&display=' . $getSession->id, 'Unable to retrive data from LinkedIn, Please try after some time.', 'Error');
+            }
+        } else {
+            $app->redirect('index.php#create', 'Session expired', 'Error');
+        }
+    }
+	
+	function feedback(){
+		JSession::checkToken('post') or jexit(JText::_('JInvalid_Token'));
+		$post = JRequest::get('post');
+		$config	= JFactory::getConfig();
+		$emailSubject = "Feedback";
+		$data['fromname'] = $config->get('fromname');
+		$data['mailfrom'] = $post['email'];
+		$data['mailto'] = $config->get('mailfrom');
+		$data['sitename'] = $config->get('sitename');
+		$emailBody = $post['message']."<br/> Thanks <br/>".$post['name'];
+		$return = JFactory::getMailer()->sendMail($data['mailfrom'], $data['fromname'], $data['mailto'], $emailSubject, $emailBody,true);
+		$return1 = JFactory::getMailer()->sendMail($data['mailto'], 'ClaimChart.info', $data['mailfrom'], $emailSubject, 'Thanks for feedback',true);
+		$message = "";
+		$type="";
+		if ($return !== true) {
+			$message = "Please try after sometime.";
+			$type ="error";
+		} else {
+			$message = "Feedback send successfully.";
+			$type ="success";
+		}
+		$app = JFactory::getApplication();
+		$app->redirect('index.php', $message, $type);
+	}
+
+    function getAuthenticateUser()
+    {
+        // Change these
+        define('API_KEY', '03un4sib96jz');
+        define('API_SECRET', 'JisA5yo9TH0CNC0J');
+        /*define('REDIRECT_URI', 'http://oscuz.com/survey/index.php?option=com_survey&task=survey.register&tab=auth&l=register');*/
+        define('REDIRECT_URI', 'http://claimcharts.info/index.php?option=com_survey&task=customer.updateLinkedProfile');
+        define('SCOPE', 'r_fullprofile r_emailaddress rw_nus');
+        session_name('linkedin');
+        session_start();
+    }
+
+    function getAccessToken()
+    {
+
+        $params = array('grant_type' => 'authorization_code',
+            'client_id' => API_KEY,
+            'client_secret' => API_SECRET,
+            'code' => $_GET['code'],
+            'redirect_uri' => REDIRECT_URI,
+        );
+
+        // Access Token request
+        $url = 'https://www.linkedin.com/uas/oauth2/accessToken?' . http_build_query($params);
+        // Tell streams to make a POST request
+        $context = stream_context_create(
+            array('http' =>
+                array('method' => 'POST',
+                )
+            )
+        );
+
+
+        // Retrieve access token information
+        if (file_get_contents($url, false, $context)) {
+            $response = file_get_contents($url, false, $context);
+        } else {
+            unset($_SESSION['access_token']);
+            return false;
+            //$app = JFactory::getApplication();
+            //$app->redirect('index.php?option=com_survey&task=survey.register');
+        }
+        // Native PHP object, please
+        $token = json_decode($response);
+        // Store access token and expiration time
+        $_SESSION['access_token'] = $token->access_token; // guard this!
+        $_SESSION['expires_in'] = $token->expires_in; // relative time (in seconds)
+        $_SESSION['expires_at'] = time() + $_SESSION['expires_in']; // absolute time
+        return true;
+    }
+
+    function getAuthorizationCode()
+    {
+        $params = array('response_type' => 'code',
+            'client_id' => API_KEY,
+            'scope' => SCOPE,
+            'state' => uniqid('', true), // unique long string
+            'redirect_uri' => REDIRECT_URI,
+        );
+        // Authentication request
+        $url = 'https://www.linkedin.com/uas/oauth2/authorization?' . http_build_query($params);
+        // Needed to identify request when it returns to us
+        $_SESSION['state'] = $params['state'];
+        return $url;
+    }
+
+    function fetch($method, $resource, $body = '')
+    {
+        $params = array('oauth2_access_token' => $_SESSION['access_token'],
+            'format' => 'json',
+        );
+        // Need to use HTTPS
+        $url = 'https://api.linkedin.com' . $resource . '?' . http_build_query($params);
+
+        // Tell streams to make a (GET, POST, PUT, or DELETE) request
+        $context = stream_context_create(
+            array('http' =>
+                array('method' => $method,
+                )
+            )
+        );
+        // Hocus Pocus
+        $response = file_get_contents($url, false, $context);
+        // Native PHP object, please
+        return json_decode($response);
+    }
+
+
+    function getCaptcha()
+    {
+
+        //Settings: You can customize the captcha here
+        $image_width = 90;
+        $image_height = 30;
+        $characters_on_image = 4;
+        $font = JPATH_COMPONENT . '/monofont.ttf';
+        //The characters that can be used in the CAPTCHA code.
+        //avoid confusing characters (l 1 and i for example)
+        $possible_letters = '23456789bcdfghjkmnpqrstvwxyz';
+        $random_dots = 10;
+        $random_lines = 5;
+        $captcha_text_color = "0x142864";
+        $captcha_noice_color = "0x142864";
+        $code = '';
+        $i = 0;
+        while ($i < $characters_on_image) {
+            $code .= substr($possible_letters, mt_rand(0, strlen($possible_letters) - 1), 1);
+            $i++;
+        }
+        if (session_id() != '') {
+            session_start();
+        }
+        $_SESSION['6_letters_code'] = $code;
+        $font_size = $image_height * 0.75;
+        $image = @imagecreate($image_width, $image_height);
+
+
+        /* setting the background, text and noise colours here */
+        $background_color = imagecolorallocate($image, 255, 255, 255);
+
+        $arr_text_color = $this->hexrgb($captcha_text_color);
+        $text_color = imagecolorallocate($image, $arr_text_color['red'],
+            $arr_text_color['green'], $arr_text_color['blue']);
+
+        $arr_noice_color = $this->hexrgb($captcha_noice_color);
+        $image_noise_color = imagecolorallocate($image, $arr_noice_color['red'],
+            $arr_noice_color['green'], $arr_noice_color['blue']);
+
+
+        /* generating the dots randomly in background */
+        for ($i = 0; $i < $random_dots; $i++) {
+            imagefilledellipse($image, mt_rand(0, $image_width),
+                mt_rand(0, $image_height), 2, 3, $image_noise_color);
+        }
+
+
+        /* generating lines randomly in background of image */
+        for ($i = 0; $i < $random_lines; $i++) {
+            imageline($image, mt_rand(0, $image_width), mt_rand(0, $image_height),
+                mt_rand(0, $image_width), mt_rand(0, $image_height), $image_noise_color);
+        }
+
+
+        /* create a text box and add 6 letters code in it */
+        $textbox = imagettfbbox($font_size, 0, $font, $code);
+        $x = ($image_width - $textbox[4]) / 2;
+        $y = ($image_height - $textbox[5]) / 2;
+        imagettftext($image, $font_size, 0, $x, $y, $text_color, $font, $code);
+        /*
+        $session = JFactory::getSession();
+        $session->set('6_letters_code',$code);
+        */
+
+        /* Show captcha image in the page html page */
+        //header('Content-Type: image/jpeg'); // defining the image type to be shown in browser widow
+        $doc =& JFactory::getDocument();
+        $doc->setMimeEncoding('image/jpeg');
+        imagejpeg($image); //showing the image
+        //imagedestroy($image);//destroying the image instance
+    }
+
+    function hexrgb($hexstr)
+    {
+        $int = hexdec($hexstr);
+
+        return array("red" => 0xFF & ($int >> 0x10),
+            "green" => 0xFF & ($int >> 0x8),
+            "blue" => 0xFF & $int);
+    }
+
+    function getCaptcha1()
+    {
+
+        //Settings: You can customize the captcha here
+        $image_width = 90;
+        $image_height = 30;
+        $characters_on_image = 4;
+        $font = JPATH_COMPONENT . '/monofont.ttf';
+        //The characters that can be used in the CAPTCHA code.
+        //avoid confusing characters (l 1 and i for example)
+        $possible_letters = '23456789bcdfghjkmnpqrstvwxyz';
+        $random_dots = 10;
+        $random_lines = 5;
+        $captcha_text_color = "0x142864";
+        $captcha_noice_color = "0x142864";
+        $code = '';
+        $i = 0;
+        while ($i < $characters_on_image) {
+            $code .= substr($possible_letters, mt_rand(0, strlen($possible_letters) - 1), 1);
+            $i++;
+        }
+        if (session_id() != '') {
+            session_start();
+        }
+        $_SESSION['6_letters_code_register'] = $code;
+
+        $font_size = $image_height * 0.75;
+        $image = @imagecreate($image_width, $image_height);
+
+
+        /* setting the background, text and noise colours here */
+        $background_color = imagecolorallocate($image, 255, 255, 255);
+
+        $arr_text_color = $this->hexrgb($captcha_text_color);
+        $text_color = imagecolorallocate($image, $arr_text_color['red'],
+            $arr_text_color['green'], $arr_text_color['blue']);
+
+        $arr_noice_color = $this->hexrgb($captcha_noice_color);
+        $image_noise_color = imagecolorallocate($image, $arr_noice_color['red'],
+            $arr_noice_color['green'], $arr_noice_color['blue']);
+
+
+        /* generating the dots randomly in background */
+        for ($i = 0; $i < $random_dots; $i++) {
+            imagefilledellipse($image, mt_rand(0, $image_width),
+                mt_rand(0, $image_height), 2, 3, $image_noise_color);
+        }
+
+
+        /* generating lines randomly in background of image */
+        for ($i = 0; $i < $random_lines; $i++) {
+            imageline($image, mt_rand(0, $image_width), mt_rand(0, $image_height),
+                mt_rand(0, $image_width), mt_rand(0, $image_height), $image_noise_color);
+        }
+
+
+        /* create a text box and add 6 letters code in it */
+        $textbox = imagettfbbox($font_size, 0, $font, $code);
+        $x = ($image_width - $textbox[4]) / 2;
+        $y = ($image_height - $textbox[5]) / 2;
+        imagettftext($image, $font_size, 0, $x, $y, $text_color, $font, $code);
+        /*
+        $session = JFactory::getSession();
+        $session->set('6_letters_code_register',$code);
+        */
+        /* Show captcha image in the page html page */
+        //header('Content-Type: image/jpeg');// defining the image type to be shown in browser widow
+        $doc =& JFactory::getDocument();
+        $doc->setMimeEncoding('image/jpeg');
+        imagejpeg($image); //showing the image
+        //imagedestroy($image);//destroying the image instance
+    }
+
+    function getCaptcha2()
+    {
+
+        //Settings: You can customize the captcha here
+        $image_width = 90;
+        $image_height = 30;
+        $characters_on_image = 4;
+        $font = JPATH_COMPONENT . '/monofont.ttf';
+        //The characters that can be used in the CAPTCHA code.
+        //avoid confusing characters (l 1 and i for example)
+        $possible_letters = '23456789bcdfghjkmnpqrstvwxyz';
+        $random_dots = 10;
+        $random_lines = 5;
+        $captcha_text_color = "0x142864";
+        $captcha_noice_color = "0x142864";
+        $code = '';
+        $i = 0;
+        while ($i < $characters_on_image) {
+            $code .= substr($possible_letters, mt_rand(0, strlen($possible_letters) - 1), 1);
+            $i++;
+        }
+        if (session_id() != '') {
+            session_start();
+        }
+        $_SESSION['6_letters_code_register_2'] = $code;
+
+        $font_size = $image_height * 0.75;
+        $image = @imagecreate($image_width, $image_height);
+
+
+        /* setting the background, text and noise colours here */
+        $background_color = imagecolorallocate($image, 255, 255, 255);
+
+        $arr_text_color = $this->hexrgb($captcha_text_color);
+        $text_color = imagecolorallocate($image, $arr_text_color['red'],
+            $arr_text_color['green'], $arr_text_color['blue']);
+
+        $arr_noice_color = $this->hexrgb($captcha_noice_color);
+        $image_noise_color = imagecolorallocate($image, $arr_noice_color['red'],
+            $arr_noice_color['green'], $arr_noice_color['blue']);
+
+
+        /* generating the dots randomly in background */
+        for ($i = 0; $i < $random_dots; $i++) {
+            imagefilledellipse($image, mt_rand(0, $image_width),
+                mt_rand(0, $image_height), 2, 3, $image_noise_color);
+        }
+
+
+        /* generating lines randomly in background of image */
+        for ($i = 0; $i < $random_lines; $i++) {
+            imageline($image, mt_rand(0, $image_width), mt_rand(0, $image_height),
+                mt_rand(0, $image_width), mt_rand(0, $image_height), $image_noise_color);
+        }
+
+
+        /* create a text box and add 6 letters code in it */
+        $textbox = imagettfbbox($font_size, 0, $font, $code);
+        $x = ($image_width - $textbox[4]) / 2;
+        $y = ($image_height - $textbox[5]) / 2;
+        imagettftext($image, $font_size, 0, $x, $y, $text_color, $font, $code);
+        /*
+        $session = JFactory::getSession();
+        $session->set('6_letters_code_register',$code);
+        */
+        /* Show captcha image in the page html page */
+        //header('Content-Type: image/jpeg');// defining the image type to be shown in browser widow
+        $doc =& JFactory::getDocument();
+        $doc->setMimeEncoding('image/jpeg');
+        imagejpeg($image); //showing the image
+        //imagedestroy($image);//destroying the image instance
+    }
+
+    function getCaptcha3()
+    {
+
+        //Settings: You can customize the captcha here
+        $image_width = 90;
+        $image_height = 30;
+        $characters_on_image = 4;
+        $font = JPATH_COMPONENT . '/monofont.ttf';
+        //The characters that can be used in the CAPTCHA code.
+        //avoid confusing characters (l 1 and i for example)
+        $possible_letters = '23456789bcdfghjkmnpqrstvwxyz';
+        $random_dots = 10;
+        $random_lines = 5;
+        $captcha_text_color = "0x142864";
+        $captcha_noice_color = "0x142864";
+        $code = '';
+        $i = 0;
+        while ($i < $characters_on_image) {
+            $code .= substr($possible_letters, mt_rand(0, strlen($possible_letters) - 1), 1);
+            $i++;
+        }
+        if (session_id() != '') {
+            session_start();
+        }
+        $_SESSION['6_letters_code_register_3'] = $code;
+
+        $font_size = $image_height * 0.75;
+        $image = @imagecreate($image_width, $image_height);
+
+
+        /* setting the background, text and noise colours here */
+        $background_color = imagecolorallocate($image, 255, 255, 255);
+
+        $arr_text_color = $this->hexrgb($captcha_text_color);
+        $text_color = imagecolorallocate($image, $arr_text_color['red'],
+            $arr_text_color['green'], $arr_text_color['blue']);
+
+        $arr_noice_color = $this->hexrgb($captcha_noice_color);
+        $image_noise_color = imagecolorallocate($image, $arr_noice_color['red'],
+            $arr_noice_color['green'], $arr_noice_color['blue']);
+
+
+        /* generating the dots randomly in background */
+        for ($i = 0; $i < $random_dots; $i++) {
+            imagefilledellipse($image, mt_rand(0, $image_width),
+                mt_rand(0, $image_height), 2, 3, $image_noise_color);
+        }
+
+
+        /* generating lines randomly in background of image */
+        for ($i = 0; $i < $random_lines; $i++) {
+            imageline($image, mt_rand(0, $image_width), mt_rand(0, $image_height),
+                mt_rand(0, $image_width), mt_rand(0, $image_height), $image_noise_color);
+        }
+
+
+        /* create a text box and add 6 letters code in it */
+        $textbox = imagettfbbox($font_size, 0, $font, $code);
+        $x = ($image_width - $textbox[4]) / 2;
+        $y = ($image_height - $textbox[5]) / 2;
+        imagettftext($image, $font_size, 0, $x, $y, $text_color, $font, $code);
+        /*
+        $session = JFactory::getSession();
+        $session->set('6_letters_code_register',$code);
+        */
+        /* Show captcha image in the page html page */
+        //header('Content-Type: image/jpeg');// defining the image type to be shown in browser widow
+        $doc =& JFactory::getDocument();
+        $doc->setMimeEncoding('image/jpeg');
+        imagejpeg($image); //showing the image
+        //imagedestroy($image);//destroying the image instance
+    }
+}

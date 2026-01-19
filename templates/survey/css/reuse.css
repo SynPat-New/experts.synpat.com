@@ -1,0 +1,238 @@
+
+/* REUSABLE STYLES
+--------------------------------------------------------------------------------------- */
+.hidden {display: none !important;}
+.highlighted {color: #211922; background-color: #ff0 !important;}
+.error {font-size: 18px; font-weight: 300; color: #f00 !important;}
+.clear {clear: both !important;}
+
+.noState:hover {background-color: transparent !important;}
+.noState:active {color: #221919 !important;}
+
+/* Floats
+----------------------*/
+.noFloat {float: none !important;}
+.floatRight {float: right !important;}
+.floatLeft {float: left !important;}
+
+.displayB {display: block !important;}
+.displayI {display: inline !important;}
+
+
+/* line height
+-------------------*/
+.linex{line-height:10px !important;}
+.linexx{line-height:15px !important;}
+.linexxx{line-height:20px !important;}
+
+/* None border
+-------------------*/
+.noBorder {border-width: 0 !important;}
+.noBorderTop {border-top-width: 0 !important;}
+.noBorderRight {border-right-width: 0 !important;}
+.noBorderBottom {border-bottom-width: 0 !important;}
+.noBorderLeft {border-left-width: 0 !important;}
+
+/*Margins
+-----------------*/
+.noMargin {margin: 0 !important;}
+.noMarginTop {margin-top: 0 !important;}
+.noMarginRight {margin-right: 0 !important;}
+.noMarginBottom {margin-bottom: 0 !important;}
+.noMarginLeft {margin-left: 0 !important;}
+
+/* Positions 
+------------------------*/
+.fixed {position: fixed !important;}
+.absolute {position: absolute !important;}
+.relative {position: relative !important;}
+
+/* Visibility
+------------------------*/
+.invisible {visibility: hidden !important;}
+
+/* Control Overflow
+---------------------------------------------- */
+.noscroll {overflow: hidden !important;}
+.noscroll.extraScroll {margin-right: 15px;} /* Extra space on the right for FireFox */
+
+.clearfix:after {clear: both; display: block; height: 0; content: " "; visibility: hidden;}
+
+/* Background None
+-----------------------*/
+.bgImg {background-image:none !important}
+
+/* Image links
+--------------------*/
+.ImgLink {display: block; background-color: #fff;}
+.ImgLink:active {background-color: #221919;}
+.ImgLink img {display: block; margin: 0 auto;}
+.ImgLink:hover img,
+.ImgLink:active img {opacity: .9; filter: alpha(opacity=90);}
+
+.dM3{margin-bottom:3px !important;}
+.dM5{margin-bottom:5px !important;}
+.borBottom{border-bottom:1px solid #efefef !important;}
+.bgNone{background:none !important}
+/* Color lights
+-------------------*/
+.colorlight,
+.colorlight a {color: #ad9c9c;}
+.colorless,
+.colorless a {color: #8c7e7e;}
+.colormuted,
+.colormuted a {color: #524d4d;}
+
+/* For Linear Gradient
+------------------------------*/
+	.lg-grey{
+		background-color: #eaeaea;
+		background: -moz-linear-gradient(top,#eeeded, #e4e4e4) !important;
+		background: -o-linear-gradient(#eeeded, #e4e4e4) !important;
+		background: -webkit-linear-gradient(#eeeded, #e4e4e4) !important;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeded', endColorstr='#e4e4e4') !important;
+		color:#fff !important; border-bottom:1px solid #dadada
+		}
+		
+	.lg-black{
+		background-color: #020202;
+		background: -moz-linear-gradient(top,#2f2f2f, #020202) !important;
+		background: -o-linear-gradient(#2f2f2f, #020202) !important;
+		background: -webkit-linear-gradient(#2f2f2f, #020202) !important;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2f2f2f', endColorstr='#020202') !important;
+		}
+		
+	.lg-red{
+		background-color: #641923;
+		background: -moz-linear-gradient(top,#bd1c23, #641923) !important;
+		background: -o-linear-gradient(#bd1c23, #641923) !important;
+		background: -webkit-linear-gradient(#bd1c23, #641923) !important;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bd1c23', endColorstr='#641923') !important;
+		}
+	.btn-green{
+		background-color: #7aa937;
+		background: -moz-linear-gradient(top,#88b73e, #7aa937) !important;
+		background: -o-linear-gradient(#88b73e, #7aa937) !important;
+		background: -webkit-linear-gradient(#88b73e, #7aa937) !important;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#88b73e', endColorstr='#7aa937') !important; color:#fff !important
+		}
+	.btn-green.hover:hover{
+		background-color: #7aa937;
+		background: -moz-linear-gradient(top,#7aa937, #88b73e) !important;
+		background: -o-linear-gradient(#7aa937, #88b73e) !important;
+		background: -webkit-linear-gradient(#7aa937, #88b73e) !important;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7aa937', endColorstr='#88b73e') !important;
+		}
+		.white{background:#fff}
+	
+		
+		ul.nav.nav-tabs li a:hover{/*background:#EF3224 !important; color:#fff !important*/}
+		ul.mainNav li a:hover{background:#EF3224 !important; color:#fff !important}
+
+/* For Border Radius
+-------------------------------------------*/ 
+.xRound { -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+.xxRound { -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
+.xxxRound { -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; }
+
+/* Transparent class
+---------------------------------------*/
+.trans{	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; filter: alpha(opacity=80); -moz-opacity: 0.8; -khtml-opacity: 0.8; opacity: 0.8;}
+
+/* List Styles
+-----------------------------------------------*/
+.normal-list{list-style: inside; }
+.lower-latin-list {list-style: lower-latin; }
+.square-list { list-style: square; }
+.number-list {list-style: decimal; }
+.none-list {	list-style: none; }
+.circle-list {list-style: circle;}
+.italic { font-style:italic;}
+
+/* For Borders
+----------------------------------------*/
+.r{ border:1px solid red !important;}
+.dashed{ border-bottom:1px dashed #CCCCCC !important;}
+.solid{ border-bottom:1px solid #CCCCCC !important;}
+.solid-all{ border:1px solid #e3e3e3 !important;}
+.solid-l-all{ border:1px solid #f4f4f4 !important;}
+
+/* For default Margins
+-------------------------------------------*/
+.dM{margin-bottom:10px !important;}
+.dMx{margin-bottom:15px !important;}
+.dMxx{margin-bottom:20px !important;}
+
+/* For default padding 
+-----------------------------------*/
+.dP-s{padding-top:5px !important; padding-bottom:5px !important;}
+.dP{padding-top:10px !important; padding-bottom:10px !important;}
+.dPx{padding-top:15px !important; padding-bottom:15px !important;}
+.dPxx{padding-top:20px !important; padding-bottom:20px !important;}
+
+.dP-lr{padding-left:10px !important; padding-right:10px !important;}
+.dPx-lr{padding-left:15px !important; padding-right:15px !important;}
+.dPxx-lr{padding-left:20px !important; padding-right:20px !important;}
+
+.dP-all-s{padding:5px !important;}
+.dP-all-m{padding:10px !important;}
+.dP-all-l{padding:20px !important;}
+
+/* For default Top margins 
+-----------------------------------------*/
+.tM{margin-top:10px !important;}
+.tM5{margin-top:5px !important;}
+.tM3{margin-top:3px !important;}
+.tMx{margin-top:15px !important;}
+.tMxx{margin-top:20px !important;}
+.tMxxx{margin-top:50px !important;}
+
+.fontNormal{font-family:arial !important;}
+.fontcustom{font-family:arial;}
+
+/* For links
+--------------------------------------*/
+a,a:hover{text-decoration:none;}
+
+/* For Font size Styling
+----------------------------------- */
+.smallF{font-size:11px !important}
+
+/* Box shadow
+----------------------------------- */
+.bShadow1{
+ -moz-box-shadow: 0px 0px 4px #c0c0c0;
+  -webkit-box-shadow: 0px 0px 4px #c0c0c0;
+  box-shadow: 0px 0px 4px #c0c0c0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#c0c0c0')";
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#c0c0c0');
+}
+
+.bShadow{
+ -moz-box-shadow: 2px 2px 2px #c0c0c0; -webkit-box-shadow: 2px 2px 2px #c0c0c0; box-shadow: 2px 2px 2px #c0c0c0; -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#c0c0c0')"; filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#c0c0c0');
+}
+
+.contShadow{
+ -moz-box-shadow: 0 0 4px #c0c0c0;
+ -webkit-box-shadow:  0 0 4px #c0c0c0;
+ box-shadow:  0 0 4px #c0c0c0;
+ -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#c0c0c0')";
+ filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#c0c0c0');
+}
+
+.aCenter{text-align:center !important}
+.aRight{text-align:right !important}
+.aLeft{text-align:left !important}
+
+.boxShadow{border:1px solid #ebebeb; box-shadow:0 0 3px #ccc}
+.boxShadow-1{border:1px solid #ebebeb; box-shadow:0 0 1px #ccc}
+.borderBottom{border-bottom:1px solid #e6e6e6}
+
+.borderNone{border:none !important}
+.backgroundNone{background:none !important}
+
+.tColor{color:#727272 !important}
+.fColor{color:#747474 !important}
+.fColorA{color:#4d8403 !important}
+.wColor{color:#e0e0e0 !important}
+.fColorP{color:#909294 !important}

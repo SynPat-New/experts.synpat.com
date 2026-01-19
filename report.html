@@ -1,0 +1,980 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>PDF Report</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700&amp;v1&amp;subset=latin,latin-ext" type="text/css" media="screen" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <style type="text/css">
+        body {
+            font-family: arial,Serif;
+            font-size: 12px;
+        }
+
+        a:hover {
+            text-decoration: underline !important;
+        }
+
+        .s_star_1_0 {
+            background-position: -82px 0 !important;
+            height: 13px;
+            width: 65px;
+        }
+
+        .s_star_1_5 {
+            background-position: -69px -20px !important;
+            height: 13px;
+            width: 65px;
+        }
+
+        .s_star_2_0 {
+            background-position: -69px 0 !important;
+            height: 13px;
+            width: 65px;
+        }
+
+        .s_star_2_5 {
+            background-position: -56px -20px !important;
+            height: 13px;
+            width: 65px;
+        }
+
+        .s_star_3_0 {
+            background-position: -56px 0 !important;
+            height: 13px;
+            width: 65px;
+        }
+
+        .s_star_3_5 {
+            background-position: -43px -20px !important;
+            height: 13px;
+            width: 65px;
+        }
+
+        .s_star_4_0 {
+            background-position: -43px 0 !important;
+            height: 13px;
+            width: 65px;
+        }
+
+        .s_star_4_5 {
+            background-position: -30px -20px !important;
+            height: 13px;
+            width: 65px;
+        }
+
+        .s_star_5_0 {
+            background-position: -30px 0 !important;
+            height: 13px;
+            width: 65px;
+        }
+
+        .s_star_0_0 {
+            background-position: -95px 0 !important;
+            height: 13px;
+            width: 65px;
+        }
+
+        .swSprite {
+            background: url("http://claimcharts.info/templates/survey/img/sprite-star.png") no-repeat scroll 0 0 transparent;
+            display: inline-block;
+            margin: 0;
+            overflow: hidden;
+            padding: 0;
+            position: relative;
+            vertical-align: middle;
+        }
+
+            .swSprite span {
+                left: -9999px;
+            }
+    </style>
+
+
+    <style type="text/css">
+        body {
+            background-color: #cccccc;
+        }
+
+        .report-container {
+            background-color: #ffffff;
+            box-shadow: 0 0 7px #555;
+            color: #535353;
+            font-family: 'Open Sans', Helvetica, Arial, serif;
+            font-size: 13px;
+            line-height: 1.4;
+            margin: 5px auto;
+            padding: 50px 71px;
+            padding: 15px 30px;
+            /*width: 816px;*/
+            position: relative;
+            width: 674px;
+            width: 620px;
+        }
+
+        .report-container h1,
+        .report-container h2,
+        .report-container h3,
+        .report-container h4,
+        .report-container h5,
+        .report-container h6 {
+            color: #b90022;
+            font-family: 'Open Sans', Helvetica, Arial, serif !important;
+            margin-top: 20px !important;
+        }
+
+        .report-container .button-pdf {
+            position: relative;
+            top: -7px;
+        }
+
+        .report-container img {
+            display: inline-block;
+            height: auto;
+            max-width: 100%;
+        }
+
+        .report-container h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        .report-container h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .report-container h3 {
+            border-bottom: 1px solid #b90022;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .report-container h4 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .report-container h5 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .report-container h6 {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .report-container p {
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            max-width: 580px;
+        }
+
+        .report-container a {
+            color: #535353;
+            text-decoration: underline;
+        }
+
+            .report-container a:hover,
+            .report-container a:focus {
+                color: #535353;
+                text-decoration: none !important;
+            }
+
+        .report-container .button {
+            background: #cd2122;
+            border: 0;
+            border-radius: 3px;
+            box-shadow: none;
+            color: #fff;
+            display: inline-block;
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 0;
+            padding: 4px 12px;
+            position: relative;
+            text-decoration: none;
+            text-shadow: 0 1px 0 rgba(0,0,0,.8);
+        }
+
+            .report-container .button:hover,
+            .report-container .button:focus {
+                background: #333333;
+                color: #fff;
+            }
+
+        .report-container hr {
+            background: none;
+            border: none;
+            border-top: 1px solid #e5e5e5;
+            height: 1px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .report-answer table {
+            border-collapse: collapse !important;
+        }
+
+            .report-answer table[align=right] {
+                margin-left: 20px;
+            }
+
+            .report-answer table[align=left] {
+                margin-right: 20px;
+            }
+
+            .report-answer table th,
+            .report-answer table td {
+                border: 1px solid #e5e5e5;
+                padding: 5px 7px;
+            }
+
+            .report-answer table ul,
+            .report-answer table ol {
+                margin-bottom: 10px;
+                margin-top: 10px;
+            }
+
+            .report-answer table h1,
+            .report-answer table h2,
+            .report-answer table h3,
+            .report-answer table h4,
+            .report-answer table h5,
+            .report-answer table h6 {
+                margin-bottom: 10px;
+                margin-top: 0;
+            }
+
+        .report-container .training-nav-top {
+            border: 1px solid #e5e5e5;
+            float: right;
+            margin-left: 30px;
+            padding-left: 10px;
+            padding-right: 10px;
+            width: 230px;
+        }
+
+        .report-container .training-nav-top-title {
+            margin-left: -10px;
+            margin-right: -10px;
+            padding: 10px 10px;
+            text-align: center;
+        }
+
+        .report-container .training-nav-top h6 {
+            border-top: 1px solid #e5e5e5;
+            margin-bottom: 5px;
+            margin-left: -10px;
+            margin-right: -10px;
+            margin-top: 0;
+            padding: 6px 10px 0;
+        }
+
+        .report-container .training-nav-top ul {
+            margin-top: 0;
+            padding-left: 25px;
+        }
+
+        .report-container .training-nav-top .button {
+            margin-top: -5px;
+        }
+
+        .report-container-question {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .report-container-question p {
+            margin-bottom: 15px !important;
+        }
+
+        .report-container-answer {
+            font-family: 'Open Sans', Helvetica, Arial, serif !important;
+            font-size: 13px;
+        }
+        .report-container-answer * {
+            font-family: 'Open Sans', Helvetica, Arial, serif !important;
+        }
+        .report-container-answer p {
+            color: #535353 !important;
+            font-size: 13px !important;
+            line-height: 1.4 !important;
+            margin-bottom: 15px !important;
+        }
+        .report-container-answer div {
+            color: #535353 !important;
+            font-size: 13px !important;
+            line-height: 1.4 !important;
+        }
+        .report-container-answer ul {
+            padding-left: 25px;
+        }
+
+        .report-container-answer pre {
+            background: #f4f4f4;
+            border: 1px solid #e5e5e5;
+            font-family: monospace !important;
+            font-size: 13px !important;
+            line-height: 1.4 !important;
+            margin: 0 !important;
+            padding: 20px 0 !important;
+        }
+
+        .report-container-answer code {
+            background: #f4f4f4 !important;
+            border: 1px solid #e5e5e5 !important;
+            padding: 1px 5px !important;
+        }
+
+            .report-container-answer code a {
+                text-decoration: none;
+            }
+
+    </style>
+
+
+</head>
+
+<body marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px; margin-left: 0px" ondragstart="return false" onselectstart="return false">
+    <div class="report-container">
+        <table width="100%">
+            <tr>
+                <td>
+                    <table cellspacing="0" cellpadding="0" border="0" align="left" width="100%" style="padding: 0 !important; border: none !important;">
+                        <tr>
+                            <td width="200" style="padding: 0 !important; border: none !important;">
+                                <h1>ClaimCharts.info</h1>
+                            </td>
+                            <td align="right" style="padding: 0 !important; border: none !important;">
+                                <a href="" class="button button-pdf">
+                                    <i class="fa fa-file-pdf-o"></i>
+                                    Convert to PDF and Submit to Clients
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table border="0" cellspacing="0" cellpadding="0" align="center" width="100%" style="padding: 0 !important; border: none !important;">
+                        <tr>
+                            <td valign="top" width="150" style="padding: 0 !important; border: none !important;">
+                                <img src="http://claimcharts.info//images/kallyas_images/_James_Andrew.jpg_1435029906.jpg" style="width: 120px;" /></td>
+                            <td width="10" style="padding: 0 !important; border: none !important;"></td>
+                            <td valign="top" style="padding: 0 !important; border: none !important;">
+                                <p style="display: block;">
+                                    Alon Anthony &nbsp;<span class="swSprite s_star_0_0"></span><br />
+                                    3453 Wheeling Drive, 95051, Santa Clara CA , United States,<br />
+                                    webmaster@synpat.com,<br />
+                                    (408) 480 31 86,<br />
+                                    www.ip-consult.net,<br />
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div style="margin: 0 auto; border-bottom: 4px solid #b90022;">&nbsp;</div>
+        <div style="margin: 0 auto; margin-top: 1px; border-bottom: 1px solid #b90022;">&nbsp;</div>
+
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h2>Report of Evidence of Use</h2>
+                    <p>
+                        The views presented here are of the author only and do not necessarily reflect the views of others. The author is an independent contractor that acts on behalf of neither the patent owner nor any other third party, including ClaimCharts.info. We would like to thank ClaimCharts.info for introducing to us the opportunity to prepare this report.  For comments and questions, please feel free to contact us directly, or via my profile at ClaimCharts.info.
+                    </p>
+                </td>
+            </tr>
+        </table>
+
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h3>Patent Number: US8909824</h3>
+                    <h4>Claim Number: (1)</h4>
+                    <p>
+                        1. A receiver for processing data fragments from a transmitter using a single timer for one connection between the receiver and the transmitter, the receiver comprising: a first module for processing the fragments according to a processing index in each of the fragments, wherein the each of the fragments has one or more data blocks,  the processing index in the each of the fragments is to facilitate the fragments to be processed sequentially,  the each of the fragments is processed till one or more of predefined conditions is met,  the predefined conditions include: the timer assigned to the each of the fragments is timed out  or an acknowledgement of at least one of the data blocks in the each of the fragments is received; and
+a second module designed to start the timer assigned to the each of the fragments,  wherein the timer has a timeout value depending on a life of the each of the fragments  and time parameters thereof  , wherein the timer is running until processing of the each of the fragments is terminated, the timer is then reassigned to a next one of the fragments before the next one of the fragments is processed. 
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h3>Element 1:</h3>
+                    <div class="report-container-question">
+                        <p>
+                            1. A receiver for processing data fragments from a transmitter using a single timer for one connection between the receiver and the transmitter, the receiver comprising:
+                        </p>
+                    </div>
+                    <div class="report-container-answer">
+                        <div>
+                            <p>To created a dynamic and multi-pane user interface on Android, you need to encapsulate UI components and activity behaviors into modules that you can swap into and out of your activities. You can create these modules with the <code><a href="https://developer.android.com/reference/android/app/Fragment.html" style="color: #039be5; text-decoration: none;">Fragment</a></code> class, which behaves somewhat like a nested activity that can define its own layout and manage its own lifecycle.</p>
+                            <p>When a fragment specifies its own layout, it can be configured in different combinations with other fragments inside an activity to modify your layout configuration for different screen sizes (a small screen might show one fragment at a time, but a large screen can show two or more).</p>
+                            <p>
+                                <img src="http://www.humanipo.com/wp-content/uploads/2013/08/7184_P8WpDYr0_o-600x477.jpg" alt="" /></p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h3>Element 2:</h3>
+                    <div class="report-container-question">
+                        <p>
+                            a first module for processing the fragments according to a processing index in each of the fragments,
+                        </p>
+                    </div>
+                    <div class="report-container-answer">
+                        <div>
+                            <p></p>
+                            <p>
+                                <img src="http://image.slidesharecdn.com/linkedtvd2-140430042826-phpapp02/95/annotation-and-retrieval-module-of-media-fragments-14-638.jpg?cb=1398832203" width="1110" height="1570" /></p>
+                            <p></p>
+                            <div class="content-header " style="position: relative;">
+                                <h1 itemprop="name" style="color: rgba(0, 0, 0, 0.870588); font-size: 44px; line-height: 56px; margin: 24px 0px 12px; font-weight: 300;">Building a Dynamic UI with Fragments</h1>
+                                <div class="training-nav-top" itemscope="" itemtype="http://schema.org/SiteNavigationElement" style="border-style: solid; border-color: #e5e5e5; border-width: 1px 1px 0px; bottom: -56px; box-sizing: border-box; position: absolute; right: 0px; width: 280px;"><a href="https://developer.android.com/training/basics/fragments/creating.html" class="start-class-link" zh-tw-lang="開始上課" zh-cn-lang="开始" ru-lang="Начало работы" ko-lang="시작하기" ja-lang="開始する" es-lang="Empezar" style="text-decoration: none; border-bottom-width: 0px; box-sizing: border-box; display: block; float: left; padding: 10px 0px; line-height: 30px; text-align: center; width: 278px;">Get started</a></div>
+                            </div>
+                            <div id="jd-content">
+                                <div class="jd-descr" itemprop="articleBody">
+                                    <div id="tb-wrapper" style="float: right; clear: right; margin: 56px 0px 0px 20px; padding: 0px 0px 30px;">
+                                        <div id="tb" style="border: 1px solid #e5e5e5; box-sizing: border-box; float: right; line-height: 16px; padding: 5px 0px; width: 280px;">
+                                            <h2 style="color: inherit; clear: left; font-size: 16px; font-weight: 400; line-height: 24px; margin: 10px 0px 4px; border-top-width: 0px; padding: 0px 15px;">Dependencies and prerequisites</h2>
+                                            <ul>
+                                                <li>Basic knowledge of the Activity lifecycle (see <a href="https://developer.android.com/training/basics/activity-lifecycle/index.html" style="color: #039be5; text-decoration: none;">Managing the Activity Lifecycle</a>)</li>
+                                                <li>Experience building <a href="https://developer.android.com/guide/topics/ui/declaring-layout.html" style="color: #039be5; text-decoration: none;">XML layouts</a></li>
+                                            </ul>
+                                            <h2 style="color: inherit; clear: left; font-size: 16px; font-weight: 400; line-height: 24px; margin: 15px 0px 4px; border-top-width: 1px; border-top-style: solid; border-top-color: #e5e5e5; padding: 10px 15px 0px;">You should also read</h2>
+                                            <ul>
+                                                <li><a href="https://developer.android.com/guide/components/fragments.html" style="color: #039be5; text-decoration: none;">Fragments</a></li>
+                                                <li><a href="https://developer.android.com/guide/practices/tablets-and-handsets.html" style="color: #039be5; text-decoration: none;">Supporting Tablets and Handsets</a></li>
+                                            </ul>
+                                            <h2 style="color: inherit; clear: left; font-size: 16px; font-weight: 400; line-height: 24px; margin: 15px 0px 4px; border-top-width: 1px; border-top-style: solid; border-top-color: #e5e5e5; padding: 10px 15px 0px;">Try it out</h2>
+                                            <div class="download-box" style="padding: 0px 0px 0px 15px;">
+                                                <a href="http://developer.android.com/shareables/training/FragmentBasics.zip" class="button" style="color: #ffffff; text-decoration: none; border: 0px; border-radius: 3px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-style: inherit; font-variant: inherit; font-family: inherit; letter-spacing: 0.5px; line-height: 24px; margin: 6px 16px 6px 0px; min-width: 88px; outline: 0px; padding: 6px 12px; position: relative; text-align: center; text-transform: uppercase; -webkit-transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); -webkit-user-select: none; white-space: nowrap; box-shadow: rgba(0, 0, 0, 0.258824) 0px 2px 5px; background: #039bef;">DOWNLOAD THE SAMPLE</a>
+                                                <p class="filename" style="margin: 4px 4px 10px; font-size: 11px;">FragmentBasics.zip</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p>To create a dynamic and multi-pane user interface on Android, you need to encapsulate UI components and activity behaviors into modules that you can swap into and out of your activities. You can create these modules with the <code><a href="https://developer.android.com/reference/android/app/Fragment.html" style="color: #039be5; text-decoration: none;">Fragment</a></code> class, which behaves somewhat like a nested activity that can define its own layout and manage its own lifecycle.</p>
+                                    <p>When a fragment specifies its own layout, it can be configured in different combinations with other fragments inside an activity to modify your layout configuration for different screen sizes (a small screen might show one fragment at a time, but a large screen can show two or more).</p>
+                                    <p>This class shows you how to create a dynamic user experience with fragments and optimize your app's user experience for devices with different screen sizes, all while continuing to support devices running versions as old as Android 1.6.</p>
+                                    <h2 style="color: rgba(0, 0, 0, 0.870588); clear: left; font-size: 28px; font-weight: 400; line-height: 32px; margin: 24px 0px 0px;">Lessons</h2>
+                                    <hr />
+                                    <dl>
+                                        <dt><b><a href="https://developer.android.com/training/basics/fragments/creating.html" style="color: #039be5; text-decoration: none;">Creating a Fragment</a></b></dt>
+                                        <dd>Learn how to build a fragment and implement basic behaviors within its callback methods.</dd>
+                                        <dt><b><a href="https://developer.android.com/training/basics/fragments/fragment-ui.html" style="color: #039be5; text-decoration: none;">Building a Flexible UI</a></b></dt>
+                                        <dd>Learn how to build your app with layouts that provide different fragment configurations for different screens.</dd>
+                                    </dl>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h3>Element 3:</h3>
+                    <div class="report-container-question">
+                        <p>
+                            wherein the each of the fragments has one or more data blocks, 
+                        </p>
+                    </div>
+                    <div class="report-container-answer">
+                        <div>
+                            <p>Master bedroom for $60/$55 a night, ($65 for double occupancy) after August 21st. The small bedroom $55/$50 begins June 24th to June 27th and then after August 21st. The dates of July 26th through Aug<em><strong><span>ust 21st. are no longer av</span></strong></em>ailable. I am looking for long term renters after August 21st for the entire school year.</p>
+                            <p></p>
+                            <p>Nestled in the North Berkeley foothills, 5 blocks from UC Berkeley, and just above the popular culinary haven, the \"Gourmet Ghetto\" is a charming bed and breakfast which continues to delight guests with tasteful details such as hand blown glass lamps, antique furnishings, and petrified wood sink &amp; counters. This vine covered home, combining old world elegance with state of the art convenience, is located on a quiet street, and although it is small in size, it has two stories, with rooms that are light-filled and cozy .</p>
+                            <p></p>
+                            <p>The larger bedroom has a partial bay view and is furnished with an organic double bed mattress, a cedar armoire, a 200 year old bench and a desk and chair. The second bedroom, which also has a partial bay view, is furnished with an organic single futon on the floor and a small table. Located next to the bedrooms are a travertine marble bathroom and laundry facility.</p>
+                            <p></p>
+                            <p>The price includes an organic continental breakfast and kitchen privileges for the rest of your meals. The kitchen is a beautifully designed work of art with maple cupboards, a Bosch dishwasher, and Miele cooktop.</p>
+                            <p></p>
+                            <p>The floors are hardwood throughout, and there is radiant floor heat for your comfort.</p>
+                            <p>Guests may also enjoy a back yard patio with out door eating during the summer months.</p>
+                            <p></p>
+                            <p>I appreciate guests who share my interest in environmentally friendly products. No smoking. I do have one cat so no one with cat allergies. I will be sleeping on the upstairs couch. </p>
+                            <p></p>
+                            <p>A recent front facing photo of you will be greatly appreciated.</p>
+                            <p>do NOT contact me with unsolicited services or offers</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h3>Element 4:</h3>
+                    <div class="report-container-question">
+                        <p>
+                            the processing index in the each of the fragments is to facilitate the fragments to be processed sequentially, 
+                        </p>
+                    </div>
+                    <div class="report-container-answer">
+                        <div>
+                            <p>When a file system is first initialized on a partition (the partition is formatted for the file system), the partition contains only a few small internal structures and is otherwise one contiguous block of empty space.<sup id="cite_ref-1" class="reference" style="line-height: 1; font-size: 11.1999998092651px; unicode-bidi: -webkit-isolate;"><a href="https://en.wikipedia.org/wiki/File_system_fragmentation#cite_note-1" style="text-decoration: none; color: #0b0080; white-space: nowrap; background: none;">[1]</a></sup> This means that the allocator algorithm is completely free to place newly created files anywhere on the partition. For some time after creation, files on the file system can be laid out near-optimally. When the <a href="https://en.wikipedia.org/wiki/Operating_system" title="Operating system" style="text-decoration: none; color: #0b0080; background: none;">operating system</a> and <a href="https://en.wikipedia.org/wiki/Application_software" title="Application software" style="text-decoration: none; color: #0b0080; background: none;">applications</a> are installed or other <a href="https://en.wikipedia.org/wiki/Archive_(computing)" title="Archive (computing)" class="mw-redirect" style="text-decoration: none; color: #0b0080; background: none;">archives</a> are unpacked, laying out separate files sequentially also means that related files are likely to be positioned close to each other.</p>
+                            <p>However, as existing files are deleted or truncated, new regions of free space are created. When existing files are appended to, it is often impossible to resume the write exactly where the file used to end, as another file may already be allocated there — thus, a new fragment has to be allocated. As time goes on, and the same factors are continuously present, free space as well as frequently appended files tend to fragment more. Shorter regions of free space also mean that the allocator is no longer able to allocate new files contiguously, and has to break them into fragments. This is especially true when the file system is more full — longer contiguous regions of free space are less likely to occur.</p>
+                            <p>Note that the following is a simplification of an otherwise complicated subject. The method which is about to be explained has been the general practice for allocating files on disk and other random-access storage for over 30 years. Some operating systems do not simply allocate files one after the other, and some use various methods to try to prevent fragmentation, but in general, sooner or later, for the reasons explained in the following explanation, fragmentation will occur as time goes by on any system where files are routinely deleted or expanded. Consider the following scenario, as shown by the image on the right:</p>
+                            <p></p>
+                            <p>
+                                <img src="http://images.forbes.com/media/lists/companies/att_416x416.jpg" alt="" /></p>
+                            <p>Some early file systems were unable to fragment files. One such example was the <a href="https://en.wikipedia.org/wiki/Acorn_Computers" title="Acorn Computers" style="text-decoration: none; color: #0b0080; background: none;">Acorn</a> <a href="https://en.wikipedia.org/wiki/Disc_Filing_System" title="Disc Filing System" style="text-decoration: none; color: #0b0080; background: none;">DFS</a> file system used on the <a href="https://en.wikipedia.org/wiki/BBC_Micro" title="BBC Micro" style="text-decoration: none; color: #0b0080; background: none;">BBC Micro</a>. Due to its inability to fragment files, the error message <i>can't extend</i> would at times appear, and the user would often be unable to save a file even if the disk had adequate space for it.</p>
+                            <p>DFS used a very simple disk structure and <a href="https://en.wikipedia.org/wiki/Computer_file" title="Computer file" style="text-decoration: none; color: #0b0080; background: none;">files</a> on <a href="https://en.wikipedia.org/wiki/Hard_disk" title="Hard disk" class="mw-redirect" style="text-decoration: none; color: #0b0080; background: none;">disk</a> were located only by their length and starting sector. This meant that all files had to exist as a continuous block of sectors and fragmentation was not possible. Using the example in the table above, the attempt to expand file F in step five would have failed on such a system with the <i>can't extend</i> error message. Regardless of how much free space might remain on the disk in total, it was not available to extend the data file.</p>
+                            <p>Standards of <a href="https://en.wikipedia.org/wiki/Error_handling" title="Error handling" class="mw-redirect" style="text-decoration: none; color: #0b0080; background: none;">error handling</a> at the time were primitive and in any case programs squeezed into the limited memory of the BBC Micro could rarely afford to waste space attempting to handle errors gracefully. Instead, the user would find themselves dumped back at the command prompt with the <i>Can't extend</i> message and all the data which had yet to be appended to the file would be lost. The resulting frustration would be greater if the user had taken the trouble to check the free space on the disk beforehand and found free space. While free space on the disk may exist, the fact that it was not in the place where it was needed was not apparent without mentally analysing the numbers presented by the disk catalog and so would escape the user's notice. In addition, DFS users had almost without exception previously been accustomed to cassette file storage, which does not suffer from this error. The upgrade to a <a href="https://en.wikipedia.org/wiki/Floppy_disk" title="Floppy disk" style="text-decoration: none; color: #0b0080; background: none;">floppy disk</a> system was expensive, but it freed users from the unreliability and terrible slowness of the cassette system, and it was a shock to make the sudden and unpleasant discovery that the upgrade might without warning cause <a href="https://en.wikipedia.org/wiki/Data_loss" title="Data loss" style="text-decoration: none; color: #0b0080; background: none;">data loss</a> of their recent work.<sup id="cite_ref-3" class="reference" style="line-height: 1; font-size: 11.1999998092651px; unicode-bidi: -webkit-isolate;"><a href="https://en.wikipedia.org/wiki/File_system_fragmentation#cite_note-3" style="text-decoration: none; color: #0b0080; white-space: nowrap; background: none;">[3]</a></sup><sup id="cite_ref-4" class="reference" style="line-height: 1; font-size: 11.1999998092651px; unicode-bidi: -webkit-isolate;"><a href="https://en.wikipedia.org/wiki/File_system_fragmentation#cite_note-4" style="text-decoration: none; color: #0b0080; white-space: nowrap; background: none;">[4]</a></sup></p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h3>Element 5:</h3>
+                    <div class="report-container-question">
+                        <p>
+                            the each of the fragments is processed till one or more of predefined conditions is met, 
+                        </p>
+                    </div>
+                    <div class="report-container-answer">
+                        <div>
+                            <h1>
+                                <img src="http://digitalmoneytimes.com/wp-content/uploads/2015/02/img12.jpg" alt="" style="font-size: 13.6000003814697px; font-weight: normal;" /></h1>
+                            <p><span>We claim: </span>
+                                <br>
+                                1. A receiver for processing data fragments from a transmitter using a single timer for one connection between the receiver and the transmitter, the receiver comprising: a first module for processing the fragments according to a processing index in each of the fragments, wherein the each of the fragments has one or more data blocks, the processing index in the each of the fragments is to facilitate the fragments to be processed sequentially, the each of the fragments is processed till one or more of predefined conditions is met, the predefined conditions include: the timer assigned to the each of the fragments is timed out or an acknowledgement of at least one of the data blocks in the each of the fragments is received; and a second module designed to start the timer assigned to the each of the fragments, wherein the timer has a timeout value depending on a life of the each of the fragments and time parameters thereof, wherein the timer is running until processing of the each of the fragments is terminated, the timer is then reassigned to a next one of the fragments before the next one of the fragments is processed. </span><br>
+                                2. The receiver of claim 1, wherein each of the fragments has a fragment life and a processing time, the timer assigned to the each of the fragments has an assignment time, and the timeout value is a function of the fragment life, the processing time, and the assignment time. </span><br>
+                                3. The receiver of claim 1, wherein the predefined conditions further include that a negative acknowledgement for the each of the fragments is received. </span><br>
+                                4. The receiver of claim 1, wherein the predefined conditions further include that the each of the fragments is deleted. </span><br>
+                                5. The receiver of claim 1, wherein the predefined conditions further include that a duplicate one of the each of the fragments happens. </span><br>
+                                6. The receiver of claim 1, wherein the each of the fragments has a start Block Sequence Number (BSN) and there is a window start BSN, and the pre-defined conditions further include that the start-BSN of the each of the fragments is less than or equal to the window-start BSN. </span><br>
+                                7. The receiver of claim 1, wherein both the receiver and the transmitter are engaged in wireless communication. </span><br>
+                                8. A receiver for processing data fragments from a transmitter using a single timer for one connection between the receiver and the transmitter in transporting the data fragments, the receiver comprising: a first module for processing the fragments according to a processing index in each of the fragments, wherein the each of the fragments has one or more data blocks, the processing index in the each of the fragments is to facilitate the fragments to be processed sequentially; a second module for calculating a timeout value of the timer and assigning the timer having a timeout value to the each of the fragments, wherein the timer has a timeout value depending on a life of the each of the fragments and time parameters thereof; a storage device; a third module for inserting identifying information of the each of the fragments in a first storage location of the storage device and pointing a header pointer to the first storage location, and inserting the identifying information of a next fragment in a next storage location of the storage device, and the third module assigning the timer to the next fragment and moving the header pointer to the next storage location for the next fragment when one or more of pre-defined conditions is met. </span><br>
+                                9. The receiver of claim 8, wherein the predefined conditions include: the timer assigned to the each of the fragments is timed out or an acknowledgement of at least one of the data blocks in the each of the fragments is received. </span><br>
+                                10. The receiver of claim 8, wherein the timer is used as a retry timer when the fragments are being transmitted from the transmitter to the receiver, or the timer is used as a purge timer when the fragments are being received in the receiver from the transmitter. </span><br>
+                                11. The receiver of claim 8 further including a timer table structured to store identifying information of each of the fragments, the timer table provided to facilitate the timer to be used for each of the fragments in the connection being specified between the transmitter and the receiver. </span><br>
+                                12. The receiver of claim 11, wherein the identifying information of each of the fragments includes an identifying address, a start address and an address in the timer table. </span><br>
+                                13. The receiver of claim 12, wherein the identifying information of each of the fragments further includes a start block sequence number (BSN) thereof, a processing index thereof, and a pointer to lead to further information of the each of the fragments. </span><br>
+                                14. The receiver of claim 8, wherein the pre-defined conditions further include that: the timer assigned to the each of the fragments is timed out in transmitting the each of the fragments from the transmitter to the receiver; an acknowledgement of receipt for the each of the fragments is received; a negative acknowledgement for the each of the fragments is received; the each of the fragments is deleted; or a duplicate fragment for the each of the fragments is received. </span><br>
+                                15. A receiver for processing data fragments from a transmitter using a single timer for one connection between the receiver and the transmitter in transporting the data fragments, the receiver comprising: a first module for receiving a fragment, wherein the fragment includes one or more data blocks and has identifying information; a second module for calculating a timeout value of the timer and assigning the timer to the fragment, wherein the timer depends on a life of the fragment and time parameters thereof; a third module for inserting the identifying information in a node of a timer management chain, and inserting the identifying information of a next fragment in a next node of the timer management chain when the next fragment is received, wherein the third module is designed to remove the node having the identifying information for the fragment with the assigned timer from the timer management chain, and assigning the timer to the next fragment in the next node when one or more pre-defined conditions is met. </span><br>
+                                16. The receiver of claim 15, wherein the predefined conditions include: the timer assigned to the each of the fragments is timed out or an acknowledgement of at least one of the data blocks in the each of the fragments is received. </span><br>
+                                17. The receiver of claim 15, wherein the timer is used as a retry timer when the fragments are being transmitted from the transmitter to the receiver, or the timer is used as a purge timer when the fragments are being received in the receiver from the transmitter. </span><br>
+                                18. The receiver of claim 15, further including a timer table structured to store identifying information of each of the fragments, the timer table provided to facilitate the timer to be used for each of the fragments in the connection being specified between the transmitter and receiver. </span><br>
+                                19. The receiver of claim 18, wherein the identifying information of each of the fragments includes an identifying address, a start address and an address in the timer table. </span><br>
+                                20. The receiver of claim 19, wherein the pre-defined conditions include: the timer assigned to the fragment is timed out in transmitting the fragment from a transmitter to a receiver; an acknowledgement of receipt for the fragment is received; a negative acknowledgement for the fragment is received; the fragment is deleted; or a duplicated version of the fragment is received.</span></p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h3>Element 6:</h3>
+                    <div class="report-container-question">
+                        <p>
+                            the predefined conditions include: the timer assigned to the each of the fragments is timed out 
+                        </p>
+                    </div>
+                    <div class="report-container-answer">
+                        <div>
+                            <p><b>[0002]</b><span> In wireless transmission using a standard-based technology such as WiMAX, Automatic Repeat-reQuest (ARQ) is an error control method that utilizes acknowledgements and timeouts to achieve reliable data transmission and reception. Each connection is identified by a connection identification (CID) and allows the transmission of multiple service data units (SDUs). Each SDU may be fragmented or divided into one or more data blocks ("BLKs"), where each BLK is identified by a Block Sequence Number (BSN). During transmission, one or more data blocks are grouped into fragments ("FRs") that are first transmitted in sequence in the order of their BSN to the receiver to be reassembled. Each fragment can have one or more sequentially ordered data blocks that are identified by their BSN. </span>
+                                <br>
+                                [0003]</b><span> An index may be used to identify a particular CID, SDU, FR, or BLK herein. Thus, for example, a CIDi may represent the ith connection, an SDUi may represent the ith service data unit, an FRi may represent the ith fragment, and a BLKi may represent the ith data block. </span>
+                                <br>
+                                [0004]</b><span> An FR can be transmitted more than once if the transmitter does not receive an acknowledgement before the retry timer for the block times out. The first time a fragment is transmitted is referred to herein as the first transmission for the fragment. </span>
+                                <br>
+                                [0005]</b><span> FIG. 1 is a representation of an example of an organization of the data for transmission and the transmission sequence for the fragments as defined by IEEE 802.16 for WiMAX. The data to be transmitted has "i" connections represented by the CID list, CID1 through CIDi. The first connection with CID1 has "k" SDUs represented by an SDU list, SDU1 through SDUk. An SDU1 is fragmented into "m" fragments represented by FR1 through FRm while SDU2 is fragmented into "n" fragments represented by FR1 through FRn. </span>
+                                <br>
+                                [0006]</b><span> Each FR within an SDU is first transmitted sequentially. The FR in different SDUs is also first transmitted in the arriving order of the SDU. The dotted arrows in FIG. 1 illustrate the order that FRs are first transmitted. All FRs in SDU1 are first transmitted sequentially, and then the data blocks in SDU2 are first transmitted sequentially. This pattern continues for all the SDUs in a connection. </span>
+                                <br>
+                                [0007]</b><span> An acknowledgment is a message sent by the receiver to the transmitter to indicate that it has correctly received an FR or some FRs. </span>
+                                <br>
+                                [0008]</b><span> Typically, each FR to be transmitted has two timers, a life timer that starts when the FR is first transmitted and a retry timer that starts every time the FR is transmitted. The life timeout value for the life timer is greater than the retry timeout value for the retry timer. The retry timer controls the retransmission of an FR if the transmitter has not received the acknowledgement of that FR before the timeout of the retry timer. After an FR is transmitted, the transmitter waits for an acknowledgement of receipt of the FR from the receiver. If an acknowledgment is not received by the transmitter when the retry timer times out, the retry timer is restarted and the transmitter re-transmits the FR. This process is repeated until the life timer for the FR times out. When a life-timer of an FR times out, the transmitter sends a discard message to the receiver for that particular FR. On receiving the discard message, the receiver may discard the FR and all preceding FRs, i.e., FRs preceding in transmission sequence to the particular FR, and send an acknowledgement message for the FR and all the proceeding FRs. After receiving the acknowledgement, the transmitter may then delete that FR and the entire previous FRs. Since FRs in an SDU are first transmitted in time order, i.e., sequentially, and by the arriving order of the SDUs, and all FRs have the same total lifetime value, the life timer for the FRs will time out at the same order that they are first transmitted. See IEEE Std 802.16-2004, IEEE Standard for Local and Metropolitan Area Networks-Part 16: Interface for Fixed Broadband Wireless Access Systems, October 2004, and IEEE P802.16e-2005, Draft IEEE Standard for Local and metropolitan area networks Part 16: Air Interface for Fixed and Mobile Broadband Wireless Access Systems, Amendment for Physical and Medium Access Control Layers for Combined Fixed and Mobile Operation in Licensed Bands, and Corrigendum 1, February 2006. </span>
+                                <br>
+                                [0009]</b><span> The number of timers in a system is a provisioned number in an operating system. Each timer has a timer identification and a corresponding timer data structure. To open or close a timer, the operating system must undergo an inserting or deleting procedure from a timer link list that is operating system specific. Therefore, a system that requires the use of a large number of timers is expensive, both in terms of data memory and the operation of the timers. </span>
+                                <br>
+                                [0010]</b><span> Current methods for managing data blocks of fragments require the use of two timers for each data block or fragments. As defined by IEEE 802.16, the maximum number of fragments in the transmission window for a CID connection is 1024. Therefore, the maximum number of timers needed for transmission is 2*1024 for each CID connection. The number of timers required for even few CID connections is therefore very large. Using existing methods, the operating system has to be prepared to reserve a significant amount of its resource for the timers and their operations. </span>
+                                <br>
+                                [0011]</b><span> During reception, a fragment FRi, can be characterized by the following: the index "i", its arrival sequence number that is an indication of its sequence of arrival; the start BSNi or BSNi of FRi, the lowest BSN of the BLKs of Fri; and, ti, the time of its arrival. Therefore, FR1 is the first fragment to arrive while FR2 is the second fragment to arrive. For the two fragments FRi and FRj, if j&gt;i, then tj&gt;ti. Although fragments are transmitted sequentially in the order of their start BSN, they do not necessarily arrive in order due to loss and retransmission. Thus, BSNi may or may not be lower than BSNj. </span><span>
+                                    <br />
+                                    <br />
+                                    Read more: <a href="http://www.faqs.org/patents/app/20150092725#ixzz3elBr95do" style="color: #003399; text-decoration: none;">http://www.faqs.org/patents/app/20150092725#ixzz3elBr95do</a></span></p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h3>Element 7:</h3>
+                    <div class="report-container-question">
+                        <p>
+                            or an acknowledgement of at least one of the data blocks in the each of the fragments is received;
+                        </p>
+                    </div>
+                    <div class="report-container-answer">
+                        <div>
+                            <pre> This document obsoletes <a href="https://tools.ietf.org/html/rfc2960">RFC 2960</a> and <a href="https://tools.ietf.org/html/rfc3309">RFC 3309</a>.  It describes the
+   Stream Control Transmission Protocol (SCTP).  SCTP is designed to
+   transport Public Switched Telephone Network (PSTN) signaling messages
+   over IP networks, but is capable of broader applications.
+
+   SCTP is a reliable transport protocol operating on top of a
+   connectionless packet network such as IP.  It offers the following
+   services to its users:
+
+   --  acknowledged error-free non-duplicated transfer of user data,
+
+   --  data fragmentation to conform to discovered path MTU size,
+
+   --  sequenced delivery of user messages within multiple streams, with
+       an option for order-of-arrival delivery of individual user
+       messages,
+
+   --  optional bundling of multiple user messages into a single SCTP
+       packet, and
+
+   --  network-level fault tolerance through supporting of multi-homing
+       at either or both ends of an association.
+
+   The design of SCTP includes appropriate congestion avoidance behavior
+   and resistance to flooding and masquerade attacks.</pre>
+                        <p>
+                            <img src="http://www.nature.com/srep/2014/140626/srep05464/images/srep05464-f4.jpg" /></p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h3>Element 8:</h3>
+                    <div class="report-container-question">
+                        <p>
+                            and
+    a second module designed to start the timer assigned to the each of the fragments, 
+                        </p>
+                    </div>
+                    <div class="report-container-answer">
+                        <div>
+                            <p><span>that we’ve correctly configured the loader, let’s learn how to use it, starting by taking a look at the </span><code>require</code><span> function.</span></p>
+                            <p class="line862" style="font-family: Arial, Verdana, Geneva, 'Bitstream Vera Sans', Helvetica, sans-serif; font-size: 14.1727991104126px; line-height: 21.2591991424561px;">A Web framework is a collection of packages or modules which allow developers to write Web applications (see <a href="https://wiki.python.org/moin/WebApplications" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">WebApplications</a>) or services without having to handle such low-level details as protocols, sockets or process/thread management.<span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span></p>
+                            <p class="line862" style="font-family: Arial, Verdana, Geneva, 'Bitstream Vera Sans', Helvetica, sans-serif; font-size: 14.1727991104126px; line-height: 21.2591991424561px;">The majority of Web frameworks are exclusively server-side technology, although, with the increased prevalence of AJAX, some Web frameworks are beginning to include AJAX code that helps developers with the particularly tricky task of programming (client-side) the user's browser. At the extreme end of the client-side Web Frameworks is technology that can use the web browser as a full-blown application execution environment (a la gmail for example): see <a href="https://wiki.python.org/moin/WebBrowserProgramming" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">Web Browser Programming</a> for details.<span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span></p>
+                            <p class="line862" style="font-family: Arial, Verdana, Geneva, 'Bitstream Vera Sans', Helvetica, sans-serif; font-size: 14.1727991104126px; line-height: 21.2591991424561px;">As a developer using a framework, you typically write code which conforms to some kind of conventions that lets you "plug in" to the framework, delegating responsibility for the communications, infrastructure and low-level stuff to the framework while concentrating on the logic of the application in your own code. This "plugging in" aspect of Web development is often seen as being in opposition to the classical distinction between programs and libraries, and the notion of a "mainloop" dispatching events to application code is very similar to that found in <a href="https://wiki.python.org/moin/GuiProgramming" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">GUI programming</a>.<span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span></p>
+                            <p class="line862" style="font-family: Arial, Verdana, Geneva, 'Bitstream Vera Sans', Helvetica, sans-serif; font-size: 14.1727991104126px; line-height: 21.2591991424561px;">Generally, frameworks provide support for a number of activities such as interpreting requests (getting form parameters, handling cookies and sessions), producing responses (presenting data as HTML or in other formats), storing data persistently, and so on. Since a non-trivial Web application will require a number of different kinds of abstractions, often stacked upon each other, those frameworks which attempt to provide a complete solution for applications are often known as <strong>full-stack</strong> frameworks in that they attempt to supply components for each layer in the stack.<span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span></p>
+                            <p class="line862" style="font-family: Arial, Verdana, Geneva, 'Bitstream Vera Sans', Helvetica, sans-serif; font-size: 14.1727991104126px; line-height: 21.2591991424561px;">Many frameworks now provide an element of customization in their support for the above activities and abstractions, utilizing <a href="https://wiki.python.org/moin/WebComponents" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">components</a> in that they provide abstractions only for certain specific things. As a result, it can be possible for you to build your own full-stack framework almost entirely from existing components.<span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span></p>
+                            <p class="line867" style="font-family: Arial, Verdana, Geneva, 'Bitstream Vera Sans', Helvetica, sans-serif; font-size: 14.1727991104126px; line-height: 21.2591991424561px;"></p>
+                            <h2 id="Popular_Full-Stack_Frameworks" style="font-family: serif; font-weight: normal; letter-spacing: 0.05em; color: #366d9c; font-size: 17.7159976959229px;">Popular Full-Stack Frameworks</h2>
+                            <p class="line874" style="font-family: Arial, Verdana, Geneva, 'Bitstream Vera Sans', Helvetica, sans-serif; font-size: 14.1727991104126px; line-height: 21.2591991424561px;">A web application may use a combination of a base HTTP application server, a storage mechanism such as a database, a template engine, a request dispatcher, an authentication module and an AJAX toolkit. These can be individual components or be provided together in a high-level framework.<span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span></p>
+                            <p class="line862" style="font-family: Arial, Verdana, Geneva, 'Bitstream Vera Sans', Helvetica, sans-serif; font-size: 14.1727991104126px; line-height: 21.2591991424561px;">These are the most popular high-level frameworks. Many of them include components listed on the <a href="https://wiki.python.org/moin/WebComponents" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">WebComponents</a> page.<span class="anchor" id="line-16"></span></p>
+                            <p></p>
+                            <div>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <p class="line862" style="margin: 0px; padding: 0px;">Name</p>
+                                            </td>
+                                            <td>
+                                                <p class="line862" style="margin: 0px; padding: 0px;">Latest version</p>
+                                            </td>
+                                            <td>
+                                                <p class="line862" style="margin: 0px; padding: 0px;">Latest update date</p>
+                                            </td>
+                                            <td>
+                                                <p class="line862" style="margin: 0px; padding: 0px;">description</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="anchor" id="line-17"></span>
+                                                <p class="line891" style="margin: 0px; padding: 0px;"><a class="http" href="http://www.djangoproject.com/" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">Django</a></p>
+                                            </td>
+                                            <td>
+                                                <p class="line862" style="margin: 0px; padding: 0px;">1.7.1</p>
+                                            </td>
+                                            <td>
+                                                <p class="line862" style="margin: 0px; padding: 0px;">2014-10-22</p>
+                                            </td>
+                                            <td>
+                                                <p class="line862" style="margin: 0px; padding: 0px;">The Web framework for perfectionists (with deadlines). Django makes it easier to build better Web apps more quickly and with less code. Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. It lets you build high-performing, elegant Web applications quickly. Django focuses on automating as much as possible and adhering to the DRY (Don't Repeat Yourself) principle. See <a href="https://wiki.python.org/moin/Django" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">Django</a></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="anchor" id="line-18"></span>
+                                                <p class="line891" style="margin: 0px; padding: 0px;"><a class="http" href="http://www.turbogears.org/" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">TurboGears</a></p>
+                                            </td>
+                                            <td>
+                                                <p class="line862" style="margin: 0px; padding: 0px;">2.3.4</p>
+                                            </td>
+                                            <td>
+                                                <p class="line862" style="margin: 0px; padding: 0px;">2014-10-03</p>
+                                            </td>
+                                            <td>
+                                                <p class="line862" style="margin: 0px; padding: 0px;">the rapid Web development webframework you've been looking for. Combines <a class="http" href="http://www.sqlalchemy.org/" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">SQLAlchemy (Model)</a> or <a class="http" href="http://merciless.sourceforge.net/" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">Ming (MongoDB Model)</a>, <a class="http" href="http://genshi.edgewall.org/" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">Genshi (View)</a>, <a class="http" href="http://repoze.org/" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">Repoze</a> and <a class="http" href="http://toscawidgets.org/" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">Tosca Widgets</a>. Create a database-driven, ready-to-extend application in minutes. All with designer friendly templates, easy AJAX on the browser side and on the server side, with an incredibly powerful and flexible Object Relational Mapper (ORM), and with code that is as natural as writing a function. After reviewing the <a class="http" href="http://turbogears.readthedocs.org/en/latest/" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">Documentation</a>, check out <a class="http" href="http://turbogears.readthedocs.org/en/latest/turbogears/starting.html#tutorials" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">the Tutorials</a></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="anchor" id="line-19"></span>
+                                                <p class="line891" style="margin: 0px; padding: 0px;"><a class="http" href="http://www.web2py.com/" style="color: #551a8b; border-width: 0px 0px 1px; border-bottom-style: dashed; border-bottom-color: #dddddd; text-decoration: none;">web2py</a></p>
+                                            </td>
+                                            <td>
+                                                <p class="line862" style="margin: 0px; padding: 0px;">2.9.10</p>
+                                            </td>
+                                            <td>
+                                                <p class="line862" style="margin: 0px; padding: 0px;">2014-09-15</p>
+                                            </td>
+                                            <td>
+                                                <p class="line862" style="margin: 0px; padding: 0px;">* Python 2.4 to 2.7, Python 3.x friendly (compile but not tested no support yet) * All in one package with no further dependencies. Development, deployment, debugging, testing, database administration and maintenance of applications can be done via the provided web interface. * web2py has no configuration files, requires no installation, can be run off a USB drive. * web2py uses Python for the Model, View and the Controller * Built-in ticketing system to manage errors * Internationalization engine, caching system * Flexible authentication system (LDAP, MySQL, janrain etc) * NIX(Linux, BSD), Windows, Mac OSX, tested on EC2, Webfaction * works with MySQL, PostgreSQL, SQLite , Firebird, Oracle, MSSQL and the Google App Engine via an ORM abstraction layer. * Includes libraries to handle HTML/XML, RSS, ATOM, CSV, RTF, JSON, AJAX, XMLRPC, WIKI markup. * Production ready, capable of upload/download of very large files * Emphasis on backward compatibility.</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h3>Element 9:</h3>
+                    <div class="report-container-question">
+                        <p>
+                            wherein the timer has a timeout value depending on a life of the each of the fragments 
+                        </p>
+                    </div>
+                    <div class="report-container-answer">
+                        <div>
+                            <div class="titlepage" style="font-family: Verdana, Arial, Helvetica; font-size: 14px;">
+                                <div>
+                                    <h2 class="title" style="font-size: 19.6000003814697px; color: #003399; font-weight: 500; margin-top: 10px; padding-top: 5px;">Chapter 5. Configuration</h2>
+                                </div>
+                                <div></div>
+                            </div>
+                            <p>This covers the configuration for JBoss Remoting discovery, connectors, marshallers, and transports. All the configuration properties specified can be set either via calls to the object itself, including via JMX (so can be done via the JMX or Web console), or via a JBoss AS service xml file. Examples of service xml configurations can be seen with each of the sections below. There is also an example-service.xml file included in the remoting distribution that shows full examples of all the remoting configurations.</p>
+                            <div class="section" lang="en" style="font-family: Verdana, Arial, Helvetica; font-size: 14px;">
+                                <div class="titlepage">
+                                    <div>
+                                        <h2 class="title" style="font-size: 19.6000003814697px; color: #003399; font-weight: 500; margin-top: 10px; padding-top: 5px; clear: both;"><a name="section-configuration" style="font-size: 14px; color: #0000cc;"></a>5.1. General transport configuration</h2>
+                                    </div>
+                                    <div></div>
+                                </div>
+                                <p>Remoting offers a variety of ways of configuring transports on the server side and client side. This section presents an overview, and the rest of the chapter elaborates the material presented here. For easy reference the configuration parameters discussed throughout the chapter are gathered together at the end of the chapter in section <a href="https://docs.jboss.org/jbossremoting/docs/guide/2.2/html/chapter-configuration.html#section-configuration-by-properties" style="color: #0000cc;">Configuration by properties</a></p>
+                                <div class="section" lang="en">
+                                    <div class="titlepage">
+                                        <div>
+                                            <h3 class="title" style="font-size: 15.3999996185303px; color: #003399; margin-top: 10px; padding-top: 5px;"><a name="d0e842" style="font-size: 14px; color: #0000cc;"></a>5.1.1. Server side configuration</h3>
+                                        </div>
+                                        <div></div>
+                                    </div>
+                                    <p>The heart of the server side is the <tt class="classname" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">Connector</tt>, and it is through the <tt class="classname" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">Connector</tt> that the server side of a transport is configured. The central goals of configuration on the server side are to establish a server invoker and supply it with a set of invocation handlers. Only one invoker can be declared per <tt class="classname" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">Connector</tt>. Although declaring an invocation handler is not required, it should only be omitted in the case of declaring a callback server that will not receive direct invocations, but only callback messages. Otherwise client invocations can not be processed. The invocation handler is the only interface that is required by the remoting framework for a user to implement and will be what the remoting framework calls upon when receiving invocations.</p>
+                                    <p>There are two general approaches to server side configuration: programmatic and declarative. A variety of programmatic techniques work in any environment, including the JBoss Application Server (JBossAS). Moreover, JBossAS adds the option of declarative configuration. In particular, the SARDeployer (see The JBoss 4 Application Server Guide on the labs.jboss.org web site) can read information from a *-service.xml file and use it to configure MBeans such as <tt class="classname" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">Connector</tt>s.</p>
+                                    <div class="section" lang="en">
+                                        <div class="titlepage" style="line-height: normal;">
+                                            <div>
+                                                <h4 class="title" style="font-size: 15.3999996185303px; color: #003399; margin-top: 10px; padding-top: 5px;"><a name="d0e861" style="font-size: 14px; color: #0000cc;"></a>5.1.1.1. Programmatic configuration.</h4>
+                                            </div>
+                                            <div></div>
+                                        </div>
+                                        <p>The simplest way to configure a <tt class="classname" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">Connector</tt> is to pass an <tt class="classname" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">InvokerLocator</tt> to a <tt class="classname" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">Connector</tt> constructor. For example, the code fragment</p>
+                                        <pre class="programlisting" style="font-family: Verdana, Arial, Helvetica; font-size: 14px; padding: 5px; border: 1px solid #cccccc; line-height: normal; background-color: #f4f4f4;">
+    String locatorURI = "socket://test.somedomain.com:8084";
+    String params = "/?clientLeasePeriod=10000&amp;timeout=120000";
+    locatorURI += params;
+    InvokerLocator locator = new InvokerLocator(locatorURI);
+    Connector connector = new Connector(locator);
+    connector.create();
+    SampleInvocationHandler invocationHandler = new SampleInvocationHandler();
+    connector.addInvocationHandler("sample", invocationHandler);
+    connector.start();</pre>
+                                        <p>creates a server invoker based on the socket transport, directs it to listen for invocations on port 8084 of host test.somedomain.com, and passes two configuration parameters, "clientLeasePeriod" and "timeout". It also supplies the server invoker with an invocation handler.</p>
+                                        <p>One limitation of the <tt class="classname" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">InvokerLocator</tt> is that it can only represent string values. An alternative that overcomes this limitation is to pass some or all of the parameters to the <tt class="classname" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">Connector</tt> by way of a configuration map. The following code fragment accomplishes all that the previous fragment does, but it passes one parameter by way of the <tt class="classname" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">InvokerLocator</tt> and passes the other by way of a configuration map. It also passes in a non-string object, a <tt class="classname" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">ServerSocketFactory</tt>:</p>
+                                        <pre class="programlisting" style="font-family: Verdana, Arial, Helvetica; font-size: 14px; padding: 5px; border: 1px solid #cccccc; line-height: normal; background-color: #f4f4f4;">
+    String locatorURI = "socket://test.somedomain.com:8084";
+    String params = "/?clientLeasePeriod=10000";
+    locatorURI += params;
+    InvokerLocator locator = new InvokerLocator(locatorURI);
+    HashMap config = new HashMap();
+    config.put(ServerInvoker.TIMEOUT, 120000);
+    config.put(ServerInvoker.SERVER_SOCKET_FACTORY, new MyServerSocketFactory());
+    Connector connector = new Connector(locator, config);
+    connector.create();
+    SampleInvocationHandler invocationHandler = new SampleInvocationHandler();
+    connector.addInvocationHandler("sample", invocationHandler);
+    connector.start();</pre>
+                                        <p>Note that the value of <tt class="code" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">ServerInvoker.TIMEOUT</tt> is "timeout", and the value of <tt class="code" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">ServerInvoker.SERVER_SOCKET_FACTORY</tt> is "serverSocketFactory". These configuration map keys are discussed throughout the chapter and accumulated in section <a href="https://docs.jboss.org/jbossremoting/docs/guide/2.2/html/chapter-configuration.html#section-configuration-by-properties" style="color: #0000cc;">Configuration by properties</a>. Also, server socket factory configuration is covered in <a href="https://docs.jboss.org/jbossremoting/docs/guide/2.2/html/chapter-configuration.html#section-socket-factories" style="color: #0000cc;">Socket factories and server socket factories</a>.</p>
+                                        <p>A third programmatic option is available for those configuration properties which happen to be server invoker MBean properties. In the following fragment, the server invoker is obtained from the <tt class="classname" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">Connector</tt> and a <tt class="classname" style="font-family: Verdana, Arial, Helvetica; font-size: 12.6000003814697px; color: #111111;">ServerSocketFactory</tt> is passed to it by way of a setter method:</p>
+                                        <pre class="programlisting" style="font-family: Verdana, Arial, Helvetica; font-size: 14px; padding: 5px; border: 1px solid #cccccc; line-height: normal; background-color: #f4f4f4;">
+    String locatorURI = "socket://test.somedomain.com:8084";
+    String params = "/?clientLeasePeriod=10000";
+    locatorURI += params;
+    InvokerLocator locator = new InvokerLocator(locatorURI);
+    HashMap config = new HashMap();
+    config.put(ServerInvoker.TIMEOUT, 120000);
+    Connector connector = new Connector(locator, config);
+    connector.create();
+    ServerInvoker serverInvoker = connector.getServerInvoker();
+    ServerSocketFactory ssf = new MyServerSocketFactory();
+    serverInvoker.setServerSocketFactory(ssf);
+    SampleInvocationHandler invocationHandler = new SampleInvocationHandler();
+    connector.addInvocationHandler("sample", invocationHandler);
+    connector.start();</pre>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h3>Element 10:</h3>
+                    <div class="report-container-question">
+                        <p>
+                            and time parameters thereof
+                        </p>
+                    </div>
+                    <div class="report-container-answer">
+                        <div>
+                            <p>1. Field of the Invention</p>
+                            <p>The present invention relates to an apparatus and a method for calculating gate delay used in logic simulation and timing analysis, and in particular, to an apparatus and a method for calculating gate delay using an RC model.</p>
+                            <p>2. Description of the Background Art</p>
+                            <p>Recently, the higher integration and multifunction of a semiconductor integrated circuit are increasing its circuit scale, thereby making the time required for its development longer. One method of reducing the time required for the development is to minimize re-designing and re-development due to the malfunction of a produced semiconductor integrated circuit. To achieve this goal, the simulation result obtained in a stage of designing a semiconductor integrated circuit must approximate to the timing of a signal between the gates within an actually produced semiconductor integrated circuit, and therefore there is an increasing need for a delay calculation apparatus with higher accuracy.</p>
+                            <p>FIG. 1 is a block diagram showing a structure of a conventional delay calculation apparatus. The delay calculation apparatus includes: an input waveform gradient calculation apparatus <b>51</b> for extracting the gradient of the input waveform applied to an input terminal of a gate; an output load model calculation apparatus <b>52</b> for RC modeling the load applied to an output terminal of the gate; a gate delay calculation apparatus <b>53</b> for calculating the delay experienced from the input terminal to the output terminal of the gate; and a wire delay calculation apparatus<b>54</b> for calculating the delay (due to wiring) between the output terminal of the gate and the input terminal of a gate in a next stage. Gate delay data <b>55</b>calculated by gate delay calculation apparatus <b>53</b> and wire delay data <b>56</b>calculated by wire delay calculation apparatus <b>54</b> are used in logic simulation or timing analysis by a simulator or the like.</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h3>Element 11:</h3>
+                    <div class="report-container-question">
+                        <p>
+                            , wherein the timer is running until processing of the each of the fragments is terminated,
+                        </p>
+                    </div>
+                    <div class="report-container-answer">
+                        <div>
+                            <div class="abstract" style="box-sizing: border-box; color: #333333; font-family: 'helvetica-neue', arial,sans-serif; font-size: 16px; line-height: 24px;"><strong>Abstract: </strong>This invention relates to techniques for managing the transmission and reception of data fragments that contains one or more data blocks using a single timer. One embodiment of the invention includes the following steps: processing the fragments sequentially, wherein each fragment has a processing index that corresponds to sequential processing of that fragment; processing each of the fragments until a termination upon meeting a first pre-defined condition; assigning a timer to an un-terminated fragment having a lowest processing index; starting said timer having a timeout value; and running said timer until the processing of said un-terminated fragment is terminated. This invention uses only one timer for each connection and therefore reduces memory and operational needs in the management of the data fragments that are being received or transmitted.</div>
+                            <div class="type" style="box-sizing: border-box; color: #333333; font-family: 'helvetica-neue', arial,sans-serif; font-size: 16px; line-height: 24px;"><strong>Type: </strong>Grant</div>
+                            <div class="date-filed" style="box-sizing: border-box; color: #333333; font-family: 'helvetica-neue', arial,sans-serif; font-size: 16px; line-height: 24px;"><strong>Filed: </strong>August 26, 2008</div>
+                            <div class="date-issued" style="box-sizing: border-box; color: #333333; font-family: 'helvetica-neue', arial,sans-serif; font-size: 16px; line-height: 24px;"><strong>Issued: </strong>February 26, 2013</div>
+                            <div class="assignees" style="box-sizing: border-box; color: #333333; font-family: 'helvetica-neue', arial,sans-serif; font-size: 16px; line-height: 24px;"><strong>Assignee: </strong>Sun Management, LLC</div>
+                            <div class="inventors" style="box-sizing: border-box; color: #333333; font-family: 'helvetica-neue', arial,sans-serif; font-size: 16px; line-height: 24px;"><strong>Inventors: </strong>Yalun Li, William Li</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <h3>Element 12:</h3>
+                    <div class="report-container-question">
+                        <p>
+                            the timer is then reassigned to a next one of the fragments before the next one of the fragments is processed.
+                        </p>
+                    </div>
+                    <div class="report-container-answer">
+                        <div>
+                            <p><span size="+1" style="font-size: xx-small;">P</span>roblems that crop up intermittently in writing, often referred to as "faulty mechanics" by English teachers, might be thought of as sporadic or intermittent noise. It tends to occur occasionally, rather than affect every page the way a poor choice of type size or confused organization of material might. Of course enough sporadic noise in a document, such as repeated misspellings or numerous sentence fragments, can easily turn into constant noise and give your reader an impression of hastily and carelessly produced work undeserving of the response or feedback you want. </p>
+                            <p>To help you eliminate sporadic noise this guide looks at where it is most likely to occur in spelling, punctuation, sentence structure, and technical usage. We also give some pointers on how to edit your writing in order to remove this kind of noise. </p>
+                            <p><b><span size="+1" style="font-size: xx-small;">SPELLING AND SPELL CHECKERS</span></b></p>
+                            <p>You might think the spell checkers that come with most word processing software have eliminated any need to be a careful speller. Unfortunately this is not the case. With apologies to Shakespeare we took his words "A rose by any other name would smell as sweet," and ran them through a spell checker as <i>A nose by any outer dame wood small as sweat</i>. No red flags were raised by the program. Nor will spell checkers catch common errors such as confusing <i>there</i> for <i>their</i>, or <i>to</i> for <i>too</i>. Some typographical errors simple give you other words which will pass unnoticed, as in this sentence. A very slight slip of the finger on the keyboard can make the difference between asking for some forms to be mailed to you or nailed to you. A quick transposition could render a memorandum <i>nuclear</i> rather than simply <i>unclear</i>. </p>
+                            <p>At best, the effect of poor spelling on your readers is a sense of annoyance, or at least of having their attention distracted by something other than what you want to communicate. At worst, noise created by spelling glitches can bring readers to a stop and cause them to seriously question your ability as a writer. They might even suspect that a person who is careless with spelling could also be inept in more critical technical matters. </p>
+                            <p>To reduce or eliminate any noise in your writing caused by incorrect spelling, use a spell checker but also have a standard dictionary nearby. A current dictionary is the only resource that can reliably answer questions such as </p>
+                            <ul>
+                                <li>whether there is more than one way to spell a word, or what the accepted plural forms of words such as <i>appendix </i>or <i>matrix</i> are </li>
+                                <li>how words like <i>well-known</i> or <i>so-called</i> are hyphenated, or whether a computer is <i>on-line</i> or <i>online</i></li>
+                                <li>whether it is appropriate to write about <i>FORTRAN,</i> <i>Fortran,</i> or <i>fortran</i></li>
+                                <li>what the difference between British and American spelling or usage might be </li>
+                                <li>what the accepted past tense is of recent verbs that have come into technical English such as <i>input </i>
+                                    <br />
+                                    <br />
+                                </li>
+                            </ul>
+                            <p><b>It is especially important for an engineer to use a current dictionary.</b> English is a dynamic language, and the language of science and technology changes even more rapidly as knowledge increases and devices are developed. You won't find words like <i>software</i>, <i>modem</i>, and <i>LED</i> in a dictionary from the 1950s, and since then older words such as <i>bug</i>, <i>hardware</i>, <i>interface</i>, and even <i>mouse</i> have taken on new meanings. Some usage has yet to be decided on: Would a computer shop advertise that it repairs <i>mice</i> or <i>mouses</i>? Do you send <i>e-mail,</i> <i>E-mail</i>, or <i>email</i>? (Right now all three options are used.)</p>
+                            <p><b><span size="+1" style="font-size: xx-small;">PUNCTUATION</span></b> </p>
+                            <p>Would you want to drive on a busy highway or in a city where there were no traffic signs? Controlling the flow of traffic is vital if anyone is to get anywhere. Similarly, within sentences the flow of meaning is controlled by punctuation marks, the conventionally agreed-upon "traffic signals" of written communication. We do the same thing in spoken language by means of pitch, breath pauses, and emphasis. Directing the flow of ideas in writing is not really difficult, and a useful procedure when you're unsure of how to punctuate a sentence might be to say it aloud as in normal conversation. Pay careful attention to where you pause naturally within the sentence-that is likely to be where you need some punctuation. </p>
+                            <p><a name="SPELLING" style="font-family: 'Times New Roman'; font-size: medium; line-height: normal;"></a><a name="Punctuation" style="font-family: 'Times New Roman'; font-size: medium; line-height: normal;"></a></p>
+                            <p>Many detailed guides to punctuation exist, and you may want to look at them if you have a lot of queries in this area. You will also find excellent advice on punctuation in the front or back sections of some standard college dictionaries. Meanwhile, the following suggestions are offered on the most common problems many engineers tend to have with punctuation. </p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td align="center">*&nbsp;&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;*</td>
+            </tr>
+            <tr>
+                <td height="20" align="center">
+                    <p>End of Report</p>
+                </td>
+            </tr>
+        </table>
+
+
+        <table cellspacing="0" border="0" cellpadding="0" width="100%">
+            <tr>
+                <td valign="top" align="left">
+                    <p>
+                        Please rank my report. The following link leads to our profile at ClaimCharts.info, where you could rank our report.<br />
+                        <a href="http://claimcharts.info/index.php/feedback&display=">Rank Here</a>
+                    </p>
+                    <p>Evaluation Code: </p>
+                    <p>
+                        We are available to answer follow up questions, provide clarifications and search for additional materials upon request. For public contact - please refer to our profile at
+                    <a href="http://claimcharts.info/index.php?option=com_survey&task=customer.expertProfile&display=#commenting">ClaimCharts.info</a>.
+                    For private contact - please call/email us.
+                    </p>
+                    <p>
+                        Our hourly rate is: $
+                    </p>
+                    <h4>Non-Disclosure Agreement:</h4>
+                    <p>
+                        We understand that for the purpose of assisting you in collecting data, you may disclose to us certain confidential information that you want to keep confidential; therefore, for good and valuable consideration, the receipt and sufficiency of which is hereby acknowledged, we agree as follows:
+                    </p>
+                    <p>
+                        1. For a period of twelve (36) months from the date we receive your confidential information ("Effective Date"), we will not use or disclose the information, except: (a) in the event that such information (i) comes into the public domain not through us; (ii) is already known to us at the time of disclosure; (iii) is lawfully otherwise learnt or independently developed by us; or (iv) is required to be disclosed by law.
+                    </p>
+                    <p>
+                        2. Since a breach of our obligations hereunder may result in irreparable harm to you, we agree that upon such breach or threat thereof, you shall be entitled to specific performance and other injunctive relief without posting a bond, and in the event of disclosures required by court order, we shall promptly notify you of the proceeding.
+                    </p>
+                    <p>
+                        3. This agreement supersedes all prior discussions and writings and constitutes the entire agreement between you and us with respect to the subject matter hereof.  This Agreement shall be binding upon the successors and assigns of the respective parties, and may not be modified except by an instrument executed by both parties.
+                    </p>
+                    <p>
+                        Alon Anthony
+                        <br />
+                    </p>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+</html>
